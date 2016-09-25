@@ -16,7 +16,7 @@ router.get('/', function* (next) {
 
 router.post('/', function* (next) {
   let body = this.request.body;
-  let userFounded = yield user.findUser({ 'account': body.account });
+  let userFounded = yield user.findUserWithPassword({ 'account': body.account });
   if (!userFounded) {
     return this.response.body = json({
       success: false,

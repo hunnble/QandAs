@@ -6,18 +6,16 @@ var user = new Schema({
   account: { type: String },
   avatar: { type: String, default: './images/avatar.png' },
   password: { type: String },
-  nickname: { type: String, default: '无名氏' },
+  nickname: { type: String, default: 'no one' },
   mail: { type: String, default: '' },
   info: { type: String, default: '' },
   settings: { type: Mixed },
-  publishedPaperIds: { type: [String] },
-  answeredPaperIds: { type: [String] },
   classIds: { type: [String] },
   score: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now }
 });
 
-user.statics.findUser = function (op) {
+user.statics.findUserWithPassword = function (op) {
   return new Promise((resolve, reject) => {
     this.findOne(op, (err, result) => {
       if (err) {
@@ -28,9 +26,24 @@ user.statics.findUser = function (op) {
     });
   });
 };
+user.statics.findUser = function (op) {
+  return new Promise((resolve, reject) => {
+    this.findOne(op, {
+      'password': 0
+    }, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
 user.statics.findUsers = function (op) {
   return new Promise((resolve, reject) => {
-    this.find(op, (err, result) => {
+    this.find(op, {
+      'password': 0
+    }, (err, result) => {
       if (err) {
         reject(err);
       } else {

@@ -109,6 +109,10 @@ export function getUserInfo (token, replace) {
       return res.json();
     })
     .then((res) => {
+      res.user.publishedPapers = res.publishedPapers;
+      res.user.answeredPapers = res.answeredPapers;
+      delete res.publishedPapers;
+      delete res.answeredPapers;
       dispatch(receiveUserInfo(res, replace));
     })
     .catch((err) => {

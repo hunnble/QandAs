@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import '../scss/create.scss';
+import '../scss/editor.scss';
 import Header from './Header.jsx';
 import Calendar from './Calendar.jsx';
 import Question from './Question.jsx';
@@ -91,7 +91,8 @@ class Editor extends Component {
         <Header />
         <div className='create'>
           <TextField
-            hintText='请输入标题'
+            style={{ display: 'block' }}
+            hintText='试卷名称'
             value={title}
             onChange={this.handleChangeTitle}
           />
@@ -112,15 +113,15 @@ class Editor extends Component {
             label='完成'
             onClick={this.handleSubmit}
           />
-          {qs}
           <Calendar
             calendar={calendar}
             time={time}
             setCalendar={actions.setCalendar}
             changeCalendar={actions.changeCalendar}
             changeCalendarVisible={actions.changeCalendarVisible}
-            title='点击选择问卷截止日期'
+            title='截止日期'
           />
+          {qs}
         </div>
         <ErrMsg />
       </div>

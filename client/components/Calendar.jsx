@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 
 const today = new Date();
@@ -62,6 +63,7 @@ class Calendar extends Component {
     }
   }
   render () {
+    const emptyDayChar = '×';
     const { calendar, time, title } = this.props;
     const monthTitles = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     const weekTitles = ['日', '一', '二', '三', '四', '五', '六'];
@@ -72,11 +74,11 @@ class Calendar extends Component {
     });
     const days = calendar.days.map((day, index) => {
       const { calendar } = this.props;
-      if (calendar.year === year && calendar.month === month && day < date) {
-        day = 0;
+      if (day > 31 || day < 1 || calendar.year === year && calendar.month === month && day < date) {
+        day = emptyDayChar;
       }
       let dayClassName = 'day';
-      if (day < 1 || day > 31) {
+      if (day === emptyDayChar) {
         dayClassName = 'day emptyDay';
       }
       return (
@@ -85,9 +87,6 @@ class Calendar extends Component {
         </span>
       );
     });
-    // const timeVisibleStyle = {
-    //   display: time.visible ? 'block' : 'none'
-    // };
     const dateMap = new Map([
       [1, 'st'],
       [2, 'nd'],
@@ -97,23 +96,40 @@ class Calendar extends Component {
     return (
       <div className='calendar'>
         <p className='calendarTitle'>{title}</p>
-        <div className='calendarRow timeRow' onClick={this.onToggleVisible}>
+        <p className='timeRow'>
           <span>{monthTitles[time.month - 1]}</span>
           <span>{time.year}</span>
           <span>{formatDate}</span>
-        </div>
-        <Dialog open={time.visible} onRequestClose={() => {
-          this.props.changeCalendarVisible(false);
-        }}>
+        </p>
+        <RaisedButton
+          className='createBtn'
+          label='更改'
+          onTouchTap={this.onToggleVisible}
+        />
+        <Dialog
+          open={time.visible}
+          title='选择试卷截止日期'
+          onRequestClose={() => {
+            this.props.changeCalendarVisible(false);
+          }}
+          actions={[
+            <RaisedButton
+              label='取消'
+              onTouchTap={() => {
+                this.props.changeCalendarVisible(false);
+              }}
+            />
+          ]}
+        >
           <div className='calendarDialog'>
             <div className='calendarRow controlRow'>
               <span onClick={this.decreaseYear}>-</span>
-              <span>{calendar.year}</span>
+              <span>{calendar.year}年</span>
               <span onClick={this.increaseYear}>+</span>
             </div>
             <div className='calendarRow controlRow'>
               <span onClick={this.decreaseMonth}>-</span>
-              <span>{calendar.month}</span>
+              <span>{calendar.month}月</span>
               <span onClick={this.increaseMonth}>+</span>
             </div>
             <div>{weekdays}</div>

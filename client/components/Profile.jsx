@@ -6,6 +6,7 @@ import { Field } from 'redux-form';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Avatar from 'material-ui/Avatar';
+import { Tabs, Tab } from 'material-ui/Tabs';
 
 const labelMap = new Map([
   ['nickname', '昵称'],
@@ -14,7 +15,15 @@ const labelMap = new Map([
   ['info', '个人简介']
 ]);
 
-const renderInput = ({ input, name, type, multiLine, long, hint, meta: { touched, error } }) => {
+const renderInput = ({
+  input,
+  name,
+  type,
+  multiLine,
+  long,
+  hint,
+  meta: { touched, error }
+}) => {
   let width = long ? '80%' : '30%';
   const style = {
     display: 'inline-block',
@@ -39,6 +48,34 @@ const renderInput = ({ input, name, type, multiLine, long, hint, meta: { touched
   );
 };
 
+const renderPublishedPapers = (user) => {
+  let publishedPapers = user.publishedPapers;
+  if (!publishedPapers) {
+    return null
+  }
+  return (
+    publishedPapers.map((paper, index) => {
+      return (
+        <div key={index}>{paper.title}</div>
+      );
+    })
+  );
+};
+
+const renderAnsweredPapers = (user) => {
+  let answeredPapers = user.answeredPapers;
+  if (!answeredPapers) {
+    return null
+  }
+  return (
+    answeredPapers.map((paper, index) => {
+      return (
+        <div key={index}>{paper.title}</div>
+      );
+    })
+  );
+};
+
 class Profile extends Component {
   onSubmit = (data) => {
     data.account = this.props.user.account;
@@ -50,43 +87,56 @@ class Profile extends Component {
       <div>
         <Header />
         <div className='profile'>
-          <form className='profileForm' onSubmit={handleSubmit(this.onSubmit)}>
-            <Avatar size={80} src={user.avatar} className='avatar' />
-            <h2 className='account'>{user.account}</h2>
-            <div className='profileWrapper'>
-                <Field
-                  type='text'
-                  name='nickname'
-                  long={false}
-                  hint={user.nickname}
-                  component={renderInput}
-                />
-                <Field
-                  type='email'
-                  name='mail'
-                  long={false}
-                  hint={user.mail}
-                  component={renderInput}
-                />
-                <Field
-                  type='password'
-                  name='password'
-                  long={false}
-                  component={renderInput}
-                />
-                <Field
-                  type='text'
-                  name='info'
-                  hint={user.info}
-                  multiLine={true}
-                  long={true}
-                  component={renderInput}
-                />
-                <div className='profileBtnWrapper fr'>
-                  <RaisedButton type='submit' label='保存' disabled={submitting} />
+          <Tabs>
+            <Tab label='个人资料'>
+              <form className='profileForm' onSubmit={handleSubmit(this.onSubmit)}>
+                <Avatar size={80} src={user.avatar} className='avatar' />
+                <h2 className='account'>{user.account}</h2>
+                <div className='profileWrapper'>
+                  <Field
+                    type='text'
+                    name='nickname'
+                    long={false}
+                    hint={user.nickname}
+                    component={renderInput}
+                  />
+                  <Field
+                    type='email'
+                    name='mail'
+                    long={false}
+                    hint={user.mail}
+                    component={renderInput}
+                  />
+                  <Field
+                    type='password'
+                    name='password'
+                    long={false}
+                    component={renderInput}
+                  />
+                  <Field
+                    type='text'
+                    name='info'
+                    hint={user.info}
+                    multiLine={true}
+                    long={true}
+                    component={renderInput}
+                  />
+                  <div className='profileBtnWrapper fr'>
+                    <RaisedButton type='submit' label='确认修改' disabled={submitting} />
+                  </div>
                 </div>
-            </div>
-          </form>
+              </form>
+            </Tab>
+            <Tab label='我的试卷'>
+              <div>
+                {renderAnsweredPapers(user)}
+              </div>
+            </Tab>
+            <Tab label='安全'>
+              <div>第222222页</div>
+            </Tab>
+          </Tabs>
+
         </div>
         <ErrMsg />
       </div>
