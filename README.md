@@ -1,2 +1,2 @@
 # QandAs
-A site for asking questions and answering
+A site for asking questions and answering.

@@ -1,0 +1,24 @@
+@import 'base';
+
+.formWrapper {
+  @include wrapper(70%, 22rem);
+}
+.signForm {
+  background-color: $white;
+  display: inline-block;
+  width: 30rem;
+  padding: 1rem;
+}
+.signBtn {
+  margin: 0.8rem;
+}
+.bgIcon {
+  font-size: 2rem;
+  color: $white;
+}
+
+@media only all and (max-width: 640px) {
+  .signForm {
+    width: 100%;
+  }
+}

@@ -1,0 +1,75 @@
+@import 'base';
+
+.menu {
+  transform: rotate(0);
+  transition: 0.5s ease-in-out;
+  margin: 3px 6px;
+  width: 45px;
+  height: 30px;
+  cursor: pointer;
+  >span {
+    transform: rotate(0);
+    transition: 0.25s ease-in-out;
+    position: absolute;
+    display: block;
+    width: 50%;
+    height: 6px;
+    background-color: $white;
+  }
+  >span:nth-child(odd) {
+    left: 0;
+    border-radius: 9px 0 0 9px;
+  }
+  >span:nth-child(even) {
+    left: 50%;
+    border-radius: 0 9px 9px 0;
+  }
+  >span:nth-child(3),
+  >span:nth-child(4) {
+    top: 0;
+  }
+  >span:nth-child(3),
+  >span:nth-child(4) {
+    top: 12px;
+  }
+  >span:nth-child(5),
+  >span:nth-child(6) {
+    top: 24px;
+  }
+}
+.menuOpen {
+  >span:nth-child(1) {
+    top: 7px;
+    left: 6px;
+  }
+  >span:nth-child(2) {
+    top: 7px;
+    left: calc(50% - 5px);
+  }
+  >span:nth-child(3) {
+    left: -50%;
+  }
+  >span:nth-child(4) {
+    left: 100%;
+  }
+  >span:nth-child(5) {
+    top: 19px;
+    left: 6px;
+  }
+  >span:nth-child(6) {
+    top: 19px;
+    left: calc(50% - 5px);
+  }
+  >span:nth-child(1),
+  >span:nth-child(6) {
+    transform: rotate(45deg);
+  }
+  >span:nth-child(3),
+  >span:nth-child(4) {
+    opacity: 0;
+  }
+  >span:nth-child(2),
+  >span:nth-child(5) {
+    transform: rotate(-45deg);
+  }
+}
