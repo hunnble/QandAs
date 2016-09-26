@@ -22,7 +22,7 @@ export const CHANGE_KEYWORDS = 'changeKeywords';
 export const START_SEARCH_PAPER = 'startSearchPaper';
 export const FINISH_SEARCH_PAPER = 'finishSearchPaper';
 export const CHANGE_SEARCH_STEP = 'changeSearchStep';
-export const CHANGE_PAPER_INDEX = 'changePaperIndex';
+export const CHANGE_PAPER = 'changePaper';
 export const CHANGE_PAPERS = 'changePapers';
 export const START_SUBMIT_ANSWER = 'startSubmitAnswer';
 export const FINISH_SUBMIT_ANSWER = 'finishSubmitAnswer';
@@ -109,10 +109,12 @@ export function getUserInfo (token, replace) {
       return res.json();
     })
     .then((res) => {
-      res.user.publishedPapers = res.publishedPapers;
-      res.user.answeredPapers = res.answeredPapers;
-      delete res.publishedPapers;
-      delete res.answeredPapers;
+      for (let key in res){
+        if (key !== 'user' && key !== 'verify' && !res.user[key]) {
+          res.user[key] = res[key];
+          delete res[key];
+        }
+      }
       dispatch(receiveUserInfo(res, replace));
     })
     .catch((err) => {
@@ -347,10 +349,10 @@ export function changeSearchStep (stepIndex) {
   };
 }
 
-export function changePaperIndex (paperIndex) {
+export function changePaper (paper) {
   return {
-    type: CHANGE_PAPER_INDEX,
-    paperIndex: paperIndex
+    type: CHANGE_PAPER,
+    paper: paper
   }
 }
 

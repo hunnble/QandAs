@@ -5,16 +5,15 @@ import {
   changeKeywords,
   searchPaper,
   changeSearchStep,
-  changePaperIndex
+  changePaper
 } from '../actions';
 
 function mapStateToProps (state) {
-  let page = state.page;
   return {
     user: state.user,
-    keywords: page.keywords,
-    stepIndex: page.stepIndex,
-    papers: page.papers
+    papers: state.papers.papers,
+    keywords: state.page.keywords,
+    stepIndex: state.page.stepIndex
   };
 }
 
@@ -24,7 +23,7 @@ function mapDispatchToProps (dispatch) {
       changeKeywords,
       searchPaper,
       changeSearchStep,
-      changePaperIndex
+      changePaper
     }, dispatch)
   }
 }

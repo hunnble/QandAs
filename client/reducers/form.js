@@ -3,11 +3,6 @@ import { HIDE_PASSWORD, TOGGLE_PASSWORD } from '../actions';
 const passwordTypes = ['password', 'text'];
 const initialState = {
   passwordType: passwordTypes[0]
-  // signUpUsername: '',
-  // signUpPassword: '',
-  // signUpPassword2: '',
-  // signInUsername: '',
-  // signInPassword: ''
 };
 
 export default function form (state = initialState, action) {

@@ -24,7 +24,7 @@ class Home extends Component {
           changeKeywords={actions.changeKeywords}
           searchPaper={actions.searchPaper}
           changeSearchStep={actions.changeSearchStep}
-          changePaperIndex={actions.changePaperIndex}
+          changePaper={actions.changePaper}
         />
         <ErrMsg />
       </div>

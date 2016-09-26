@@ -22,7 +22,7 @@ class HomePage extends Component {
     this.props.changeSearchStep(this.props.stepIndex);
   }
   handleClickPaper = (index) => {
-    this.props.changePaperIndex(index);
+    this.props.changePaper(this.props.papers[index]);
   }
   render () {
     const {
@@ -113,7 +113,7 @@ HomePage.PropTypes = {
   changeKeywords: PropTypes.func,
   searchPaper: PropTypes.func,
   changeSearchStep: PropTypes.func,
-  changePaperIndex: PropTypes.func
+  changePaper: PropTypes.func
 };
 
 export default HomePage;

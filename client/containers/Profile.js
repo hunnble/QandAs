@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { reduxForm } from 'redux-form';
 import Profile from '../components/Profile.jsx';
-import { updateUserInfo } from '../actions';
+import { updateUserInfo, changePaper } from '../actions';
 
 let ProfileForm = reduxForm({
   form: 'profile'
@@ -10,13 +10,14 @@ let ProfileForm = reduxForm({
 
 function mapStateToProps (state) {
   return {
-    user: state.user
+    user: state.user,
+    papers: state.papers
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({ updateUserInfo }, dispatch)
+    actions: bindActionCreators({ updateUserInfo, changePaper }, dispatch)
   };
 }
 

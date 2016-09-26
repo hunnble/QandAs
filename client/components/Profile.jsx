@@ -2,11 +2,16 @@ import React, { Component, PropTypes } from 'react';
 import '../scss/profile.scss';
 import Header from './Header.jsx';
 import ErrMsg from '../containers/ErrMsg';
+import { Link } from 'react-router';
 import { Field } from 'redux-form';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import Avatar from 'material-ui/Avatar';
+import Paper from 'material-ui/Paper';
+import Subheader from 'material-ui/Subheader';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import { List, ListItem } from 'material-ui/List';
 
 const labelMap = new Map([
   ['nickname', '昵称'],
@@ -48,38 +53,63 @@ const renderInput = ({
   );
 };
 
-const renderPublishedPapers = (user) => {
-  let publishedPapers = user.publishedPapers;
-  if (!publishedPapers) {
-    return null
-  }
-  return (
-    publishedPapers.map((paper, index) => {
-      return (
-        <div key={index}>{paper.title}</div>
-      );
-    })
-  );
-};
-
-const renderAnsweredPapers = (user) => {
-  let answeredPapers = user.answeredPapers;
-  if (!answeredPapers) {
-    return null
-  }
-  return (
-    answeredPapers.map((paper, index) => {
-      return (
-        <div key={index}>{paper.title}</div>
-      );
-    })
-  );
-};
-
 class Profile extends Component {
   onSubmit = (data) => {
     data.account = this.props.user.account;
     this.props.actions.updateUserInfo(data);
+  }
+  handleChangePaper = (paper) => {
+    this.props.actions.changePaper(paper);
+  }
+  renderPublishedPapers = (user) => {
+    let publishedPapers = user.publishedPapers;
+    if (!publishedPapers) {
+      return null
+    }
+    return (
+      publishedPapers.map((paper, index) => {
+        return (
+          <ListItem
+            key={index}
+            disabled={true}
+            primaryText={paper.title}
+            rightAvatar={
+              <Link to='/papers/paper'>
+                <FlatButton
+                  label='前往'
+                   onTouchTap={this.handleChangePaper.bind(this, paper)}
+                />
+              </Link>
+            }
+          />
+        );
+      })
+    );
+  }
+  renderAnsweredPapers = (user) => {
+    let answeredPapers = user.answeredPapers;
+    if (!answeredPapers) {
+      return null
+    }
+    return (
+      answeredPapers.map((paper, index) => {
+        return (
+          <ListItem
+            key={index}
+            disabled={true}
+            primaryText={paper.title}
+            rightAvatar={
+              <Link to='/papers/paper'>
+                <FlatButton
+                  label='前往'
+                   onTouchTap={this.handleChangePaper.bind(this, paper)}
+                />
+              </Link>
+            }
+          />
+        );
+      })
+    );
   }
   render () {
     const { user, actions, handleSubmit, submitting } = this.props;
@@ -128,15 +158,23 @@ class Profile extends Component {
               </form>
             </Tab>
             <Tab label='我的试卷'>
-              <div>
-                {renderAnsweredPapers(user)}
-              </div>
+              <Paper className='profileList'>
+                <List>
+                  <Subheader>我制作的试卷</Subheader>
+                  {this.renderPublishedPapers(user)}
+                </List>
+              </Paper>
+              <Paper className='profileList'>
+                <List>
+                  <Subheader>我填写的试卷</Subheader>
+                  {this.renderAnsweredPapers(user)}
+                </List>
+              </Paper>
             </Tab>
             <Tab label='安全'>
               <div>第222222页</div>
             </Tab>
           </Tabs>
-
         </div>
         <ErrMsg />
       </div>
@@ -146,7 +184,8 @@ class Profile extends Component {
 
 Profile.PropTypes = {
   actions: PropTypes.object,
-  user: PropTypes.object
+  user: PropTypes.object,
+  papers: PropTypes.array
 };
 
 export default Profile;
