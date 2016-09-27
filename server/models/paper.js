@@ -57,28 +57,6 @@ paper.statics.removePaper = function (op) {
     });
   });
 };
-paper.statics.addQA = function (op) {
-  return new Promise((resolve, reject) => {
-    this.update(op, (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
-      }
-    });
-  });
-};
-paper.statics.removeQA = function (op) {
-  return new Promise((resolve, reject) => {
-    this.remove(op, (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
-      }
-    });
-  });
-};
 paper.statics.getPapers = function (op) {
   return new Promise((resolve, reject) => {
     this.find(op, (err, result) => {
@@ -86,6 +64,23 @@ paper.statics.getPapers = function (op) {
         reject(err);
       } else {
         resolve(result);
+      }
+    });
+  });
+};
+paper.statics.removeAnswer = function (op, data) {
+  return new Promise((resolve, reject) => {
+    this.update(op, {
+      '$pull': {
+        'answers': {
+          'answerer': data.answerer
+        }
+      }
+    }, (err) => {
+      if (err) {
+        reject(false);
+      } else {
+        resolve(true);
       }
     });
   });

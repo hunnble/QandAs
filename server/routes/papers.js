@@ -77,28 +77,20 @@ router.post('/search', function* (next) {
  */
 router.post('/answer', function* (next) {
  let body = this.request.body;
- let data = [];
  let _id = body._id;
  let answerer = body.answerer;
+ let answer = body.answer;
  delete body._id;
  delete body.answerer;
- for (let key in body) {
-   let index = -1;
-   if (key.indexOf('_') !== -1) {
-     index = Number(key.split('_')[0].slice(1));
-     if (!data[index]) {
-       data[index] = [];
-     }
-     data[index].push(Number(key.split('_')[1]));
-   } else {
-     index = Number(key.slice(1));
-     data[index] = body[key];
-   }
- }
- let result = yield paper.setAnswer({ '_id': _id }, {
+ let op = { '_id': _id };
+ let data = {
    'answerer': answerer,
-   'answer': data
- });
+   'answer': answer
+ };
+ let result = yield paper.removeAnswer(op, data);
+ if (result) {
+   result = yield paper.setAnswer(op, data);
+ }
  return this.response.body = {
    success: result,
    errMsg: result ? '回答成功' : '出错了，请重试'

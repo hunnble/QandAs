@@ -8,7 +8,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import fetch from 'isomorphic-fetch';
 import injectTapEventPlugin from "react-tap-event-plugin";
 import configureStore from './store';
-import { getUserInfo, initialPageState, changePaperIndex } from './actions';
+import { getUserInfo, initialPageState } from './actions';
 import App from './components/App.jsx';
 import Home from './containers/Home';
 import SignInForm from './containers/SignInForm';
@@ -46,16 +46,15 @@ render(
           <Route path='profile' component={Profile} onEnter={(nextState, replace) => {
             handleEnter(replace);
           }} />
-          <Route path='papers/create' component={Editor} onEnter={(nextState, replace) => {
+          <Route path='papers' onEnter={(nextState, replace) => {
             handleEnter(replace);
-          }} />
-          <Route
-            path='papers/paper'
-            component={Paper}
-            onEnter={(nextState, replace) => {
-              handleEnter(replace);
-            }}
-          />
+          }}>
+            <Route path='create' component={Editor}  />
+            <Route
+              path='paper'
+              component={Paper}
+            />
+          </Route>
         </Route>
       </Router>
     </Provider>

@@ -29,17 +29,11 @@ const renderInput = ({
   hint,
   meta: { touched, error }
 }) => {
-  let width = long ? '80%' : '30%';
-  const style = {
-    display: 'inline-block',
-    margin: '10px 10%',
-    width: width
-  };
   if (!multiLine) {
     multiLine = false;
   }
   return (
-    <span style={style}>
+    <span className={long ? 'profileText profileTextLong' : 'profileText'}>
       <label htmlFor={name}>{labelMap.get(name)}</label>
       <TextField {...input}
         type={type}
@@ -77,7 +71,7 @@ class Profile extends Component {
               <Link to='/papers/paper'>
                 <FlatButton
                   label='前往'
-                   onTouchTap={this.handleChangePaper.bind(this, paper)}
+                  onTouchTap={this.handleChangePaper.bind(this, paper)}
                 />
               </Link>
             }
