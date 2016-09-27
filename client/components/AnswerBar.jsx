@@ -51,13 +51,14 @@ const renderCheckBox = ({ input, name, item, checked }) => {
   );
 };
 
-const renderText = ({ input, name, type, hint, value }) => {
+const renderText = ({ input, name, type, hint, answer }) => {
   return (
     <TextField {...input}
       hintText={hint}
       name={name}
       style={textStyle}
-      defaultValue={value}
+      hintText={answer}
+      floatingLabelText={answer}
     />
   );
 };
@@ -153,7 +154,7 @@ function renderAnsweredQuestions (questions, answers) {
               name={'q' + index}
               hint='请在这里输入回答'
               component={renderText}
-              value={answers[index].answer}
+              answer={answers[index]}
             />
           </Paper>
         );

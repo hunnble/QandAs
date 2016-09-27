@@ -16,7 +16,9 @@ import { List, ListItem } from 'material-ui/List';
 const labelMap = new Map([
   ['nickname', '昵称'],
   ['mail', '邮箱'],
-  ['password', '密码'],
+  ['curPassword', '旧密码'],
+  ['password', '新密码'],
+  ['password2', '再次输入密码'],
   ['info', '个人简介']
 ]);
 
@@ -39,6 +41,7 @@ const renderInput = ({
         type={type}
         name={name}
         hintText={hint}
+        floatingLabelText={hint}
         multiLine={multiLine}
         fullWidth={true}
         errorText={touched && error}{...error}
@@ -58,7 +61,7 @@ class Profile extends Component {
   renderPublishedPapers = (user) => {
     let publishedPapers = user.publishedPapers;
     if (!publishedPapers) {
-      return null
+      return null;
     }
     return (
       publishedPapers.map((paper, index) => {
@@ -132,17 +135,29 @@ class Profile extends Component {
                     component={renderInput}
                   />
                   <Field
+                    type='text'
+                    name='info'
+                    hint={user.info}
+                    multiLine={true}
+                    long={true}
+                    component={renderInput}
+                  />
+                  <Field
+                    type='password'
+                    name='curPassword'
+                    long={true}
+                    component={renderInput}
+                  />
+                  <Field
                     type='password'
                     name='password'
                     long={false}
                     component={renderInput}
                   />
                   <Field
-                    type='text'
-                    name='info'
-                    hint={user.info}
-                    multiLine={true}
-                    long={true}
+                    type='password'
+                    name='password2'
+                    long={false}
                     component={renderInput}
                   />
                   <div className='profileBtnWrapper fr'>
@@ -166,7 +181,7 @@ class Profile extends Component {
               </Paper>
             </Tab>
             <Tab label='安全'>
-              <div>第222222页</div>
+
             </Tab>
           </Tabs>
         </div>
