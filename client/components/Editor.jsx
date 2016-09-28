@@ -26,9 +26,10 @@ class Editor extends Component {
     this.props.actions.removeQuestion(true);
   }
   handleSubmit = () => {
-    const { user, title, questions, time, paper } = this.props;
+    const { user, title, questions, time, paper, actions } = this.props;
     const { year, month, date } = time;
     const { account } = user;
+    const { changeErrMsg } = actions;
     const data = {
       token: window.localStorage.getItem(TOKEN_NAME),
       title,
@@ -39,6 +40,23 @@ class Editor extends Component {
         date
       }
     };
+    if (!title) {
+      return changeErrMsg('提交失败, 问卷名不能为空');
+    }
+    for (let i = 0, len = questions.length; i < len; ++i) {
+      let question = questions[i];
+      if (!question.content) {
+        return changeErrMsg('提交失败, 问题题干不能为空');
+      }
+      if (question.type === 1 || question.type === 2) {
+        if (question.items.length === 0) {
+          return changeErrMsg('提交失败, 客观题不能没有选项');
+        }
+        if (question.items.indexOf('') > -1) {
+          return changeErrMsg('提交失败, 问题选项不能为空');
+        }
+      }
+    }
     if (paper) {
       Object.assign(data, { _id: paper._id });
     }

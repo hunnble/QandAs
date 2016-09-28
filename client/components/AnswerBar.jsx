@@ -191,7 +191,6 @@ class AnswerBar extends Component {
         if (Array.isArray(answer[key])) {
           for (let i = 0, len = answer[key].length; i < len; ++i) {
             let answerOption = answer[key][i];
-            // if (answerOption === true || answerOption === false) {
             if (answerOption === true || answerOption === false) {
               lastAnswer[key][i] = answerOption;
             }
