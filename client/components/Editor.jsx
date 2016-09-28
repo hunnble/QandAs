@@ -40,7 +40,7 @@ class Editor extends Component {
       }
     };
     if (paper) {
-      Object.assign(data, paper._id);
+      Object.assign(data, { _id: paper._id });
     }
     this.props.actions.submitPaper(data);
   }
@@ -53,7 +53,8 @@ class Editor extends Component {
     } = paper;
     const {
       changeQuestionTitle,
-      createQuestion
+      createQuestion,
+      changeCalendar
     } = actions;
     if (title) {
       changeQuestionTitle(title);

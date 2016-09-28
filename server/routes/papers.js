@@ -29,7 +29,7 @@ router.post('/edit', function* (next) {
   let body = this.request.body;
   let _id = body._id;
   let msg = _id ? '编辑' : '创建';
-  let paperResult;
+  let result;
   body.creator = jwt.verify(body.token, config.TOKEN_KEY).account;
   if (!body.creator) {
     return this.body = {
@@ -39,14 +39,14 @@ router.post('/edit', function* (next) {
   }
   delete body.token;
   if (_id) {
-    paperResult = yield paper.updatePaper({
+    result = yield paper.updatePaper({
       '_id': _id,
       'creator': body.creator
     }, body);
   } else {
-    paperResult = yield paper.createPaper(body);
+    result = yield paper.createPaper(body);
   }
-  if (paperResult) {
+  if (result) {
     return this.response.body = {
       success: true,
       errMsg: msg + '问卷成功'

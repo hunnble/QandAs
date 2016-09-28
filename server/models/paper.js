@@ -6,9 +6,15 @@ var paper = new Schema({
   creator: { type: String }, // account of the creator user
   title: { type: String },
   questions: { type: Mixed },
-  // classId: { type: String },
-  state: { type: Number, default: 0 }, // 0: editable, 1: published, 2: finished
-  timeLimit: { type: Number, default: 7200 },
+  state: { type: Number, default: 0 }, // 0: editable, 1: published
+  time: {
+    type: Mixed,
+    default: {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      date: new Date().getDate()
+    }
+  },
   answers: { type: Array },
   createdAt: { type: Date, default: Date.now },
   closingDate: {type: Date }
@@ -40,9 +46,20 @@ paper.statics.createPaper = function (op) {
   return new Promise((resolve, reject) => {
     this.create(op, (err) => {
       if (err) {
-        reject({ success: false, errMsg: err });
+        reject(false);
       } else {
-        resolve(op);
+        resolve(true);
+      }
+    });
+  });
+};
+paper.statics.updatePaper = function (op, data) {
+  return new Promise((resolve, reject) => {
+    this.update(op, data, (err) => {
+      if (err) {
+        reject(false);
+      } else {
+        resolve(true);
       }
     });
   });

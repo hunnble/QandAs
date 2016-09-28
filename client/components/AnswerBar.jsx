@@ -191,6 +191,7 @@ class AnswerBar extends Component {
         if (Array.isArray(answer[key])) {
           for (let i = 0, len = answer[key].length; i < len; ++i) {
             let answerOption = answer[key][i];
+            // if (answerOption === true || answerOption === false) {
             if (answerOption === true || answerOption === false) {
               lastAnswer[key][i] = answerOption;
             }
@@ -200,18 +201,18 @@ class AnswerBar extends Component {
         }
       }
       answer = lastAnswer;
-    } else {
-      // 第一次回答,必须填完整
-      let isFullfilled = true;
-      for (let i = 0, len = answer.length; i < len; ++i) {
-        if (!answer[i]) {
-          isFullfilled = false;
-          break;
-        }
+    }
+    let isFullfilled = answer.length > 0 ? true : false;
+    for (let i = 0, len = paper.questions.length; i < len; ++i) {
+      if (Array.isArray(answer[i]) && !answer[i].find((value) => {
+        return value;
+      }) || !answer[i]) {
+        isFullfilled = false;
+        break;
       }
-      if (!isFullfilled) {
-        return changeErrMsg('请完成后再提交');
-      }
+    }
+    if (!isFullfilled) {
+      return changeErrMsg('请完成后再提交');
     }
     submitAnswer({
       answer: answer,
