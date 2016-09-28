@@ -54,18 +54,18 @@ class HomePage extends Component {
     });
     return (
       <div>
-        <div className='fullPage-1'>
-          <div className='homePageWrapper'>
-            <h1 className='homePageTitle'>卷吧，在这里爱上学习</h1>
-            <Link to='/papers/create'>
-              <RaisedButton
-                className='homePageBtn'
-                label='我要出题'
-              />
-            </Link>
-            <RaisedButton className='homePageBtn' label='我要写题' />
-          </div>
+        <div className='fullPage-1'></div>
+        <div className='homePageWrapper'>
+          <h1 className='homePageTitle'>Q&A</h1>
+          <Link to='/papers/create'>
+            <RaisedButton
+              className='homePageBtn'
+              label='新建问卷'
+            />
+          </Link>
+          <RaisedButton className='homePageBtn' label='查找问卷' />
         </div>
+
         <div className='fullPage-2 homePageSearch'>
           {
             stepIndex === 0 &&
@@ -88,9 +88,9 @@ class HomePage extends Component {
                 />
                 <Table selectable={false} fixedHeader={true} fixedFooter={true}>
                   <TableHeader displaySelectAll={false}>
-                    <TableHeaderColumn>试卷名</TableHeaderColumn>
-                    <TableHeaderColumn>出题人</TableHeaderColumn>
-                    <TableHeaderColumn>操作</TableHeaderColumn>
+                    <TableHeaderColumn>问卷名</TableHeaderColumn>
+                    <TableHeaderColumn>作者</TableHeaderColumn>
+                    <TableHeaderColumn>填写问卷</TableHeaderColumn>
                   </TableHeader>
                   <TableBody displayRowCheckbox={false}>
                     {paperItems}

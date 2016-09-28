@@ -6,6 +6,7 @@ import Question from './Question.jsx';
 import ErrMsg from '../containers/ErrMsg';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import { TOKEN_NAME } from '../../configs/config';
 
 class Editor extends Component {
   constructor (props) {
@@ -29,7 +30,7 @@ class Editor extends Component {
     const { year, month, date } = time;
     const { account } = user;
     const data = {
-      creator: account,
+      token: window.localStorage.getItem(TOKEN_NAME),
       title,
       questions,
       time: {
@@ -92,7 +93,7 @@ class Editor extends Component {
         <div className='create'>
           <TextField
             style={{ display: 'block' }}
-            hintText='试卷名称'
+            floatingLabelText='问卷名称'
             value={title}
             onChange={this.handleChangeTitle}
           />

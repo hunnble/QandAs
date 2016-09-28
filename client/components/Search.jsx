@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import { TOKEN_NAME } from '../../configs/config';
 
 class Search extends Component {
   handleChange = (event) => {
@@ -9,7 +10,7 @@ class Search extends Component {
   }
   handleSubmit = () => {
     const { keywords, user, searchPaper } = this.props;
-    searchPaper(keywords, user.account);
+    searchPaper(keywords, window.localStorage.getItem(TOKEN_NAME));
   }
   render () {
     const { className, keywords } = this.props;

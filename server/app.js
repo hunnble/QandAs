@@ -9,7 +9,6 @@ let bodyParser = require('koa-bodyparser');
 
 let config = require('../configs/config.js');
 let db = require('./models/db-mongo.js');
-let klass = require('./models/class.js');
 let paper = require('./models/paper.js');
 let user = require('./models/user.js');
 

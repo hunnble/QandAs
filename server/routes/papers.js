@@ -1,13 +1,15 @@
 let router = require('koa-router')();
 let user = require('../models/user');
 let paper = require('../models/paper');
+let config = require('../../configs/config');
+let jwt = require('jsonwebtoken');
 
 /*
  * 创建新试卷表单页
  */
 router.get('/create', function* (next) {
   yield this.render('index', {
-    title: '创建新试卷'
+    title: '编写新问卷'
   });
 });
 
@@ -16,7 +18,7 @@ router.get('/create', function* (next) {
  */
 router.get('/paper', function* (next) {
   yield this.render('index', {
-    title: '卷吧'
+    title: '问卷'
   });
 });
 
@@ -28,6 +30,14 @@ router.post('/edit', function* (next) {
   let _id = body._id;
   let msg = _id ? '编辑' : '创建';
   let paperResult;
+  body.creator = jwt.verify(body.token, config.TOKEN_KEY).account;
+  if (!body.creator) {
+    return this.body = {
+      success: false,
+      errMsg: '请先登录'
+    };
+  }
+  delete body.token;
   if (_id) {
     paperResult = yield paper.updatePaper({ '_id': _id }, body);
   } else {
@@ -51,7 +61,13 @@ router.post('/edit', function* (next) {
 router.post('/search', function* (next) {
   let body = this.request.body;
   let keywords = body.keywords;
-  let account = body.account;
+  let account = jwt.verify(body.token, config.TOKEN_KEY).account;
+  if (!account) {
+    return this.response.body = {
+      success: false,
+      errMsg: '请先登录'
+    };
+  }
   let keywordsExp = new RegExp(keywords);
   let success = false;
   let errMsg = '查询试卷失败，请重试';
@@ -78,7 +94,13 @@ router.post('/search', function* (next) {
 router.post('/answer', function* (next) {
  let body = this.request.body;
  let _id = body._id;
- let answerer = body.answerer;
+ let answerer = jwt.verify(body.token, config.TOKEN_KEY).account;
+ if (!answerer) {
+   return this.response.body = {
+     success: false,
+     errMsg: '请先登录'
+   };
+ }
  let answer = body.answer;
  delete body._id;
  delete body.answerer;

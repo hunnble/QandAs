@@ -25,6 +25,7 @@ class Paper extends Component {
             paper={paper}
             user={user}
             submitAnswer={actions.submitAnswer}
+            changeErrMsg={actions.changeErrMsg}
           />
         }
       </div>

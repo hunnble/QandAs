@@ -5,7 +5,8 @@
   position: fixed;
 }
 .fullPage-2 {
-  @include full-page('../images/homePage2.jpg');
+  // @include full-page('../images/homePage2.jpg');
+  @include full-page-pure();
 }
 .fullPage-3 {
   @include full-page-pure();

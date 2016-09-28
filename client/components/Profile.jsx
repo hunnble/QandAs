@@ -12,6 +12,7 @@ import Paper from 'material-ui/Paper';
 import Subheader from 'material-ui/Subheader';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { List, ListItem } from 'material-ui/List';
+import { TOKEN_NAME } from '../../configs/config';
 
 const labelMap = new Map([
   ['nickname', '昵称'],
@@ -20,6 +21,11 @@ const labelMap = new Map([
   ['password', '新密码'],
   ['password2', '再次输入密码'],
   ['info', '个人简介']
+]);
+const paperStateMap = new Map([
+  [0, '未发布'],
+  [1, '已发布'],
+  [2, '已截止']
 ]);
 
 const renderInput = ({
@@ -52,56 +58,37 @@ const renderInput = ({
 
 class Profile extends Component {
   onSubmit = (data) => {
-    data.account = this.props.user.account;
+    data.token = window.localStorage.getItem(TOKEN_NAME);
     this.props.actions.updateUserInfo(data);
   }
   handleChangePaper = (paper) => {
     this.props.actions.changePaper(paper);
   }
-  renderPublishedPapers = (user) => {
-    let publishedPapers = user.publishedPapers;
-    if (!publishedPapers) {
+  renderPapers = (papers) => {
+    if (!papers) {
       return null;
     }
     return (
-      publishedPapers.map((paper, index) => {
+      papers.map((paper, index) => {
         return (
           <ListItem
             key={index}
             disabled={true}
             primaryText={paper.title}
             rightAvatar={
-              <Link to='/papers/paper'>
-                <FlatButton
-                  label='前往'
-                  onTouchTap={this.handleChangePaper.bind(this, paper)}
-                />
-              </Link>
-            }
-          />
-        );
-      })
-    );
-  }
-  renderAnsweredPapers = (user) => {
-    let answeredPapers = user.answeredPapers;
-    if (!answeredPapers) {
-      return null
-    }
-    return (
-      answeredPapers.map((paper, index) => {
-        return (
-          <ListItem
-            key={index}
-            disabled={true}
-            primaryText={paper.title}
-            rightAvatar={
-              <Link to='/papers/paper'>
-                <FlatButton
-                  label='前往'
-                   onTouchTap={this.handleChangePaper.bind(this, paper)}
-                />
-              </Link>
+              <span>
+                {
+                  <span className={'profilePaperState' + paper.state}>
+                    {paperStateMap.get(paper.state)}
+                  </span>
+                }
+                <Link to='/papers/paper'>
+                  <FlatButton
+                    label='前往'
+                     onTouchTap={this.handleChangePaper.bind(this, paper)}
+                  />
+                </Link>
+              </span>
             }
           />
         );
@@ -166,17 +153,17 @@ class Profile extends Component {
                 </div>
               </form>
             </Tab>
-            <Tab label='我的试卷'>
+            <Tab label='我的问卷'>
               <Paper className='profileList'>
                 <List>
-                  <Subheader>我制作的试卷</Subheader>
-                  {this.renderPublishedPapers(user)}
+                  <Subheader>我编写的问卷</Subheader>
+                  {this.renderPapers(user.publishedPapers)}
                 </List>
               </Paper>
               <Paper className='profileList'>
                 <List>
-                  <Subheader>我填写的试卷</Subheader>
-                  {this.renderAnsweredPapers(user)}
+                  <Subheader>我填写的问卷</Subheader>
+                  {this.renderPapers(user.answeredPapers)}
                 </List>
               </Paper>
             </Tab>

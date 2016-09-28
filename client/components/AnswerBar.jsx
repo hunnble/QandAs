@@ -8,6 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Checkbox from 'material-ui/Checkbox';
 import '../scss/answerBar.scss';
+import { TOKEN_NAME } from '../../configs/config';
 
 const boxStyle = {
   marginLeft: '12.5%',
@@ -166,7 +167,7 @@ function renderAnsweredQuestions (questions, answers) {
 
 class AnswerBar extends Component {
   onSubmit = (data) => {
-    const { paper, user, submitAnswer } = this.props;
+    const { paper, user, submitAnswer, changeErrMsg } = this.props;
     const answered = paper.answers.some((answer, index) => {
       return answer.answerer === user.account ? index + 1 : 0;
     });
@@ -178,7 +179,6 @@ class AnswerBar extends Component {
         if (!answer[index]) {
           answer[index] = [];
         }
-        // answer[index].push(Number(key.split('_')[1]));
         answer[index][Number(key.split('_')[1])] = data[key];
       } else {
         index = Number(key.slice(1));
@@ -200,11 +200,23 @@ class AnswerBar extends Component {
         }
       }
       answer = lastAnswer;
+    } else {
+      // 第一次回答,必须填完整
+      let isFullfilled = true;
+      for (let i = 0, len = answer.length; i < len; ++i) {
+        if (!answer[i]) {
+          isFullfilled = false;
+          break;
+        }
+      }
+      if (!isFullfilled) {
+        return changeErrMsg('请完成后再提交');
+      }
     }
     submitAnswer({
       answer: answer,
       _id: paper._id,
-      answerer: user.account
+      token: window.localStorage.getItem(TOKEN_NAME)
     });
   }
   render () {
@@ -241,7 +253,8 @@ class AnswerBar extends Component {
 AnswerBar.PropTypes = {
   user: PropTypes.object,
   paper: PropTypes.object,
-  submitAnswer: PropTypes.func
+  submitAnswer: PropTypes.func,
+  changeErrMsg: PropTypes.func
 };
 
 export default AnswerBar;

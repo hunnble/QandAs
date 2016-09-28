@@ -6,7 +6,8 @@ var paper = new Schema({
   creator: { type: String }, // account of the creator user
   title: { type: String },
   questions: { type: Mixed },
-  classId: { type: String },
+  // classId: { type: String },
+  state: { type: Number, default: 0 }, // 0: editable, 1: published, 2: finished
   timeLimit: { type: Number, default: 7200 },
   answers: { type: Array },
   createdAt: { type: Date, default: Date.now },
@@ -111,13 +112,28 @@ paper.statics.getAnswer = function (op) {
     });
   });
 };
-paper.statics.getScore = function (op) {
+paper.statics.publishPaper = function (op) {
   return new Promise((resolve, reject) => {
-    this.mapReduce(op, (err, result) => { // 对每个question中的score求和
+    this.update(op, {
+      'state': 1
+    }, (err) => {
       if (err) {
-        reject(err);
+        reject(false);
       } else {
-        resolve(result);
+        resolve(true);
+      }
+    });
+  });
+};
+paper.statics.expirePaper = function (op) {
+  return new Promise((resolve, reject) => {
+    this.update(op, {
+      'state': 2
+    }, (err) => {
+      if (err) {
+        reject(false);
+      } else {
+        resolve(true);
       }
     });
   });

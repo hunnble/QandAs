@@ -1,6 +1,7 @@
 let router = require('koa-router')();
 let user = require('../models/user');
 let bcrypt = require('bcrypt');
+let jwt = require('jsonwebtoken');
 let config = require('../../configs/config');
 
 router.get('/', function* (next) {
@@ -11,8 +12,14 @@ router.get('/', function* (next) {
 
 router.put('/', function* (next) {
   let body = this.request.body;
-  let account = body.account;
-  delete body.account;
+  let account = jwt.verify(body.token, config.TOKEN_KEY).account;
+  if (!account) {
+    return this.response.body = {
+      success: false,
+      errMsg: '请先登录'
+    };
+  }
+  delete body.token;
   let curUser = yield user.findUser({ 'account': account });
   if (!curUser) {
     return this.response.body = {

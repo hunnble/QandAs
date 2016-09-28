@@ -14,7 +14,6 @@ class MenuBar extends Component {
     this.props.actions.handleMenuOpen(event.currentTarget);
   }
   changeSettings = () => {
-    // fetch settings data to save!by getting settings data from state tree!ahahaha
     this.props.actions.closeSettings();
   }
   render () {

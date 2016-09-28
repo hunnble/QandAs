@@ -298,7 +298,7 @@ export function changeKeywords (keywords) {
   };
 }
 
-export function searchPaper (keywords, account) {
+export function searchPaper (keywords, token) {
   return (dispatch) => {
     dispatch(startSearchPaper());
     return fetch('/papers/search', {
@@ -308,7 +308,7 @@ export function searchPaper (keywords, account) {
         'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ keywords: keywords, account: account })
+      body: JSON.stringify({ keywords: keywords, token: token })
     })
     .then((res) => {
       return res.json();
