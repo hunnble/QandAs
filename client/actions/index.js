@@ -26,6 +26,8 @@ export const CHANGE_PAPER = 'changePaper';
 export const CHANGE_PAPERS = 'changePapers';
 export const START_SUBMIT_ANSWER = 'startSubmitAnswer';
 export const FINISH_SUBMIT_ANSWER = 'finishSubmitAnswer';
+export const START_PUBLISH_PAPER = 'startPublishPaper';
+export const FINISH_PUBLISH_PAPER = 'finishPublishPaper';
 
 export function initialPageState () {
   return (dispatch) => {
@@ -271,7 +273,7 @@ export function submitPaper (data) {
       dispatch(finishCreatePaper(res));
     })
     .catch((err) => {
-      dispatch(changeErrMsg('网络错误，请重试'));
+      dispatch(changeErrMsg('网络错误, 请重试'));
       dispatch(finishCreatePaper({ success: false }));
     })
   };
@@ -322,7 +324,7 @@ export function searchPaper (keywords, token) {
       }
     })
     .catch((err) => {
-      dispatch(changeErrMsg('查询试卷失败，请重试'));
+      dispatch(changeErrMsg('查询试卷失败, 请重试'));
       dispatch(finishSearchPaper({ success: false }));
     })
   };
@@ -383,7 +385,7 @@ export function submitAnswer (data) {
       dispatch(finishSubmitAnswer(res));
     })
     .catch((err) => {
-      dispatch(changeErrMsg('出错了，请重试'));
+      dispatch(changeErrMsg('出错了, 请重试'));
       dispatch(finishSubmitAnswer({ success: false }));
     })
   };
@@ -399,6 +401,46 @@ export function startSubmitAnswer () {
 export function finishSubmitAnswer (res) {
   return Object.assign({
     type: FINISH_SUBMIT_ANSWER,
+    isFetching: false
+  }, res);
+}
+
+export function publishPaper (_id, token) {
+  return (dispatch) => {
+    dispatch(startPublishPaper());
+    return fetch('/papers/paper', {
+      method: 'put',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ _id: _id, token: token })
+    })
+    .then((res) => {
+      return res.json();
+    })
+    .then((res) => {
+      dispatch(changeErrMsg(res.errMsg));
+      dispatch(finishPublishPaper(res));
+    })
+    .catch((err) => {
+      dispatch(changeErrMsg('发布失败, 请重试'));
+      dispatch(finishPublishPaper({ success: false }));
+    })
+  };
+}
+
+export function startPublishPaper () {
+  return {
+    type: START_PUBLISH_PAPER,
+    isFetching: true
+  };
+}
+
+export function finishPublishPaper (res) {
+  return Object.assign({
+    type: FINISH_PUBLISH_PAPER,
     isFetching: false
   }, res);
 }

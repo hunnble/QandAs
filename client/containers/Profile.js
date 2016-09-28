@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { reduxForm } from 'redux-form';
 import Profile from '../components/Profile.jsx';
-import { updateUserInfo, changePaper } from '../actions';
+import { updateUserInfo, changePaper, publishPaper } from '../actions';
 
 const validate = (values) => {
   let errors = {};
@@ -35,7 +35,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({ updateUserInfo, changePaper }, dispatch)
+    actions: bindActionCreators({ updateUserInfo, changePaper, publishPaper }, dispatch)
   };
 }
 

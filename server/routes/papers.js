@@ -39,19 +39,50 @@ router.post('/edit', function* (next) {
   }
   delete body.token;
   if (_id) {
-    paperResult = yield paper.updatePaper({ '_id': _id }, body);
+    paperResult = yield paper.updatePaper({
+      '_id': _id,
+      'creator': body.creator
+    }, body);
   } else {
     paperResult = yield paper.createPaper(body);
   }
   if (paperResult) {
     return this.response.body = {
       success: true,
-      errMsg: msg + '成功'
+      errMsg: msg + '问卷成功'
     };
   }
   return this.body = {
     success: false,
-    errMsg: msg + '失败'
+    errMsg: msg + '问卷失败, 请重试'
+  };
+});
+
+/*
+ * 改变状态
+ */
+router.put('/paper', function* (next) {
+  let body = this.request.body;
+  let account = jwt.verify(body.token, config.TOKEN_KEY).account;
+  if (!account) {
+    return this.response.body = {
+      success: false,
+      errMsg: '请先登录'
+    };
+  }
+  let result = yield paper.publishPaper({
+    '_id': body._id,
+    'creator': account
+  });
+  if (result) {
+    return this.response.body = {
+      success: true,
+      errMsg: '发布成功'
+    };
+  }
+  return this.body = {
+    success: false,
+    errMsg: '发布失败, 请重试'
   };
 });
 
@@ -73,7 +104,8 @@ router.post('/search', function* (next) {
   let errMsg = '查询试卷失败，请重试';
   let papers = yield paper.findPapers({
     'title': keywordsExp,
-    'creator':{ '$ne': account }
+    'creator':{ '$ne': account },
+    'state': 1
   });
   if (papers && papers.length !== 0) {
     success = true;

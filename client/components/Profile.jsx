@@ -65,6 +65,7 @@ class Profile extends Component {
     this.props.actions.changePaper(paper);
   }
   renderPapers = (papers) => {
+    const { user, actions } = this.props;
     if (!papers) {
       return null;
     }
@@ -78,6 +79,17 @@ class Profile extends Component {
             rightAvatar={
               <span>
                 {
+                  paper.creator === user.account &&
+                  paper.state === 0 &&
+                  <RaisedButton
+                    primary={true}
+                    label='发布问卷'
+                    onTouchTap={() => {
+                      actions.publishPaper(paper._id, window.localStorage.getItem(TOKEN_NAME));
+                    }}
+                  />
+                }
+                {
                   <span className={'profilePaperState' + paper.state}>
                     {paperStateMap.get(paper.state)}
                   </span>
@@ -85,7 +97,7 @@ class Profile extends Component {
                 <Link to='/papers/paper'>
                   <FlatButton
                     label='前往'
-                     onTouchTap={this.handleChangePaper.bind(this, paper)}
+                    onTouchTap={this.handleChangePaper.bind(this, paper)}
                   />
                 </Link>
               </span>
