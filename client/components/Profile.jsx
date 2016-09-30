@@ -10,6 +10,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
 import Subheader from 'material-ui/Subheader';
+import Divider from 'material-ui/Divider';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { List, ListItem } from 'material-ui/List';
 import { TOKEN_NAME } from '../../configs/config';
@@ -34,6 +35,7 @@ const renderInput = ({
   name,
   type,
   multiLine,
+  fullWidth,
   long,
   hint,
   meta: { touched, error }
@@ -43,14 +45,14 @@ const renderInput = ({
   }
   return (
     <span className={long ? 'profileText profileTextLong' : 'profileText'}>
-      <label htmlFor={name}>{labelMap.get(name)}</label>
+      <label htmlFor={name}>{labelMap.get(name) + ': '}</label>
       <TextField
         type={type}
         name={name}
         hintText={hint}
         floatingLabelText={hint}
         multiLine={multiLine}
-        fullWidth={true}
+        fullWidth={fullWidth || false}
         errorText={touched && error}{...error}
       />
     </span>
@@ -81,14 +83,23 @@ class Profile extends Component {
         return (
           <ListItem
             key={index}
+            className='profileListItem'
             disabled={true}
             primaryText={paper.title}
-            rightAvatar={
-              <span>
+            initiallyOpen={true}
+            autoGenerateNestedIndicator={false}
+            nestedItems={[
+              <span key={-1 * index}>
+                {
+                  <span className={'profilePaperState' + paper.state}>
+                    {paperStateMap.get(paper.state)}
+                  </span>
+                }
                 {
                   paper.creator === user.account &&
                   paper.state === 0 &&
                   <RaisedButton
+                    className='publishButton'
                     primary={true}
                     label='发布问卷'
                     onTouchTap={() => {
@@ -96,19 +107,17 @@ class Profile extends Component {
                     }}
                   />
                 }
-                {
-                  <span className={'profilePaperState' + paper.state}>
-                    {paperStateMap.get(paper.state)}
-                  </span>
-                }
                 <Link to='/papers/paper'>
-                  <FlatButton
-                    label='前往'
+                  <RaisedButton
+                    label={
+                      paper.creator === user.account &&
+                      paper.state === 0 ? '编辑' : '查看'
+                    }
                     onTouchTap={this.handleChangePaper.bind(this, paper)}
                   />
                 </Link>
               </span>
-            }
+            ]}
           />
         );
       })
@@ -151,6 +160,7 @@ class Profile extends Component {
                     hint={user.info}
                     multiLine={true}
                     long={true}
+                    fullWidth={true}
                     component={renderInput}
                   />
                   <Field
@@ -181,12 +191,14 @@ class Profile extends Component {
               <Paper className='profileList'>
                 <List>
                   <Subheader>我编写的问卷</Subheader>
+                  <Divider />
                   {this.renderPapers(user.publishedPapers)}
                 </List>
               </Paper>
               <Paper className='profileList'>
                 <List>
                   <Subheader>我填写的问卷</Subheader>
+                  <Divider />
                   {this.renderPapers(user.answeredPapers)}
                 </List>
               </Paper>
