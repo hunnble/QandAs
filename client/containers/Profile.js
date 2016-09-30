@@ -2,7 +2,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { reduxForm } from 'redux-form';
 import Profile from '../components/Profile.jsx';
-import { updateUserInfo, changePaper, publishPaper } from '../actions';
+import {
+  updateUserInfo,
+  changePaper,
+  publishPaper,
+  changeProfileTabIndex
+} from '../actions';
 
 const validate = (values) => {
   let errors = {};
@@ -29,13 +34,19 @@ let ProfileForm = reduxForm({
 function mapStateToProps (state) {
   return {
     user: state.user,
-    papers: state.papers
+    papers: state.papers,
+    tabIndex: state.page.profileTabIndex
   };
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({ updateUserInfo, changePaper, publishPaper }, dispatch)
+    actions: bindActionCreators({
+      updateUserInfo,
+      changePaper,
+      publishPaper,
+      changeProfileTabIndex
+    }, dispatch)
   };
 }
 

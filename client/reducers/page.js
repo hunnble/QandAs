@@ -11,7 +11,8 @@ import {
   CHANGE_CALENDAR,
   CHANGE_CALENDAR_VISIBLE,
   CHANGE_KEYWORDS,
-  CHANGE_SEARCH_STEP
+  CHANGE_SEARCH_STEP,
+  CHANGE_PROFILE_TAB_INDEX
 } from '../actions';
 
 const today = new Date();
@@ -39,7 +40,8 @@ const initialState = {
     visible: false
   },
   keywords: '',
-  stepIndex: 0
+  stepIndex: 0,
+  profileTabIndex: 0
 };
 
 function getDateCount(year, month) {
@@ -119,6 +121,8 @@ export default function page (state = initialState, action) {
       return Object.assign({}, state, { keywords: action.keywords });
     case CHANGE_SEARCH_STEP:
       return Object.assign({}, state, { stepIndex: action.stepIndex });
+    case CHANGE_PROFILE_TAB_INDEX:
+      return Object.assign({}, state, { profileTabIndex: action.index });
     default:
       return state;
   }

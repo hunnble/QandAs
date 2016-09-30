@@ -13,6 +13,7 @@ import Subheader from 'material-ui/Subheader';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { List, ListItem } from 'material-ui/List';
 import { TOKEN_NAME } from '../../configs/config';
+import SwipeableViews from 'react-swipeable-views';
 
 const labelMap = new Map([
   ['nickname', '昵称'],
@@ -43,7 +44,7 @@ const renderInput = ({
   return (
     <span className={long ? 'profileText profileTextLong' : 'profileText'}>
       <label htmlFor={name}>{labelMap.get(name)}</label>
-      <TextField {...input}
+      <TextField
         type={type}
         name={name}
         hintText={hint}
@@ -57,12 +58,18 @@ const renderInput = ({
 };
 
 class Profile extends Component {
+  constructor (props) {
+    super(props);
+  }
   onSubmit = (data) => {
     data.token = window.localStorage.getItem(TOKEN_NAME);
     this.props.actions.updateUserInfo(data);
   }
   handleChangePaper = (paper) => {
     this.props.actions.changePaper(paper);
+  }
+  handleChangeTab = (index) => {
+    this.props.actions.changeProfileTabIndex(index);
   }
   renderPapers = (papers) => {
     const { user, actions } = this.props;
@@ -108,13 +115,18 @@ class Profile extends Component {
     );
   }
   render () {
-    const { user, actions, handleSubmit, submitting } = this.props;
+    const { user, tabIndex, actions, handleSubmit, submitting } = this.props;
     return (
       <div>
         <Header />
         <div className='profile'>
-          <Tabs>
-            <Tab label='个人资料'>
+          <Tabs value={tabIndex} onChange={this.handleChangeTab}>
+            <Tab label='个人资料' value={0} />
+            <Tab label='我的问卷' value={1} />
+            <Tab label='安全' value={2} />
+          </Tabs>
+          <SwipeableViews index={tabIndex} onChange={this.handleChangeTab}>
+            <div>
               <form className='profileForm' onSubmit={handleSubmit(this.onSubmit)}>
                 <Avatar size={80} src={user.avatar} className='avatar' />
                 <h2 className='account'>{user.account}</h2>
@@ -164,8 +176,8 @@ class Profile extends Component {
                   </div>
                 </div>
               </form>
-            </Tab>
-            <Tab label='我的问卷'>
+            </div>
+            <div>
               <Paper className='profileList'>
                 <List>
                   <Subheader>我编写的问卷</Subheader>
@@ -178,11 +190,10 @@ class Profile extends Component {
                   {this.renderPapers(user.answeredPapers)}
                 </List>
               </Paper>
-            </Tab>
-            <Tab label='安全'>
-
-            </Tab>
-          </Tabs>
+            </div>
+            <div>
+            </div>
+          </SwipeableViews>
         </div>
         <ErrMsg />
       </div>
@@ -193,7 +204,8 @@ class Profile extends Component {
 Profile.PropTypes = {
   actions: PropTypes.object,
   user: PropTypes.object,
-  papers: PropTypes.array
+  papers: PropTypes.array,
+  tabIndex: PropTypes.number
 };
 
 export default Profile;

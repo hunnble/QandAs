@@ -3,15 +3,8 @@ import '../scss/homePage.scss';
 import { Link } from 'react-router';
 import Search from './Search.jsx';
 import RaisedButton from 'material-ui/RaisedButton';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableFooter,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn
-} from 'material-ui/Table';
+import Subheader from 'material-ui/Subheader';
+import Paper from 'material-ui/Paper';
 
 function renderPapers (papers) {
   return
@@ -35,21 +28,15 @@ class HomePage extends Component {
     } = this.props;
     const paperItems = papers.map((paper, index) => {
       return (
-        <TableRow key={'paper' + index}>
-          <TableRowColumn>
-            {paper.title}
-          </TableRowColumn>
-          <TableRowColumn>
-            {paper.creator}
-          </TableRowColumn>
-          <TableRowColumn>
-            <Link to='/papers/paper'>
-              <RaisedButton onTouchTap={() => {
-                this.handleClickPaper(index)
-              }} label='去答卷' />
-            </Link>
-          </TableRowColumn>
-        </TableRow>
+        <Paper className='paper' key={'paper' + index}>
+          <h3>{paper.title}</h3>
+          <Subheader>发布者: {paper.creator}</Subheader>
+          <Link to='/papers/paper'>
+            <RaisedButton onTouchTap={() => {
+              this.handleClickPaper(index)
+            }} label='填写问卷' />
+          </Link>
+        </Paper>
       );
     });
     return (
@@ -79,23 +66,17 @@ class HomePage extends Component {
           }
           {
             stepIndex === 1 &&
-            <div className='fullPage-3'>
-              <div className='homePagePapers'>
+            <div>
+              <div className='homePageBackBtnWrapper'>
                 <RaisedButton
                   className='homePageBackBtn fr'
+                  primary={true}
                   label='返回'
                   onTouchTap={this.handleCloseSearchResults}
                 />
-                <Table selectable={false} fixedHeader={true} fixedFooter={true}>
-                  <TableHeader displaySelectAll={false}>
-                    <TableHeaderColumn>问卷名</TableHeaderColumn>
-                    <TableHeaderColumn>作者</TableHeaderColumn>
-                    <TableHeaderColumn>填写问卷</TableHeaderColumn>
-                  </TableHeader>
-                  <TableBody displayRowCheckbox={false}>
-                    {paperItems}
-                  </TableBody>
-                </Table>
+              </div>
+              <div className='homePagePapers'>
+                <div>{paperItems}</div>
               </div>
             </div>
           }
