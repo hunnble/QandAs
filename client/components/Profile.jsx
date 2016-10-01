@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import '../scss/profile.scss';
 import Header from './Header.jsx';
+import Page from './Page.jsx';
 import ErrMsg from '../containers/ErrMsg';
 import { Link } from 'react-router';
 import { Field } from 'redux-form';
@@ -73,54 +74,68 @@ class Profile extends Component {
   handleChangeTab = (index) => {
     this.props.actions.changeProfileTabIndex(index);
   }
-  renderPapers = (papers) => {
-    const { user, actions } = this.props;
+  renderPapers = (papers, i) => {
+    const { user, publishedPage, answeredPage, actions } = this.props;
     if (!papers) {
       return null;
     }
     return (
-      papers.map((paper, index) => {
-        return (
-          <ListItem
-            key={index}
-            className='profileListItem'
-            disabled={true}
-            primaryText={paper.title}
-            initiallyOpen={true}
-            autoGenerateNestedIndicator={false}
-            nestedItems={[
-              <span key={-1 * index}>
-                {
-                  <span className={'profilePaperState' + paper.state}>
-                    {paperStateMap.get(paper.state)}
-                  </span>
-                }
-                {
-                  paper.creator === user.account &&
-                  paper.state === 0 &&
-                  <RaisedButton
-                    className='publishButton'
-                    primary={true}
-                    label='发布问卷'
-                    onTouchTap={() => {
-                      actions.publishPaper(paper._id, window.localStorage.getItem(TOKEN_NAME));
-                    }}
-                  />
-                }
-                <Link to='/papers/paper'>
-                  <RaisedButton
-                    label={
-                      paper.creator === user.account &&
-                      paper.state === 0 ? '编辑' : '查看'
-                    }
-                    onTouchTap={this.handleChangePaper.bind(this, paper)}
-                  />
-                </Link>
-              </span>
-            ]}
-          />
-        );
-      })
+
+      <Page
+        page={i === 0 ?
+          publishedPage :
+          answeredPage}
+        perPage={5}
+        divider={true}
+        items={papers}
+        pageItemsClassName='profileListItem'
+        pageBarClassName='profilePageBar fr'
+        renderItem={(paper, index) => {
+          return (
+            <ListItem
+              key={index}
+              // className='profileListItem'
+              disabled={true}
+              primaryText={paper.title}
+              initiallyOpen={true}
+              autoGenerateNestedIndicator={false}
+              nestedItems={[
+                <span key={-1 * index}>
+                  {
+                    <span className={'profilePaperState' + paper.state}>
+                      {paperStateMap.get(paper.state)}
+                    </span>
+                  }
+                  {
+                    paper.creator === user.account &&
+                    paper.state === 0 &&
+                    <RaisedButton
+                      className='publishButton'
+                      primary={true}
+                      label='发布问卷'
+                      onTouchTap={() => {
+                        actions.publishPaper(paper._id, window.localStorage.getItem(TOKEN_NAME));
+                      }}
+                    />
+                  }
+                  <Link to='/papers/paper'>
+                    <RaisedButton
+                      label={
+                        paper.creator === user.account &&
+                        paper.state === 0 ? '编辑' : '查看'
+                      }
+                      onTouchTap={this.handleChangePaper.bind(this, paper)}
+                    />
+                  </Link>
+                </span>
+              ]}
+            />
+          );
+        }}
+        changePage={i === 0 ?
+          actions.changePublishedPage :
+          actions.changeAnsweredPage}
+      />
     );
   }
   render () {
@@ -192,14 +207,14 @@ class Profile extends Component {
                 <List>
                   <Subheader>我编写的问卷</Subheader>
                   <Divider />
-                  {this.renderPapers(user.publishedPapers)}
+                  {this.renderPapers(user.publishedPapers, 0)}
                 </List>
               </Paper>
               <Paper className='profileList'>
                 <List>
                   <Subheader>我填写的问卷</Subheader>
                   <Divider />
-                  {this.renderPapers(user.answeredPapers)}
+                  {this.renderPapers(user.answeredPapers, 1)}
                 </List>
               </Paper>
             </div>

@@ -6,7 +6,11 @@ import {
   updateUserInfo,
   changePaper,
   publishPaper,
-  changeProfileTabIndex
+  publishedPage,
+  answeredPage,
+  changeProfileTabIndex,
+  changePublishedPage,
+  changeAnsweredPage
 } from '../actions';
 
 const validate = (values) => {
@@ -35,7 +39,9 @@ function mapStateToProps (state) {
   return {
     user: state.user,
     papers: state.papers,
-    tabIndex: state.page.profileTabIndex
+    tabIndex: state.page.profileTabIndex,
+    publishedPage: state.page.publishedPage,
+    answeredPage: state.page.answeredPage
   };
 }
 
@@ -45,7 +51,9 @@ function mapDispatchToProps (dispatch) {
       updateUserInfo,
       changePaper,
       publishPaper,
-      changeProfileTabIndex
+      changeProfileTabIndex,
+      changePublishedPage,
+      changeAnsweredPage
     }, dispatch)
   };
 }

@@ -20,8 +20,10 @@ class HomePage extends Component {
       user,
       stepIndex,
       papers,
+      searchedPaperPage,
       changeKeywords,
-      searchPaper
+      searchPaper,
+      changePage
     } = this.props;
     const paperItems = papers.map((paper, index) => {
       return (
@@ -72,12 +74,14 @@ class HomePage extends Component {
                   onTouchTap={this.handleCloseSearchResults}
                 />
               </div>
-              <div className='homePagePapers'>
-
+              <div>
                 <Page
-                  page={0}
-                  perPage={5}
+                  page={searchedPaperPage}
+                  perPage={2}
                   items={papers}
+                  pageItemsClassName='homePagePapers'
+                  pageBarClassName='homePagePageBar'
+                  pageClassName='homePagePageNum'
                   renderItem={(item, index) => {
                     return (
                       <Paper className='paper' key={'paper' + index}>
@@ -91,7 +95,7 @@ class HomePage extends Component {
                       </Paper>
                     );
                   }}
-                  changePage={() => {}}
+                  changePage={changePage}
                 />
               </div>
             </div>
@@ -107,10 +111,12 @@ HomePage.PropTypes = {
   keywords: PropTypes.string,
   stepIndex: PropTypes.number,
   papers: PropTypes.arrayOf(PropTypes.object),
+  searchedPaperPage: PropTypes.number,
   changeKeywords: PropTypes.func,
   searchPaper: PropTypes.func,
   changeSearchStep: PropTypes.func,
-  changePaper: PropTypes.func
+  changePaper: PropTypes.func,
+  changePage: PropTypes.func
 };
 
 export default HomePage;

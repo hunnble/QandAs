@@ -29,6 +29,9 @@ export const FINISH_SUBMIT_ANSWER = 'finishSubmitAnswer';
 export const START_PUBLISH_PAPER = 'startPublishPaper';
 export const FINISH_PUBLISH_PAPER = 'finishPublishPaper';
 export const CHANGE_PROFILE_TAB_INDEX = 'changeProfileTabIndex';
+export const CHANGE_SEARCHED_PAPER_PAGE = 'changeSearchedPaperPage';
+export const CHANGE_PUBLISHED_PAGE = 'changePublishedPage';
+export const CHANGE_ANSWERED_PAGE = 'changeAnsweredPage';
 
 export function initialPageState () {
   return (dispatch) => {
@@ -39,6 +42,9 @@ export function initialPageState () {
     dispatch(changeKeywords(''));
     dispatch(changeProfileTabIndex(0));
     dispatch(changeSearchStep(1));
+    dispatch(changeSearchedPaperPage(0));
+    dispatch(changePublishedPage(0));
+    dispatch(changeAnsweredPage(0));
   };
 }
 
@@ -451,5 +457,26 @@ export function changeProfileTabIndex (index) {
   return {
     type: CHANGE_PROFILE_TAB_INDEX,
     index: index
+  }
+}
+
+export function changeSearchedPaperPage (page) {
+  return {
+    type: CHANGE_SEARCHED_PAPER_PAGE,
+    page: page
+  }
+}
+
+export function changePublishedPage (page) {
+  return {
+    type: CHANGE_PUBLISHED_PAGE,
+    page: page
+  }
+}
+
+export function changeAnsweredPage (page) {
+  return {
+    type: CHANGE_ANSWERED_PAGE,
+    page: page
   }
 }

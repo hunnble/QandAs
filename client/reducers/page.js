@@ -12,7 +12,10 @@ import {
   CHANGE_CALENDAR_VISIBLE,
   CHANGE_KEYWORDS,
   CHANGE_SEARCH_STEP,
-  CHANGE_PROFILE_TAB_INDEX
+  CHANGE_PROFILE_TAB_INDEX,
+  CHANGE_SEARCHED_PAPER_PAGE,
+  CHANGE_PUBLISHED_PAGE,
+  CHANGE_ANSWERED_PAGE
 } from '../actions';
 
 const today = new Date();
@@ -41,7 +44,10 @@ const initialState = {
   },
   keywords: '',
   stepIndex: 0,
-  profileTabIndex: 0
+  profileTabIndex: 0,
+  searchedPaperPage: 0,
+  publishedPage: 0,
+  answeredPage: 0
 };
 
 function getDateCount(year, month) {
@@ -123,6 +129,12 @@ export default function page (state = initialState, action) {
       return Object.assign({}, state, { stepIndex: action.stepIndex });
     case CHANGE_PROFILE_TAB_INDEX:
       return Object.assign({}, state, { profileTabIndex: action.index });
+    case CHANGE_SEARCHED_PAPER_PAGE:
+      return Object.assign({}, state, { searchedPaperPage: action.page });
+    case CHANGE_PUBLISHED_PAGE:
+      return Object.assign({}, state, { publishedPage: action.page });
+    case CHANGE_ANSWERED_PAGE:
+      return Object.assign({}, state, { answeredPage: action.page });
     default:
       return state;
   }

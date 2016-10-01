@@ -10,6 +10,7 @@ class Home extends Component {
       user,
       keywords,
       stepIndex,
+      searchedPaperPage,
       papers,
       actions
     } = this.props;
@@ -21,10 +22,12 @@ class Home extends Component {
           keywords={keywords}
           stepIndex={stepIndex}
           papers={papers}
+          searchedPaperPage={searchedPaperPage}
           changeKeywords={actions.changeKeywords}
           searchPaper={actions.searchPaper}
           changeSearchStep={actions.changeSearchStep}
           changePaper={actions.changePaper}
+          changePage={actions.changePage}
         />
         <ErrMsg />
       </div>
@@ -37,6 +40,7 @@ Home.PropTypes = {
   keywords: PropTypes.string,
   stepIndex: PropTypes.number,
   papers: PropTypes.arrayOf(PropTypes.object),
+  searchedPaperPage: PropTypes.number,
   actions: PropTypes.object
 }
 

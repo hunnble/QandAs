@@ -47,6 +47,26 @@
   padding: 0.8rem;
   width: per(94 / 3);
 }
+.homePagePageBar {
+  display: block;
+  margin: 1rem auto 0.4rem;
+  width: 80%;
+  text-align: right;
+}
+.homePagePageNum {
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  display: inline-block;
+  min-width: 1.2rem;
+  height: 1.2rem;
+  line-height: 1.2rem;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    background-color: $blue500;
+    color: $white;
+  }
+}
 
 /*1024px X 768px */
 @media only all and (max-width: 1024px) and (max-height: 768px) {
