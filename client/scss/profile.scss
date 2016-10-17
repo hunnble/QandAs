@@ -39,16 +39,6 @@
     margin: 1%;
     width: 48%;
   }
-  .publishButton {
-    -webkit-transition: all 0.2s ease-in;
-    transition: all 0.2s ease-in;
-    // opacity: 0;
-  }
-  // .profileListItem:hover {
-    // .publishButton {
-      // opacity: 1;
-    // }
-  // }
   .profilePaperState0 {
     color: $grey500;
   }
@@ -67,6 +57,9 @@
   .profilePageBar {
     text-align: right;
     margin: 0.35rem;
+    >span, >div {
+      margin: auto 0.2rem;
+    }
   }
 }
 
@@ -91,8 +84,8 @@
       margin: 5%;
       width: 90%;
     }
-    // .publishButton {
-    //   opacity: 1;
-    // }
+    .profileText {
+      width: 90%;
+    }
   }
 }

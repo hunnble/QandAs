@@ -430,11 +430,11 @@ export function publishPaper (_id, token) {
     })
     .then((res) => {
       dispatch(changeErrMsg(res.errMsg));
-      dispatch(finishPublishPaper(res));
+      dispatch(finishPublishPaper(_id));
     })
     .catch((err) => {
       dispatch(changeErrMsg('发布失败, 请重试'));
-      dispatch(finishPublishPaper({ success: false }));
+      dispatch(finishPublishPaper(null));
     })
   };
 }
@@ -446,11 +446,12 @@ export function startPublishPaper () {
   };
 }
 
-export function finishPublishPaper (res) {
+export function finishPublishPaper (_id) {
   return Object.assign({
     type: FINISH_PUBLISH_PAPER,
-    isFetching: false
-  }, res);
+    isFetching: false,
+    // _id: _id
+  });
 }
 
 export function changeProfileTabIndex (index) {

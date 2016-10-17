@@ -45,9 +45,9 @@ class Page extends Component {
           <Divider />
         }
         <div className={pageBarClassName}>
-          <div>
+          <span>
             第{page + 1}页/共{pageNum}页
-          </div>
+          </span>
           {
             page > 0 &&
             <RaisedButton primary={true} label='上一页' onTouchTap={() => {

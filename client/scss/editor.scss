@@ -103,6 +103,10 @@ $calendarWidth: 11.375rem;
     color: $grey200;
   }
 }
+.publishButton {
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
 
 @media only all and (max-width: 640px) {
   .calendar {

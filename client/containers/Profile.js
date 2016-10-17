@@ -5,7 +5,6 @@ import Profile from '../components/Profile.jsx';
 import {
   updateUserInfo,
   changePaper,
-  publishPaper,
   publishedPage,
   answeredPage,
   changeProfileTabIndex,
@@ -50,7 +49,6 @@ function mapDispatchToProps (dispatch) {
     actions: bindActionCreators({
       updateUserInfo,
       changePaper,
-      publishPaper,
       changeProfileTabIndex,
       changePublishedPage,
       changeAnsweredPage

@@ -92,7 +92,15 @@ class Editor extends Component {
     }
   }
   render () {
-    const { title, questions, calendar, time, actions } = this.props;
+    const {
+      user,
+      title,
+      questions,
+      calendar,
+      time,
+      actions,
+      paper
+    } = this.props;
     const qs = questions.map((q, index) => {
       return (
         <Question
@@ -130,9 +138,22 @@ class Editor extends Component {
             backgroundColor='#2196F3'
             labelColor='#ffffff'
             className='createBtn'
-            label='完成'
-            onClick={this.handleSubmit}
+            label='保存'
+            onTouchTap={this.handleSubmit}
           />
+          {
+            paper.creator === user.account &&
+            paper.state === 0 &&
+            <RaisedButton
+              backgroundColor='#2196F3'
+              labelColor='#ffffff'
+              className='publishButton'
+              label='发布'
+              onTouchTap={() => {
+                actions.publishPaper(paper._id, window.localStorage.getItem(TOKEN_NAME));
+              }}
+            />
+          }
           <Calendar
             calendar={calendar}
             time={time}

@@ -86,7 +86,7 @@ class Profile extends Component {
           publishedPage :
           answeredPage}
         perPage={5}
-        divider={true}
+        divider={false}
         items={papers}
         pageItemsClassName='profileListItem'
         pageBarClassName='profilePageBar fr'
@@ -94,7 +94,7 @@ class Profile extends Component {
           return (
             <ListItem
               key={index}
-              // className='profileListItem'
+              className='profileListItem'
               disabled={true}
               primaryText={paper.title}
               initiallyOpen={true}
@@ -105,18 +105,6 @@ class Profile extends Component {
                     <span className={'profilePaperState' + paper.state}>
                       {paperStateMap.get(paper.state)}
                     </span>
-                  }
-                  {
-                    paper.creator === user.account &&
-                    paper.state === 0 &&
-                    <RaisedButton
-                      className='publishButton'
-                      primary={true}
-                      label='发布问卷'
-                      onTouchTap={() => {
-                        actions.publishPaper(paper._id, window.localStorage.getItem(TOKEN_NAME));
-                      }}
-                    />
                   }
                   <Link to='/papers/paper'>
                     <RaisedButton
@@ -152,7 +140,6 @@ class Profile extends Component {
           <SwipeableViews index={tabIndex} onChange={this.handleChangeTab}>
             <div>
               <form className='profileForm' onSubmit={handleSubmit(this.onSubmit)}>
-                <Avatar size={80} src={user.avatar} className='avatar' />
                 <h2 className='account'>{user.account}</h2>
                 <div className='profileWrapper'>
                   <Field
@@ -232,7 +219,9 @@ Profile.PropTypes = {
   actions: PropTypes.object,
   user: PropTypes.object,
   papers: PropTypes.array,
-  tabIndex: PropTypes.number
+  tabIndex: PropTypes.number,
+  publishedPage: PropTypes.number,
+  answeredPage: PropTypes.number
 };
 
 export default Profile;

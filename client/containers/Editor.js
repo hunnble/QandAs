@@ -12,7 +12,8 @@ import {
   setCalendar,
   changeCalendar,
   changeCalendarVisible,
-  changeErrMsg
+  changeErrMsg,
+  publishPaper
 } from '../actions';
 
 function mapStateToProps (state) {
@@ -37,7 +38,8 @@ function mapDispatchToProps (dispatch) {
       setCalendar,
       changeCalendar,
       changeCalendarVisible,
-      changeErrMsg
+      changeErrMsg,
+      publishPaper
     }, dispatch)
   };
 }
