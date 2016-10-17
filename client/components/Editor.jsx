@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import '../scss/editor.scss';
+import { browserHistory } from 'react-router';
 import Header from './Header.jsx';
 import Calendar from './Calendar.jsx';
 import Question from './Question.jsx';
@@ -26,7 +27,7 @@ class Editor extends Component {
     this.props.actions.removeQuestion(true);
   }
   handleSubmit = () => {
-    const { user, title, questions, time, paper, actions } = this.props;
+    const { user, title, questions, time, paper, saved, actions } = this.props;
     const { year, month, date } = time;
     const { account } = user;
     const { changeErrMsg } = actions;
@@ -41,26 +42,32 @@ class Editor extends Component {
       }
     };
     if (!title) {
-      return changeErrMsg('提交失败, 问卷名不能为空');
+      return changeErrMsg('保存失败, 问卷名不能为空');
+    } else if (title.length > 30) {
+      return changeErrMsg('保存失败, 问卷名过长');
+    } else if (questions.length === 0) {
+      return changeErrMsg('保存失败, 请添加问题和选项');
     }
     for (let i = 0, len = questions.length; i < len; ++i) {
       let question = questions[i];
       if (!question.content) {
-        return changeErrMsg('提交失败, 问题题干不能为空');
+        return changeErrMsg('保存失败, 问题题干不能为空');
       }
       if (question.type === 1 || question.type === 2) {
         if (question.items.length === 0) {
-          return changeErrMsg('提交失败, 客观题不能没有选项');
+          return changeErrMsg('保存失败, 客观题不能没有选项');
         }
         if (question.items.indexOf('') > -1) {
-          return changeErrMsg('提交失败, 问题选项不能为空');
+          return changeErrMsg('保存失败, 问题选项不能为空');
         }
       }
     }
     if (paper) {
       Object.assign(data, { _id: paper._id });
+    } else if (!saved) {
+      actions.changePaperSaved(true);
     }
-    this.props.actions.submitPaper(data);
+    actions.submitPaper(data);
   }
   renderDefaultPaper = () => {
     const { paper, actions } = this.props;
@@ -99,7 +106,8 @@ class Editor extends Component {
       calendar,
       time,
       actions,
-      paper
+      paper,
+      saved
     } = this.props;
     const qs = questions.map((q, index) => {
       return (
@@ -142,8 +150,10 @@ class Editor extends Component {
             onTouchTap={this.handleSubmit}
           />
           {
+            (paper &&
             paper.creator === user.account &&
-            paper.state === 0 &&
+            paper.state === 0 ||
+            saved) &&
             <RaisedButton
               backgroundColor='#2196F3'
               labelColor='#ffffff'
@@ -151,6 +161,7 @@ class Editor extends Component {
               label='发布'
               onTouchTap={() => {
                 actions.publishPaper(paper._id, window.localStorage.getItem(TOKEN_NAME));
+                browserHistory.push('/');
               }}
             />
           }
@@ -177,7 +188,8 @@ Editor.PropTypes = {
   questions: PropTypes.array,
   calendar: PropTypes.object,
   time: PropTypes.objectOf(PropTypes.number),
-  paper: PropTypes.object
+  paper: PropTypes.object,
+  saved: PropTypes.boolean
 }
 
 Editor.defaultProps = {

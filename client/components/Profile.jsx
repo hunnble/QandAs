@@ -80,13 +80,12 @@ class Profile extends Component {
       return null;
     }
     return (
-
       <Page
         page={i === 0 ?
           publishedPage :
           answeredPage}
         perPage={5}
-        divider={false}
+        divider={true}
         items={papers}
         pageItemsClassName='profileListItem'
         pageBarClassName='profilePageBar fr'
@@ -100,14 +99,12 @@ class Profile extends Component {
               initiallyOpen={true}
               autoGenerateNestedIndicator={false}
               nestedItems={[
-                <span key={-1 * index}>
-                  {
-                    <span className={'profilePaperState' + paper.state}>
-                      {paperStateMap.get(paper.state)}
-                    </span>
-                  }
+                <span key={-1 * index} className='profileListNestedItem'>
+                  <span className={'profilePaperState' + paper.state}>
+                    {paperStateMap.get(paper.state)}
+                  </span>
                   <Link to='/papers/paper'>
-                    <RaisedButton
+                    <FlatButton
                       label={
                         paper.creator === user.account &&
                         paper.state === 0 ? '编辑' : '查看'
@@ -115,6 +112,9 @@ class Profile extends Component {
                       onTouchTap={this.handleChangePaper.bind(this, paper)}
                     />
                   </Link>
+                  {
+                    <Divider />
+                  }
                 </span>
               ]}
             />

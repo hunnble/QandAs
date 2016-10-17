@@ -7,6 +7,7 @@ class Paper extends Component {
   render () {
     const { user, paper, actions } = this.props;
     const isCreator = (user.account === paper.creator);
+    // const answered = paper.answers.some((a) => a.answerer === user.account);
     return (
       <div>
         {
@@ -16,11 +17,22 @@ class Paper extends Component {
         {
           paper &&
           isCreator &&
-          <Editor paper={paper} />
+          paper.state === 0 &&
+          <Editor
+            paper={paper}
+            refresh={this.refresh}
+          />
+        }
+        {
+          paper &&
+          isCreator &&
+          paper.state === 1 &&
+          <div>制作并已经发布了的试卷</div>
         }
         {
           paper &&
           !isCreator &&
+          // !answered &&
           <AnswerBar
             paper={paper}
             user={user}

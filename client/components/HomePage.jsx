@@ -77,7 +77,7 @@ class HomePage extends Component {
               <div>
                 <Page
                   page={searchedPaperPage}
-                  perPage={2}
+                  perPage={6}
                   items={papers}
                   pageItemsClassName='homePagePapers'
                   pageBarClassName='homePagePageBar'

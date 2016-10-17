@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import Divider from 'material-ui/Divider';
+import FlatButton from 'material-ui/FlatButton';
 
 class Page extends Component {
   constructor (props) {
@@ -11,7 +10,6 @@ class Page extends Component {
       page,
       perPage,
       items,
-      divider,
       pageItemsClassName,
       pageBarClassName,
       pageClassName,
@@ -40,23 +38,19 @@ class Page extends Component {
           })}
           {pageArr}
         </div>
-        {
-          divider &&
-          <Divider />
-        }
         <div className={pageBarClassName}>
           <span>
             第{page + 1}页/共{pageNum}页
           </span>
           {
             page > 0 &&
-            <RaisedButton primary={true} label='上一页' onTouchTap={() => {
+            <FlatButton primary={true} label='上一页' onClick={() => {
               changePage(Math.max(page - 1, 0));
             }} />
           }
           {
             page < pageNum - 1 &&
-            <RaisedButton primary={true} label='下一页' onTouchTap={() => {
+            <FlatButton primary={true} label='下一页' onClick={() => {
               changePage(Math.min(page + 1, pageNum - 1));
             }} />
           }
@@ -70,7 +64,6 @@ Page.PropTypes = {
   page: PropTypes.number,
   perPage: PropTypes.number,
   items: PropTypes.array,
-  divider: PropTypes.boolean,
   pageItemsClassName: PropTypes.string,
   pageBarClassName: PropTypes.string,
   pageClassName: PropTypes.string,
@@ -81,8 +74,7 @@ Page.PropTypes = {
 Page.defaultProps = {
   page: 0,
   perPage: 5,
-  items: [],
-  divider: false
+  items: []
 };
 
 export default Page;

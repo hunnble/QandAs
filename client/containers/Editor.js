@@ -13,7 +13,8 @@ import {
   changeCalendar,
   changeCalendarVisible,
   changeErrMsg,
-  publishPaper
+  publishPaper,
+  changePaperSaved
 } from '../actions';
 
 function mapStateToProps (state) {
@@ -22,7 +23,8 @@ function mapStateToProps (state) {
     title: state.page.questionTitle,
     questions: state.page.questions,
     calendar: state.page.calendar,
-    time: state.page.time
+    time: state.page.time,
+    saved: state.page.paperSaved
   };
 }
 
@@ -39,7 +41,8 @@ function mapDispatchToProps (dispatch) {
       changeCalendar,
       changeCalendarVisible,
       changeErrMsg,
-      publishPaper
+      publishPaper,
+      changePaperSaved
     }, dispatch)
   };
 }

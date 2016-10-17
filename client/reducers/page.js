@@ -15,7 +15,8 @@ import {
   CHANGE_PROFILE_TAB_INDEX,
   CHANGE_SEARCHED_PAPER_PAGE,
   CHANGE_PUBLISHED_PAGE,
-  CHANGE_ANSWERED_PAGE
+  CHANGE_ANSWERED_PAGE,
+  CHANGE_PAPER_SAVED
 } from '../actions';
 
 const today = new Date();
@@ -47,7 +48,8 @@ const initialState = {
   profileTabIndex: 0,
   searchedPaperPage: 0,
   publishedPage: 0,
-  answeredPage: 0
+  answeredPage: 0,
+  paperSaved: false
 };
 
 function getDateCount(year, month) {
@@ -135,6 +137,8 @@ export default function page (state = initialState, action) {
       return Object.assign({}, state, { publishedPage: action.page });
     case CHANGE_ANSWERED_PAGE:
       return Object.assign({}, state, { answeredPage: action.page });
+    case CHANGE_PAPER_SAVED:
+      return Object.assign({}, state, { paperSaved: action.saved });
     default:
       return state;
   }

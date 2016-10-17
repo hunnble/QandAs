@@ -32,6 +32,7 @@ export const CHANGE_PROFILE_TAB_INDEX = 'changeProfileTabIndex';
 export const CHANGE_SEARCHED_PAPER_PAGE = 'changeSearchedPaperPage';
 export const CHANGE_PUBLISHED_PAGE = 'changePublishedPage';
 export const CHANGE_ANSWERED_PAGE = 'changeAnsweredPage';
+export const CHANGE_PAPER_SAVED = 'changePaperSaved';
 
 export function initialPageState () {
   return (dispatch) => {
@@ -45,6 +46,7 @@ export function initialPageState () {
     dispatch(changeSearchedPaperPage(0));
     dispatch(changePublishedPage(0));
     dispatch(changeAnsweredPage(0));
+    dispatch(changePaperSaved(false));
   };
 }
 
@@ -276,7 +278,7 @@ export function submitPaper (data) {
     })
     .then((res) => {
       if (res.success) {
-        res.errMsg = '编辑成功';
+        res.errMsg = '保存成功';
       }
       dispatch(changeErrMsg(res.errMsg));
       dispatch(finishCreatePaper(res));
@@ -479,5 +481,12 @@ export function changeAnsweredPage (page) {
   return {
     type: CHANGE_ANSWERED_PAGE,
     page: page
+  }
+}
+
+export function changePaperSaved (saved) {
+  return {
+    type: CHANGE_PAPER_SAVED,
+    saved: saved
   }
 }

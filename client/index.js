@@ -50,10 +50,7 @@ render(
             handleEnter(replace);
           }}>
             <Route path='create' component={Editor}  />
-            <Route
-              path='paper'
-              component={Paper}
-            />
+            <Route path='paper' component={Paper} />
           </Route>
         </Route>
       </Router>

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { browserHistory } from 'react-router';
 import Header from './Header.jsx';
 import ErrMsg from '../containers/ErrMsg';
 import { Field } from 'redux-form';
@@ -218,6 +219,7 @@ class AnswerBar extends Component {
       _id: paper._id,
       token: window.localStorage.getItem(TOKEN_NAME)
     });
+    browserHistory.push('/');
   }
   render () {
     const { user, paper, handleSubmit, submitting } = this.props;
