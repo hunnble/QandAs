@@ -5,7 +5,9 @@ import Header from './Header.jsx';
 import Calendar from './Calendar.jsx';
 import Question from './Question.jsx';
 import ErrMsg from '../containers/ErrMsg';
+import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { TOKEN_NAME } from '../../configs/config';
 
@@ -107,7 +109,8 @@ class Editor extends Component {
       time,
       actions,
       paper,
-      saved
+      saved,
+      publishConfirmOpen
     } = this.props;
     const qs = questions.map((q, index) => {
       return (
@@ -160,8 +163,7 @@ class Editor extends Component {
               className='publishButton'
               label='发布'
               onTouchTap={() => {
-                actions.publishPaper(paper._id, window.localStorage.getItem(TOKEN_NAME));
-                browserHistory.push('/');
+                actions.changePublishConfirm(true);
               }}
             />
           }
@@ -174,6 +176,28 @@ class Editor extends Component {
             title='截止日期'
           />
           {qs}
+          <Dialog
+            title='问卷发布后不可修改或撤回, 确认发布?'
+            actions={[
+              <FlatButton
+                label='确认'
+                primary={true}
+                onTouchTap={() => {
+                  actions.publishPaper(paper._id, window.localStorage.getItem(TOKEN_NAME));
+                  actions.changePublishConfirm(false);
+                  browserHistory.push('/');
+                }}
+              />,
+              <FlatButton
+                label='取消'
+                onTouchTap={() => {
+                  actions.changePublishConfirm(false);
+                }}
+              />
+            ]}
+            modal={true}
+            open={publishConfirmOpen}
+          />
         </div>
         <ErrMsg />
       </div>

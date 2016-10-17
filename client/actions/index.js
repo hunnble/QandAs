@@ -33,6 +33,7 @@ export const CHANGE_SEARCHED_PAPER_PAGE = 'changeSearchedPaperPage';
 export const CHANGE_PUBLISHED_PAGE = 'changePublishedPage';
 export const CHANGE_ANSWERED_PAGE = 'changeAnsweredPage';
 export const CHANGE_PAPER_SAVED = 'changePaperSaved';
+export const CHANGE_PUBLISH_CONFIRM = 'changePublishConfirm';
 
 export function initialPageState () {
   return (dispatch) => {
@@ -47,6 +48,7 @@ export function initialPageState () {
     dispatch(changePublishedPage(0));
     dispatch(changeAnsweredPage(0));
     dispatch(changePaperSaved(false));
+    dispatch(changePublishConfirm(false));
   };
 }
 
@@ -488,5 +490,12 @@ export function changePaperSaved (saved) {
   return {
     type: CHANGE_PAPER_SAVED,
     saved: saved
+  }
+}
+
+export function changePublishConfirm (open) {
+  return {
+    type: CHANGE_PUBLISH_CONFIRM,
+    publishConfirmOpen: open
   }
 }
