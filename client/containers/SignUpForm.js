@@ -83,7 +83,7 @@ class SignUpForm extends Component {
     const { handleSubmit, submitting, pristine } = this.props;
     return (
       <div className="formWrapper">
-        <div className="bgIcon">61</div>
+        <div className="bgIcon"></div>
         <form className="signForm" onSubmit={handleSubmit(this.onSubmit)}>
           <div className="signWrapper">
             <div>

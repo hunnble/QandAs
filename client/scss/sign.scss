@@ -1,7 +1,7 @@
 @import 'base';
 
 .formWrapper {
-  @include wrapper(70%, 22rem);
+  @include wrapper(70%, 32rem);
 }
 .signForm {
   background-color: $white;
@@ -13,12 +13,24 @@
   margin: 0.8rem;
 }
 .bgIcon {
+  margin: 0 auto;
+  padding-bottom: 20%;
+  width: 80%;
+  height: 0;
   font-size: 2rem;
   color: $white;
+  background-image: url('../images/title.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50% 0;
 }
 
 @media only all and (max-width: 640px) {
+  .formWrapper {
+    @include wrapper(70%, 27rem);
+  }
   .signForm {
+    padding: 0;
     width: 100%;
   }
 }
