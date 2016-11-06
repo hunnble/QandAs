@@ -28,6 +28,7 @@ export const START_SUBMIT_ANSWER = 'startSubmitAnswer';
 export const FINISH_SUBMIT_ANSWER = 'finishSubmitAnswer';
 export const START_PUBLISH_PAPER = 'startPublishPaper';
 export const FINISH_PUBLISH_PAPER = 'finishPublishPaper';
+export const CHANGE_PROFILE_TAB_OPEN = 'changeProfileTabOpen';
 export const CHANGE_PROFILE_TAB_INDEX = 'changeProfileTabIndex';
 export const CHANGE_SEARCHED_PAPER_PAGE = 'changeSearchedPaperPage';
 export const CHANGE_PUBLISHED_PAGE = 'changePublishedPage';
@@ -463,6 +464,13 @@ export function changeProfileTabIndex (index) {
   return {
     type: CHANGE_PROFILE_TAB_INDEX,
     index: index
+  }
+}
+
+export function changeProfileTabOpen (isOpen) {
+  return {
+    type: CHANGE_PROFILE_TAB_OPEN,
+    isOpen: isOpen
   }
 }
 

@@ -8,17 +8,18 @@ import { Field } from 'redux-form';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
-import AppBar from 'material-ui/AppBar';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import SocialPerson from 'material-ui/svg-icons/social/person';
-import ActionWork from 'material-ui/svg-icons/action/work';
+import AvLibraryBooks from 'material-ui/svg-icons/av/library-books';
 import ActionLock from 'material-ui/svg-icons/action/lock';
+import ActionSwapHoriz from 'material-ui/svg-icons/action/swap-horiz';
 import { List, ListItem } from 'material-ui/List';
 import { TOKEN_NAME } from '../../configs/config';
 import SwipeableViews from 'react-swipeable-views';
@@ -78,9 +79,9 @@ class Profile extends Component {
   handleChangePaper = (paper) => {
     this.props.actions.changePaper(paper);
   }
-  handleChangeTab = (index) => {
+  handleChangeTabIndex = (index) => {
     this.props.actions.changeIsEditing(false);
-    this.props.actions.changeProfileTabIndex(index);
+    index >= 0 && this.props.actions.changeProfileTabIndex(index);
   }
   renderPapers = (papers, i) => {
     const { user, publishedPage, answeredPage, actions } = this.props;
@@ -134,32 +135,44 @@ class Profile extends Component {
       />
     );
   }
+  handleToggleTabOpen = () => {
+    this.props.actions.changeProfileTabOpen(!this.props.tabOpen);
+  }
   render () {
-    const { user, tabIndex, isEditing, actions, handleSubmit, submitting } = this.props;
+    const { user, tabOpen, tabIndex, isEditing, actions, handleSubmit, submitting } = this.props;
+    const drawerWidth = 56;
+    const drawerIconStyle = {
+      height: 56,
+      width: 56
+    };
+    const drawerSwitcherStyle = {
+      position: 'fixed',
+      right: 4,
+      bottom: 4,
+      zIndex: 2000
+    }
     return (
       <div>
         <Header />
         <div className='profile'>
-
-          <Drawer openSecondary={true} open={true}>
-            <AppBar title='功能' />
+          <IconButton
+            style={drawerSwitcherStyle}
+            onTouchTap={this.handleToggleTabOpen}
+          >
+            <ActionSwapHoriz />
+          </IconButton>
+          <Drawer openSecondary={true} open={tabOpen} width={drawerWidth}>
             <Menu
               value={tabIndex}
               multiple={false}
-              onChange={(e, v) => { this.handleChangeTab(v) }}
+              onChange={(e, v) => { this.handleChangeTabIndex(v) }}
             >
-              <MenuItem leftIcon={<SocialPerson />} value={0}>
-                个人资料
-              </MenuItem>
-              <MenuItem leftIcon={<ActionWork />} value={1}>
-                问卷管理
-              </MenuItem>
-              <MenuItem leftIcon={<ActionLock />} value={2}>
-                密码管理
-              </MenuItem>
+              <MenuItem style={drawerIconStyle} leftIcon={<SocialPerson />} value={0} />
+              <MenuItem style={drawerIconStyle} leftIcon={<AvLibraryBooks />} value={1} />
+              <MenuItem style={drawerIconStyle} leftIcon={<ActionLock />} value={2} />
             </Menu>
           </Drawer>
-          <SwipeableViews disabled={true} index={tabIndex} onChange={this.handleChangeTab}>
+          <SwipeableViews disabled={true} index={tabIndex} onChange={this.handleChangeTabIndex}>
             <div>
               {
                 !isEditing &&
@@ -254,6 +267,7 @@ Profile.PropTypes = {
   user: PropTypes.object,
   papers: PropTypes.array,
   tabIndex: PropTypes.number,
+  tabOpen: PropTypes.boolean,
   isEditing: PropTypes.boolean,
   publishedPage: PropTypes.number,
   answeredPage: PropTypes.number

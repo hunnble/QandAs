@@ -12,6 +12,7 @@ import {
   CHANGE_CALENDAR_VISIBLE,
   CHANGE_KEYWORDS,
   CHANGE_SEARCH_STEP,
+  CHANGE_PROFILE_TAB_OPEN,
   CHANGE_PROFILE_TAB_INDEX,
   CHANGE_SEARCHED_PAPER_PAGE,
   CHANGE_PUBLISHED_PAGE,
@@ -47,6 +48,7 @@ const initialState = {
   },
   keywords: '',
   stepIndex: 0,
+  profileTabOpen: true,
   profileTabIndex: 0,
   searchedPaperPage: 0,
   publishedPage: 0,
@@ -133,6 +135,8 @@ export default function page (state = initialState, action) {
       return Object.assign({}, state, { keywords: action.keywords });
     case CHANGE_SEARCH_STEP:
       return Object.assign({}, state, { stepIndex: action.stepIndex });
+    case CHANGE_PROFILE_TAB_OPEN:
+      return Object.assign({}, state, { profileTabOpen: action.isOpen });
     case CHANGE_PROFILE_TAB_INDEX:
       return Object.assign({}, state, { profileTabIndex: action.index });
     case CHANGE_SEARCHED_PAPER_PAGE:

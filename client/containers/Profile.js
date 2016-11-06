@@ -7,6 +7,7 @@ import {
   changePaper,
   publishedPage,
   answeredPage,
+  changeProfileTabOpen,
   changeProfileTabIndex,
   changePublishedPage,
   changeAnsweredPage,
@@ -39,6 +40,7 @@ function mapStateToProps (state) {
   return {
     user: state.user,
     papers: state.papers,
+    tabOpen: state.page.profileTabOpen,
     tabIndex: state.page.profileTabIndex,
     isEditing: state.page.isEditing,
     publishedPage: state.page.publishedPage,
@@ -51,6 +53,7 @@ function mapDispatchToProps (dispatch) {
     actions: bindActionCreators({
       updateUserInfo,
       changePaper,
+      changeProfileTabOpen,
       changeProfileTabIndex,
       changePublishedPage,
       changeAnsweredPage,
