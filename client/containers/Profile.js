@@ -9,7 +9,8 @@ import {
   answeredPage,
   changeProfileTabIndex,
   changePublishedPage,
-  changeAnsweredPage
+  changeAnsweredPage,
+  changeIsEditing
 } from '../actions';
 
 const validate = (values) => {
@@ -39,6 +40,7 @@ function mapStateToProps (state) {
     user: state.user,
     papers: state.papers,
     tabIndex: state.page.profileTabIndex,
+    isEditing: state.page.isEditing,
     publishedPage: state.page.publishedPage,
     answeredPage: state.page.answeredPage
   };
@@ -51,7 +53,8 @@ function mapDispatchToProps (dispatch) {
       changePaper,
       changeProfileTabIndex,
       changePublishedPage,
-      changeAnsweredPage
+      changeAnsweredPage,
+      changeIsEditing
     }, dispatch)
   };
 }

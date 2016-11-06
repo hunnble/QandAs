@@ -1,4 +1,4 @@
-$lightBlue50: #E1F5FE;
+$bgColor: #EEEEEE;
 $blue500: #2196F3;
 $amber700: #FFA000;
 $white: #FFFFFF;
@@ -47,7 +47,7 @@ $btnHeight: 36px;
 body {
   margin: 0;
   padding: 0;
-  background-color: $lightBlue50;
+  background-color: $bgColor;
   font-size: 16px;
   font-family: Roboto, Helvetica, Tahoma, 'Microsoft YaHei', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -67,4 +67,32 @@ a {
   display: inline-block;
   width: 100%;
   height: 100%;
+}
+.bgIcon {
+  margin: 0 auto;
+  padding-bottom: 10%;
+  width: 80%;
+  height: 0;
+  font-size: 2rem;
+  color: $white;
+  background-image: url('../images/title.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50% 0;
+}
+
+@media only all and (min-width: 1280px) {
+  .bgIcon {
+    padding-bottom: 10%;
+  }
+}
+@media only all and (max-width: 900px) {
+  .bgIcon {
+    padding-bottom: 15%;
+  }
+}
+@media only all and (max-width: 640px) {
+  .bgIcon {
+    padding-bottom: 20%;
+  }
 }

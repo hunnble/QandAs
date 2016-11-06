@@ -6,6 +6,8 @@ import Page from './Page.jsx';
 import RaisedButton from 'material-ui/RaisedButton';
 import Subheader from 'material-ui/Subheader';
 import Paper from 'material-ui/Paper';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentUndo from 'material-ui/svg-icons/content/undo';
 
 class HomePage extends Component {
   handleCloseSearchResults = () => {
@@ -42,11 +44,11 @@ class HomePage extends Component {
       <div>
         <div className='fullPage-1'></div>
         <div className='homePageWrapper'>
-          <h1 className='homePageTitle'>Q&A</h1>
+          <div className='bgIcon'></div>
           <Link to='/papers/create'>
             <RaisedButton
               className='homePageBtn'
-              label='新建问卷'
+              label='创建问卷'
             />
           </Link>
           <RaisedButton className='homePageBtn' label='查找问卷' />
@@ -67,12 +69,12 @@ class HomePage extends Component {
             stepIndex === 1 &&
             <div>
               <div className='homePageBackBtnWrapper'>
-                <RaisedButton
+                <FloatingActionButton
                   className='homePageBackBtn fr'
-                  primary={true}
-                  label='返回'
                   onTouchTap={this.handleCloseSearchResults}
-                />
+                >
+                  <ContentUndo />
+                </FloatingActionButton>
               </div>
               <div>
                 <Page

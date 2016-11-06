@@ -5,6 +5,15 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import {
+  blue500,
+  blue400,
+  grey400,
+  amber700,
+  grey100,
+  grey500
+} from 'material-ui/styles/colors';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import fetch from 'isomorphic-fetch';
 import injectTapEventPlugin from "react-tap-event-plugin";
 import configureStore from './store';
@@ -21,6 +30,16 @@ import { TOKEN_NAME } from '../configs/config';
 const renderTarget = document.getElementById('App');
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: blue500,
+    primary2Color: blue400,
+    primary3Color: grey400,
+    accent1Color: amber700,
+    accent2Color: grey100,
+    accent3Color: grey500
+  }
+});
 
 injectTapEventPlugin();
 
@@ -34,7 +53,7 @@ function handleEnter (replace) {
 }
 
 render(
-  <MuiThemeProvider>
+  <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
       <Router history={history}>
         <Route path='/' component={App}>

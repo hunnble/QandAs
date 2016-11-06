@@ -12,7 +12,13 @@ import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
-import { Tabs, Tab } from 'material-ui/Tabs';
+import Drawer from 'material-ui/Drawer';
+import AppBar from 'material-ui/AppBar';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
+import SocialPerson from 'material-ui/svg-icons/social/person';
+import ActionWork from 'material-ui/svg-icons/action/work';
+import ActionLock from 'material-ui/svg-icons/action/lock';
 import { List, ListItem } from 'material-ui/List';
 import { TOKEN_NAME } from '../../configs/config';
 import SwipeableViews from 'react-swipeable-views';
@@ -66,12 +72,14 @@ class Profile extends Component {
   }
   onSubmit = (data) => {
     data.token = window.localStorage.getItem(TOKEN_NAME);
+    this.props.actions.changeIsEditing(false);
     this.props.actions.updateUserInfo(data);
   }
   handleChangePaper = (paper) => {
     this.props.actions.changePaper(paper);
   }
   handleChangeTab = (index) => {
+    this.props.actions.changeIsEditing(false);
     this.props.actions.changeProfileTabIndex(index);
   }
   renderPapers = (papers, i) => {
@@ -127,67 +135,93 @@ class Profile extends Component {
     );
   }
   render () {
-    const { user, tabIndex, actions, handleSubmit, submitting } = this.props;
+    const { user, tabIndex, isEditing, actions, handleSubmit, submitting } = this.props;
     return (
       <div>
         <Header />
         <div className='profile'>
-          <Tabs value={tabIndex} onChange={this.handleChangeTab}>
-            <Tab label='个人资料' value={0} />
-            <Tab label='我的问卷' value={1} />
-            <Tab label='安全' value={2} />
-          </Tabs>
-          <SwipeableViews index={tabIndex} onChange={this.handleChangeTab}>
+
+          <Drawer openSecondary={true} open={true}>
+            <AppBar title='功能' />
+            <Menu
+              value={tabIndex}
+              multiple={false}
+              onChange={(e, v) => { this.handleChangeTab(v) }}
+            >
+              <MenuItem leftIcon={<SocialPerson />} value={0}>
+                个人资料
+              </MenuItem>
+              <MenuItem leftIcon={<ActionWork />} value={1}>
+                问卷管理
+              </MenuItem>
+              <MenuItem leftIcon={<ActionLock />} value={2}>
+                密码管理
+              </MenuItem>
+            </Menu>
+          </Drawer>
+          <SwipeableViews disabled={true} index={tabIndex} onChange={this.handleChangeTab}>
             <div>
-              <form className='profileForm' onSubmit={handleSubmit(this.onSubmit)}>
-                <h2 className='account'>{user.account}</h2>
-                <div className='profileWrapper'>
-                  <Field
-                    type='text'
-                    name='nickname'
-                    long={false}
-                    hint={user.nickname}
-                    component={renderInput}
-                  />
-                  <Field
-                    type='email'
-                    name='mail'
-                    long={false}
-                    hint={user.mail}
-                    component={renderInput}
-                  />
-                  <Field
-                    type='text'
-                    name='info'
-                    hint={user.info}
-                    multiLine={true}
-                    long={true}
-                    fullWidth={true}
-                    component={renderInput}
-                  />
-                  <Field
-                    type='password'
-                    name='curPassword'
-                    long={true}
-                    component={renderInput}
-                  />
-                  <Field
-                    type='password'
-                    name='password'
-                    long={false}
-                    component={renderInput}
-                  />
-                  <Field
-                    type='password'
-                    name='password2'
-                    long={false}
-                    component={renderInput}
-                  />
-                  <div className='profileBtnWrapper fr'>
-                    <RaisedButton type='submit' label='确认修改' disabled={submitting} />
+              {
+                !isEditing &&
+                <RaisedButton
+                  label='编辑'
+                  onTouchTap={() => {
+                    actions.changeIsEditing(true);
+                  }}
+                />
+              }
+              {
+                isEditing &&
+                <form className='profileForm' onSubmit={handleSubmit(this.onSubmit)}>
+                  <h2 className='account'>{user.account}</h2>
+                  <div className='profileWrapper'>
+                    <Field
+                      type='text'
+                      name='nickname'
+                      long={false}
+                      hint={user.nickname}
+                      component={renderInput}
+                    />
+                    <Field
+                      type='email'
+                      name='mail'
+                      long={false}
+                      hint={user.mail}
+                      component={renderInput}
+                    />
+                    <Field
+                      type='text'
+                      name='info'
+                      hint={user.info}
+                      multiLine={true}
+                      long={true}
+                      fullWidth={true}
+                      component={renderInput}
+                    />
+                    <Field
+                      type='password'
+                      name='curPassword'
+                      long={true}
+                      component={renderInput}
+                    />
+                    <Field
+                      type='password'
+                      name='password'
+                      long={false}
+                      component={renderInput}
+                    />
+                    <Field
+                      type='password'
+                      name='password2'
+                      long={false}
+                      component={renderInput}
+                    />
+                    <div className='profileBtnWrapper fr'>
+                      <RaisedButton type='submit' label='确认修改' disabled={submitting} />
+                    </div>
                   </div>
-                </div>
-              </form>
+                </form>
+              }
             </div>
             <div>
               <Paper className='profileList'>
@@ -220,6 +254,7 @@ Profile.PropTypes = {
   user: PropTypes.object,
   papers: PropTypes.array,
   tabIndex: PropTypes.number,
+  isEditing: PropTypes.boolean,
   publishedPage: PropTypes.number,
   answeredPage: PropTypes.number
 };

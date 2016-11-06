@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import '../scss/editor.scss';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import Header from './Header.jsx';
 import Calendar from './Calendar.jsx';
 import Question from './Question.jsx';
@@ -146,8 +146,7 @@ class Editor extends Component {
             onClick={this.handleRemoveAllQuestions}
           />
           <RaisedButton
-            backgroundColor='#2196F3'
-            labelColor='#ffffff'
+            primary={true}
             className='createBtn'
             label='保存'
             onTouchTap={this.handleSubmit}
@@ -158,8 +157,7 @@ class Editor extends Component {
             paper.state === 0 ||
             saved) &&
             <RaisedButton
-              backgroundColor='#2196F3'
-              labelColor='#ffffff'
+              primary={true}
               className='publishButton'
               label='发布'
               onTouchTap={() => {
@@ -167,6 +165,12 @@ class Editor extends Component {
               }}
             />
           }
+          <Link to='/'>
+            <RaisedButton
+              className='createBtn'
+              label='取消'
+            />
+        </Link>
           <Calendar
             calendar={calendar}
             time={time}

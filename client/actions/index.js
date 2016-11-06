@@ -34,6 +34,7 @@ export const CHANGE_PUBLISHED_PAGE = 'changePublishedPage';
 export const CHANGE_ANSWERED_PAGE = 'changeAnsweredPage';
 export const CHANGE_PAPER_SAVED = 'changePaperSaved';
 export const CHANGE_PUBLISH_CONFIRM = 'changePublishConfirm';
+export const CHANGE_ISEDITING = 'changeIsEditing';
 
 export function initialPageState () {
   return (dispatch) => {
@@ -497,5 +498,12 @@ export function changePublishConfirm (open) {
   return {
     type: CHANGE_PUBLISH_CONFIRM,
     publishConfirmOpen: open
+  }
+}
+
+export function changeIsEditing (isEditing) {
+  return {
+    type: CHANGE_ISEDITING,
+    isEditing: isEditing
   }
 }

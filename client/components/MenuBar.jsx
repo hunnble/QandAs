@@ -5,7 +5,13 @@ import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
+import Drawer from 'material-ui/Drawer';
+import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
+import ActionPermIdentity from 'material-ui/svg-icons/action/perm-identity';
+import ActionSettings from 'material-ui/svg-icons/action/settings';
+import ActionPowerSettingsNew from 'material-ui/svg-icons/action/power-settings-new';
 import MenuOpener from './MenuOpener.jsx';
 import Settings from '../containers/Settings';
 
@@ -33,25 +39,23 @@ class MenuBar extends Component {
     return (
       <div>
         <MenuOpener isOpen={isOpen} handleClick={this.handleClick} />
-        <Popover open={isOpen}
-          anchorEl={anchorEl}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-          targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-          onRequestClose={handleMenuClose}
-        >
+        <Drawer open={isOpen} docked={false} onRequestChange={handleMenuClose}>
+          <AppBar title='功能' />
           <Menu onClick={handleMenuClose}>
-            <MenuItem>
+            <MenuItem leftIcon={<ActionHome />}>
               <Link className="insideLink" to={'/'}>主页</Link>
             </MenuItem>
-            <MenuItem>
+            <MenuItem leftIcon={<ActionPermIdentity />}>
               <Link className="insideLink" to={'/profile'}>用户资料</Link>
             </MenuItem>
-            <MenuItem onTouchTap={openSettings}>设置</MenuItem>
-            <MenuItem>
+            <MenuItem leftIcon={<ActionSettings />} onTouchTap={openSettings}>
+              设置
+            </MenuItem>
+            <MenuItem leftIcon={<ActionPowerSettingsNew />}>
               <Link className="insideLink" to={'/signIn'}>退出</Link>
             </MenuItem>
           </Menu>
-        </Popover>
+        </Drawer>
         <Dialog
           open={settingsVisible}
           actions={dialogActions}
