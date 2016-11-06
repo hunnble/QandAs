@@ -142,6 +142,7 @@ class Profile extends Component {
     const { user, tabOpen, tabIndex, isEditing, actions, handleSubmit, submitting } = this.props;
     const drawerWidth = 56;
     const drawerIconStyle = {
+      paddingTop: 16,
       height: 56,
       width: 56
     };
@@ -161,15 +162,26 @@ class Profile extends Component {
           >
             <ActionSwapHoriz />
           </IconButton>
-          <Drawer openSecondary={true} open={tabOpen} width={drawerWidth}>
+          <Drawer
+            openSecondary={true}
+            open={tabOpen}
+            width={drawerWidth}
+          >
             <Menu
               value={tabIndex}
               multiple={false}
+              autoWidth={false}
               onChange={(e, v) => { this.handleChangeTabIndex(v) }}
             >
-              <MenuItem style={drawerIconStyle} leftIcon={<SocialPerson />} value={0} />
-              <MenuItem style={drawerIconStyle} leftIcon={<AvLibraryBooks />} value={1} />
-              <MenuItem style={drawerIconStyle} leftIcon={<ActionLock />} value={2} />
+              <MenuItem style={drawerIconStyle} value={0}>
+                <SocialPerson />
+              </MenuItem>
+              <MenuItem style={drawerIconStyle} value={1}>
+                <AvLibraryBooks />
+              </MenuItem>
+              <MenuItem style={drawerIconStyle} value={2}>
+                <ActionLock />
+              </MenuItem>
             </Menu>
           </Drawer>
           <SwipeableViews disabled={true} index={tabIndex} onChange={this.handleChangeTabIndex}>
