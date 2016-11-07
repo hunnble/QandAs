@@ -6,7 +6,7 @@ let config = require('../../configs/config');
 
 router.get('/', function* (next) {
   yield this.render('index', {
-    title: '用户资料'
+    title: '个人信息'
   });
 });
 

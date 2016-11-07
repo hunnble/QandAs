@@ -3,7 +3,7 @@
 .menu {
   transform: rotate(0);
   transition: 0.5s ease-in-out;
-  margin: 3px 6px;
+  margin: 13px 6px;
   width: 45px;
   height: 30px;
   cursor: pointer;
@@ -14,7 +14,7 @@
     display: block;
     width: 50%;
     height: 6px;
-    background-color: $white;
+    background-color: $black;
   }
   >span:nth-child(odd) {
     left: 0;

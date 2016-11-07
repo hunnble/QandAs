@@ -68,38 +68,34 @@ class HomePage extends Component {
           {
             stepIndex === 1 &&
             <div>
-              <div className='homePageBackBtnWrapper'>
-                <FloatingActionButton
-                  className='homePageBackBtn fr'
-                  onTouchTap={this.handleCloseSearchResults}
-                >
-                  <ContentUndo />
-                </FloatingActionButton>
-              </div>
-              <div>
-                <Page
-                  page={searchedPaperPage}
-                  perPage={6}
-                  items={papers}
-                  pageItemsClassName='homePagePapers'
-                  pageBarClassName='homePagePageBar'
-                  pageClassName='homePagePageNum'
-                  renderItem={(item, index) => {
-                    return (
-                      <Paper className='paper' key={'paper' + index}>
-                        <h3>{item.title}</h3>
-                        <Subheader>发布者: {item.creator}</Subheader>
-                        <Link to='/papers/paper'>
-                          <RaisedButton onTouchTap={() => {
-                            this.handleClickPaper(index)
-                          }} label='填写问卷' />
-                        </Link>
-                      </Paper>
-                    );
-                  }}
-                  changePage={changePage}
-                />
-              </div>
+              <FloatingActionButton
+                className='homePageBackBtn'
+                onTouchTap={this.handleCloseSearchResults}
+              >
+                <ContentUndo />
+              </FloatingActionButton>
+              <Page
+                page={searchedPaperPage}
+                perPage={6}
+                items={papers}
+                pageItemsClassName='homePagePapers'
+                pageBarClassName='homePagePageBar'
+                pageClassName='homePagePageNum'
+                renderItem={(item, index) => {
+                  return (
+                    <Paper className='paper' key={'paper' + index}>
+                      <h3>{item.title}</h3>
+                      <Subheader>发布者: {item.creator}</Subheader>
+                      <Link to='/papers/paper'>
+                        <RaisedButton onTouchTap={() => {
+                          this.handleClickPaper(index)
+                        }} label='填写问卷' />
+                      </Link>
+                    </Paper>
+                  );
+                }}
+                changePage={changePage}
+              />
             </div>
           }
         </div>

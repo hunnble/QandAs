@@ -1,5 +1,7 @@
 @import 'base';
 
+$profileItemMaxWidth: 980;
+
 .profile {
   padding-top: $headerHeight;
   .avatar {
@@ -13,20 +15,20 @@
       animation: none;
     }
   }
-  .account {
-    padding: 0.8rem 2rem;
-    color: $blue500;
+  .profileItem {
+    margin: 0 auto 3.75rem;
+    max-width: $profileItemMaxWidth;
   }
   .profileForm {
-    margin: 0 auto 2rem;
+    margin: 0 auto;
     padding: 2rem 0;
     width: 95%;
     background-color: $white;
   }
   .profileText {
-    display: inline-block;
-    margin: 0.8rem 5%;
-    width: 40%;
+    // display: inline-block;
+    margin-top: 0.8rem;
+    padding-left: 30%;
   }
   .profileTextLong {
     width: 90%;
@@ -85,11 +87,26 @@
 @media only all and (max-width: 1024px) {
   .profile {
     .profileList {
-      margin: 5%;
-      width: 90%;
+      margin: 5% 0;
+      width: 100%;
     }
     .profileText {
       width: 90%;
+      padding-left: 10%;
+    }
+  }
+}
+
+@media only all and (max-width: 640px) {
+  label {
+    display: block;
+  }
+  .profile {
+    .profileForm {
+      width: 100%;
+    }
+    .profileText {
+      padding-left: 0.4rem;
     }
   }
 }

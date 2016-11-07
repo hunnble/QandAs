@@ -11,6 +11,7 @@ import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
+import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
@@ -52,7 +53,7 @@ const renderInput = ({
     multiLine = false;
   }
   return (
-    <span className={long ? 'profileText profileTextLong' : 'profileText'}>
+    <div className={long ? 'profileText profileTextLong' : 'profileText'}>
       <label htmlFor={name}>{labelMap.get(name) + ': '}</label>
       <TextField
         type={type}
@@ -63,7 +64,7 @@ const renderInput = ({
         fullWidth={fullWidth || false}
         errorText={touched && error}{...error}
       />
-    </span>
+    </div>
   );
 };
 
@@ -151,41 +152,75 @@ class Profile extends Component {
       right: 4,
       bottom: 4,
       zIndex: 2000
-    }
+    };
+    const bottomNavigationStyle = {
+      position: 'fixed',
+      bottom: '0',
+      zIndex: 2000
+    };
     return (
       <div>
         <Header />
         <div className='profile'>
-          <IconButton
-            style={drawerSwitcherStyle}
-            onTouchTap={this.handleToggleTabOpen}
-          >
-            <ActionSwapHoriz />
-          </IconButton>
-          <Drawer
-            openSecondary={true}
-            open={tabOpen}
-            width={drawerWidth}
-          >
-            <Menu
-              value={tabIndex}
-              multiple={false}
-              autoWidth={false}
-              onChange={(e, v) => { this.handleChangeTabIndex(v) }}
+          {/*
+
+            <IconButton
+              style={drawerSwitcherStyle}
+              onTouchTap={this.handleToggleTabOpen}
             >
-              <MenuItem style={drawerIconStyle} value={0}>
-                <SocialPerson />
-              </MenuItem>
-              <MenuItem style={drawerIconStyle} value={1}>
-                <AvLibraryBooks />
-              </MenuItem>
-              <MenuItem style={drawerIconStyle} value={2}>
-                <ActionLock />
-              </MenuItem>
-            </Menu>
-          </Drawer>
-          <SwipeableViews disabled={true} index={tabIndex} onChange={this.handleChangeTabIndex}>
-            <div>
+              <ActionSwapHoriz />
+            </IconButton>
+            <Drawer
+              openSecondary={true}
+              open={tabOpen}
+              width={drawerWidth}
+            >
+              <Menu
+                value={tabIndex}
+                multiple={false}
+                autoWidth={false}
+                onChange={(e, v) => { this.handleChangeTabIndex(v) }}
+              >
+                <MenuItem style={drawerIconStyle} value={0}>
+                  <SocialPerson />
+                </MenuItem>
+                <MenuItem style={drawerIconStyle} value={1}>
+                  <AvLibraryBooks />
+                </MenuItem>
+                <MenuItem style={drawerIconStyle} value={2}>
+                  <ActionLock />
+                </MenuItem>
+              </Menu>
+            </Drawer>
+
+          */}
+          <BottomNavigation
+            style={bottomNavigationStyle}
+            selectedIndex={tabIndex}
+          >
+            <BottomNavigationItem
+              label='个人信息'
+              icon={<SocialPerson />}
+              onTouchTap={ () => { this.handleChangeTabIndex(0) }}
+            />
+            <BottomNavigationItem
+              label='问卷管理'
+              icon={<AvLibraryBooks />}
+              onTouchTap={ () => { this.handleChangeTabIndex(1) }}
+            />
+            <BottomNavigationItem
+              label='修改密码'
+              icon={<ActionLock />}
+              onTouchTap={ () => { this.handleChangeTabIndex(2) }}
+            />
+          </BottomNavigation>
+          <SwipeableViews
+            className='profileItem'
+            disabled={true}
+            index={tabIndex}
+            onChange={this.handleChangeTabIndex}
+          >
+            <Paper>
               {
                 !isEditing &&
                 <RaisedButton
@@ -198,7 +233,6 @@ class Profile extends Component {
               {
                 isEditing &&
                 <form className='profileForm' onSubmit={handleSubmit(this.onSubmit)}>
-                  <h2 className='account'>{user.account}</h2>
                   <div className='profileWrapper'>
                     <Field
                       type='text'
@@ -218,26 +252,6 @@ class Profile extends Component {
                       type='text'
                       name='info'
                       hint={user.info}
-                      multiLine={true}
-                      long={true}
-                      fullWidth={true}
-                      component={renderInput}
-                    />
-                    <Field
-                      type='password'
-                      name='curPassword'
-                      long={true}
-                      component={renderInput}
-                    />
-                    <Field
-                      type='password'
-                      name='password'
-                      long={false}
-                      component={renderInput}
-                    />
-                    <Field
-                      type='password'
-                      name='password2'
                       long={false}
                       component={renderInput}
                     />
@@ -247,25 +261,50 @@ class Profile extends Component {
                   </div>
                 </form>
               }
-            </div>
-            <div>
+            </Paper>
+            <Paper>
               <Paper className='profileList'>
                 <List>
-                  <Subheader>我编写的问卷</Subheader>
+                  <Subheader>创建问卷列表</Subheader>
                   <Divider />
                   {this.renderPapers(user.publishedPapers, 0)}
                 </List>
               </Paper>
               <Paper className='profileList'>
                 <List>
-                  <Subheader>我填写的问卷</Subheader>
+                  <Subheader>填写问卷列表</Subheader>
                   <Divider />
                   {this.renderPapers(user.answeredPapers, 1)}
                 </List>
               </Paper>
-            </div>
-            <div>
-            </div>
+            </Paper>
+            <Paper>
+              <form className='profileForm' onSubmit={handleSubmit(this.onSubmit)}>
+                <div className='profileWrapper'>
+                  <Field
+                    type='password'
+                    name='curPassword'
+                    long={false}
+                    component={renderInput}
+                  />
+                  <Field
+                    type='password'
+                    name='password'
+                    long={false}
+                    component={renderInput}
+                  />
+                  <Field
+                    type='password'
+                    name='password2'
+                    long={false}
+                    component={renderInput}
+                  />
+                  <div className='profileBtnWrapper fr'>
+                    <RaisedButton type='submit' label='修改' disabled={submitting} />
+                  </div>
+                </div>
+              </form>
+            </Paper>
           </SwipeableViews>
         </div>
         <ErrMsg />

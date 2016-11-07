@@ -24,14 +24,12 @@
   background-color: $bgColor;
   z-index: 50;
 }
-.homePageBackBtnWrapper {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  z-index: 50;
-}
 .homePageBackBtn {
+  position: fixed;
+  right: 0.4rem;
+  bottom: 0.4rem;
   margin: 0.35rem;
+  z-index: 50;
 }
 .homePagePapers {
   top: $headerHeight - $btnHeight;
@@ -78,9 +76,6 @@
   .paper {
     padding: 0.6rem;
     width: per(94 / 2);
-  }
-  .homePageBackBtnWrapper {
-    background-color: $white;
   }
 }
 /*640px X 480px*/

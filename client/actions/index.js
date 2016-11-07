@@ -172,13 +172,13 @@ export function updateUserInfo (data) {
     })
     .then((res) => {
       if (res.success) {
-        res.errMsg = '更改信息成功';
+        res.errMsg = '更改成功';
       }
       dispatch(changeErrMsg(res.errMsg));
       dispatch(finishUpdateUserInfo(res));
     })
     .catch((err) => {
-      dispatch(changeErrMsg('更改信息失败'));
+      dispatch(changeErrMsg('更改失败'));
       dispatch(finishUpdateUserInfo({ success: false }));
     })
   };

@@ -34,11 +34,6 @@ $calendarWidth: 11.375rem;
   font-size: 1rem;
 }
 .calendarRow {
-  border-bottom: 0.25rem solid $blue500;
-  height: 1.5rem;
-  line-height: 1.5rem;
-  background-color: $blue500;
-  color: $white;
   >span {
     margin: 0 per(10 / 6);
   }
@@ -67,16 +62,18 @@ $calendarWidth: 11.375rem;
   }
 }
 .controlRow {
+  height: 3rem;
   >span {
     display: inline-block;
     margin: 0 per(10 / 6);
     width: 30%;
     text-align: center;
+    vertical-align: middle;
     cursor: pointer;
   }
-  >span:first-child:hover,
-  >span:last-child:hover {
-    color: darken($blue500, 30%);
+  >span:nth-child(2) {
+    height: 3rem;
+    line-height: 3rem;
   }
 }
 .day {

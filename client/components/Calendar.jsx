@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
+import IconButton from 'material-ui/IconButton';
+import HardwareKeyboardArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
+import HardwareKeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 
 const today = new Date();
 const year = today.getFullYear();
@@ -93,6 +96,9 @@ class Calendar extends Component {
       [3, 'rd']
     ]);
     const formatDate = time.date + '' + (dateMap.has(time.date % 10) ? dateMap.get(time.date % 10) : 'th');
+    const iconButtonStyle = {
+      padding: 0
+    };
     return (
       <div className='calendar'>
         <p className='calendarTitle'>{title}</p>
@@ -104,7 +110,7 @@ class Calendar extends Component {
         <RaisedButton
           className='createBtn'
           label='更改'
-          onTouchTap={this.onToggleVisible}
+          onClick={this.onToggleVisible}
         />
         <Dialog
           open={time.visible}
@@ -123,14 +129,34 @@ class Calendar extends Component {
         >
           <div className='calendarDialog'>
             <div className='calendarRow controlRow'>
-              <span onClick={this.decreaseYear}>-</span>
-              <span>{calendar.year}年</span>
-              <span onClick={this.increaseYear}>+</span>
+              <span>
+                <IconButton onTouchTap={this.decreaseYear}>
+                  <HardwareKeyboardArrowLeft />
+                </IconButton>
+              </span>
+              <span>
+                {calendar.year}年
+              </span>
+              <span>
+                <IconButton onTouchTap={this.increaseYear}>
+                  <HardwareKeyboardArrowRight />
+                </IconButton>
+              </span>
             </div>
             <div className='calendarRow controlRow'>
-              <span onClick={this.decreaseMonth}>-</span>
-              <span>{calendar.month}月</span>
-              <span onClick={this.increaseMonth}>+</span>
+              <span>
+                <IconButton onTouchTap={this.decreaseMonth}>
+                  <HardwareKeyboardArrowLeft />
+                </IconButton>
+              </span>
+              <span>
+                {calendar.month}月
+              </span>
+              <span>
+                <IconButton onTouchTap={this.increaseMonth}>
+                  <HardwareKeyboardArrowRight />
+                </IconButton>
+              </span>
             </div>
             <div>{weekdays}</div>
             <div className='daysWrapper'>{days}</div>
