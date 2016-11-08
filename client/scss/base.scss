@@ -9,6 +9,7 @@ $red900: #B71C1C;
 $greenA400: #00E676;
 $headerHeight: 82px;
 $btnHeight: 36px;
+$profileItemMaxWidth: 980px;
 
 @function per($value) {
   @return $value+%;

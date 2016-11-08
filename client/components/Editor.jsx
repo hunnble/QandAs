@@ -5,7 +5,9 @@ import Header from './Header.jsx';
 import Calendar from './Calendar.jsx';
 import Question from './Question.jsx';
 import ErrMsg from '../containers/ErrMsg';
+import Divider from 'material-ui/Divider';
 import Dialog from 'material-ui/Dialog';
+import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -128,10 +130,10 @@ class Editor extends Component {
     return (
       <div>
         <Header />
-        <div className='create'>
+        <Paper className='create'>
           <TextField
             style={{ display: 'block' }}
-            floatingLabelText='问卷名称'
+            floatingLabelText='问卷标题'
             value={title}
             onChange={this.handleChangeTitle}
           />
@@ -170,7 +172,7 @@ class Editor extends Component {
               className='createBtn'
               label='取消'
             />
-        </Link>
+          </Link>
           <Calendar
             calendar={calendar}
             time={time}
@@ -181,7 +183,7 @@ class Editor extends Component {
           />
           {qs}
           <Dialog
-            title='问卷发布后不可修改或撤回, 确认发布?'
+            title='确认发布?'
             actions={[
               <FlatButton
                 label='确认'
@@ -202,7 +204,7 @@ class Editor extends Component {
             modal={true}
             open={publishConfirmOpen}
           />
-        </div>
+        </Paper>
         <ErrMsg />
       </div>
     );

@@ -1,9 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import { Card, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import IconButton from 'material-ui/IconButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import ContentClear from 'material-ui/svg-icons/content/clear';
 
 class Question extends Component {
   handleRemoveQuestion = () => {
@@ -52,7 +57,7 @@ class Question extends Component {
   }
   render () {
     const { type, content, items, answer, index } = this.props;
-    const typeTitle = new Map([[1, '单选'], [2, '多选'], [3, '主观']]);
+    const typeTitle = new Map([[1, '单选'], [2, '多选'], [3, '问答']]);
     const options = [1, 2, 3].map((optionType, index) => {
       return (
         <MenuItem
@@ -64,16 +69,15 @@ class Question extends Component {
     });
     let createBtn = '';
     if (type !== 3) {
-      createBtn = <RaisedButton className='createBtn' label='新增选项' onClick={this.handleAddOption} />;
+      createBtn = <IconButton tooltip='新增选项' touch={true} onTouchTap={
+                    this.handleAddOption
+                  }>
+                    <ContentAdd />
+                  </IconButton>
     }
     const questionItems = items.map((item, index) => {
       return (
         <div key={'item' + index}>
-          <RaisedButton
-            className='createBtn'
-            label='删除本选项'
-            onClick={this.handleRemoveOption.bind(this, index)}
-          />
           <TextField
             style={{
               marginLeft: '16px',
@@ -81,37 +85,57 @@ class Question extends Component {
             }}
             hintText='请写选项'
             value={item}
-            underlineShow={false}
             multiLine={type === 3}
             onChange={(event) => {
               event.preventDefault();
               this.handleChangeItems(event, index);
             }}
           />
+          <IconButton tooltip='删除选项' touch={true} onTouchTap={
+            this.handleRemoveOption.bind(this, index)
+          }>
+            <ContentClear />
+          </IconButton>
         </div>
       );
     });
     let questionBar;
     return (
-      <Paper className='question'>
-        <h3 className='questionTitle'>第{index + 1}题</h3>
-        <SelectField style={{ float: 'right' }} value={type} onChange={this.handleChangeType}>
-          {options}
-        </SelectField>
-        {createBtn}
-        <RaisedButton className='createBtn' label='删除本题' onClick={this.handleRemoveQuestion} />
-        <TextField
-          value={content}
-          hintText='请把问题写到这里'
-          multiLine={true}
-          fullWidth={true}
-          onChange={(event) => {
-            event.preventDefault();
-            this.handleChangeContent(event);
-          }}
+      <Card className='question'>
+        <CardTitle  />
+        <CardHeader
+          title={'第'+(index+1)+'题'}
+          children={
+            <div style={{ float: 'right' }}>
+              {createBtn}
+              <IconButton tooltip='删除' touch={true} onTouchTap={
+                this.handleRemoveQuestion
+              }>
+                <ContentClear />
+              </IconButton>
+              <SelectField style={{ width: 96 }} value={type} onChange={
+                  this.handleChangeType
+              }>
+                {options}
+              </SelectField>
+            </div>
+          }
         />
-        {questionItems}
-      </Paper>
+        <CardText>
+          <TextField
+            value={content}
+            hintText='题目'
+            style={{
+              width: '70%'
+            }}
+            onChange={(event) => {
+              event.preventDefault();
+              this.handleChangeContent(event);
+            }}
+          />
+          {questionItems}
+        </CardText>
+      </Card>
     );
   }
 }
