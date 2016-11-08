@@ -16,6 +16,7 @@ export const CHANGE_QUESTION_TITLE = 'changeQuestionTitle';
 export const CREATE_QUESTION = 'createQuestion';
 export const EDIT_QUESTION = 'editQuestion';
 export const REMOVE_QUESTION = 'removeQuestion';
+export const CHANGE_QUESTION_INDEX = 'changeQuestionIndex';
 export const START_CREATE_PAPER = 'startCreatePaper';
 export const FINISH_CREATE_PAPER = 'finishCreatePaper';
 export const CHANGE_KEYWORDS = 'changeKeywords';
@@ -254,6 +255,14 @@ export function removeQuestion (removeAll, index) {
     type: REMOVE_QUESTION,
     removeAll: removeAll,
     index: index
+  };
+}
+
+export function changeQuestionIndex (lastIndex, newIndex) {
+  return {
+    type: CHANGE_QUESTION_INDEX,
+    lastIndex: lastIndex,
+    newIndex: newIndex
   };
 }
 

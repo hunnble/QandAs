@@ -5,14 +5,23 @@ import { Card, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
 import IconButton from 'material-ui/IconButton';
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ContentClear from 'material-ui/svg-icons/content/clear';
+import HardwareKeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
+import HardwareKeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
+import { red500 } from 'material-ui/styles/colors';
 
 class Question extends Component {
   handleRemoveQuestion = () => {
     this.props.removeQuestion(false, this.props.index);
+  }
+  handleUpperQuestion = (i) => {
+    this.props.changeQuestionIndex(i, i + 1);
+  }
+  handleLowerQuestion = (i) => {
+    this.props.changeQuestionIndex(i, i - 1);
   }
   handleAddOption = () => {
     let items = this.props.items.concat();
@@ -56,7 +65,7 @@ class Question extends Component {
     }, this.props.index);
   }
   render () {
-    const { type, content, items, answer, index } = this.props;
+    const { type, content, items, answer, index, questionsLen } = this.props;
     const typeTitle = new Map([[1, '单选'], [2, '多选'], [3, '问答']]);
     const options = [1, 2, 3].map((optionType, index) => {
       return (
@@ -69,9 +78,7 @@ class Question extends Component {
     });
     let createBtn = '';
     if (type !== 3) {
-      createBtn = <IconButton tooltip='新增选项' touch={true} onTouchTap={
-                    this.handleAddOption
-                  }>
+      createBtn = <IconButton onTouchTap={this.handleAddOption}>
                     <ContentAdd />
                   </IconButton>
     }
@@ -80,10 +87,10 @@ class Question extends Component {
         <div key={'item' + index}>
           <TextField
             style={{
-              marginLeft: '16px',
-              width: '50%'
+              width: '50%',
+              minWidth: 170
             }}
-            hintText='请写选项'
+            hintText='选项'
             value={item}
             multiLine={type === 3}
             onChange={(event) => {
@@ -94,7 +101,7 @@ class Question extends Component {
           <IconButton tooltip='删除选项' touch={true} onTouchTap={
             this.handleRemoveOption.bind(this, index)
           }>
-            <ContentClear />
+            <ContentClear mini={true} />
           </IconButton>
         </div>
       );
@@ -102,31 +109,49 @@ class Question extends Component {
     let questionBar;
     return (
       <Card className='question'>
-        <CardTitle  />
-        <CardHeader
-          title={'第'+(index+1)+'题'}
-          children={
-            <div style={{ float: 'right' }}>
-              {createBtn}
-              <IconButton tooltip='删除' touch={true} onTouchTap={
-                this.handleRemoveQuestion
-              }>
-                <ContentClear />
-              </IconButton>
-              <SelectField style={{ width: 96 }} value={type} onChange={
-                  this.handleChangeType
-              }>
+        <CardHeader children={
+          <Toolbar style={{ backgroundColor: 'transparent' }} noGutter={true}>
+            <ToolbarGroup>
+              <SelectField
+                style={{ width: 72 }}
+                value={type}
+                onChange={this.handleChangeType}
+              >
                 {options}
               </SelectField>
-            </div>
-          }
-        />
+            </ToolbarGroup>
+            <ToolbarGroup>
+              {createBtn}
+              <IconButton onTouchTap={this.handleRemoveQuestion}>
+                <ContentClear />
+              </IconButton>
+              {
+                index > 0 &&
+                <IconButton onTouchTap={() => {
+                  this.handleLowerQuestion(index);
+                }}>
+                  <HardwareKeyboardArrowUp />
+                </IconButton>
+              }
+              {
+                index < questionsLen - 1 &&
+                <IconButton onTouchTap={() => {
+                  this.handleUpperQuestion(index);
+                }}>
+                  <HardwareKeyboardArrowDown />
+                </IconButton>
+              }
+            </ToolbarGroup>
+          </Toolbar>
+        }
+      />
         <CardText>
           <TextField
             value={content}
             hintText='题目'
             style={{
-              width: '70%'
+              width: '50%',
+              minWidth: 200
             }}
             onChange={(event) => {
               event.preventDefault();
@@ -145,8 +170,10 @@ Question.PropTypes = {
   type: PropTypes.number,
   content: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.string),
+  questionsLen: PropTypes.number,
   editQuestion: PropTypes.func,
-  removeQuestion: PropTypes.func
+  removeQuestion: PropTypes.func,
+  changeQuestionIndex: PropTypes.func
 };
 
 export default Question;

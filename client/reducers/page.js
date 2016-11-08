@@ -8,6 +8,7 @@ import {
   CREATE_QUESTION,
   EDIT_QUESTION,
   REMOVE_QUESTION,
+  CHANGE_QUESTION_INDEX,
   CHANGE_CALENDAR,
   CHANGE_CALENDAR_VISIBLE,
   CHANGE_KEYWORDS,
@@ -104,6 +105,11 @@ export default function page (state = initialState, action) {
         removedQuestions.splice(action.index, 1);
       }
       return Object.assign({}, state, { questions: removedQuestions });
+    case CHANGE_QUESTION_INDEX:
+      let questions = state.questions.concat();
+      let tmp = questions.splice(action.lastIndex, 1)[0];
+      questions.splice(action.newIndex, 0, tmp);
+      return Object.assign({}, state, { questions: questions });
     case SET_CALENDAR:
       let date = new Date(action.year, action.month - 1);
       let firstDay = date.getDay();

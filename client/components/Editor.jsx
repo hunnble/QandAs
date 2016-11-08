@@ -122,8 +122,10 @@ class Editor extends Component {
           type={q.type}
           content={q.content}
           items={q.items}
+          questionsLen={questions.length}
           editQuestion={actions.editQuestion}
           removeQuestion={actions.removeQuestion}
+          changeQuestionIndex={actions.changeQuestionIndex}
         />
       );
     });
