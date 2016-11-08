@@ -18,7 +18,8 @@ $calendarWidth: 11.375rem;
   padding: 1rem;
 }
 .calendar {
-  width: $calendarWidth + 7rem;
+  display: inline-block;
+  // width: $calendarWidth + 7rem;
   .calendarTitle {
     float: left;
     margin: 0 1rem 0 0.8rem;
@@ -43,24 +44,24 @@ $calendarWidth: 11.375rem;
   overflow: hidden;
   padding: 0.25rem;
   height: auto;
-  >span {
-    display: block;
-    color: $blue500;
-  }
-  >span:first-child {
-    float: left;
-    font-size: 3rem;
-    line-height: 3rem;
-  }
-  >span:nth-child(2) {
-    padding-top: 0.625rem;
-    font-size: 1.25rem;
-    line-height: 1.25rem;
-  }
-  >span:last-child {
-    font-size: 0.875rem;
-    line-height: 0.875rem;
-  }
+  // >span {
+  //   display: block;
+  //   color: $blue500;
+  // }
+  // >span:first-child {
+  //   float: left;
+  //   font-size: 3rem;
+  //   line-height: 3rem;
+  // }
+  // >span:nth-child(2) {
+  //   padding-top: 0.625rem;
+  //   font-size: 1.25rem;
+  //   line-height: 1.25rem;
+  // }
+  // >span:last-child {
+  //   font-size: 0.875rem;
+  //   line-height: 0.875rem;
+  // }
 }
 .controlRow {
   height: 3rem;

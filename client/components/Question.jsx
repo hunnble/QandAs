@@ -7,11 +7,12 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import ContentAdd from 'material-ui/svg-icons/content/add';
-import ContentClear from 'material-ui/svg-icons/content/clear';
+import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
+import ContentBackspace from 'material-ui/svg-icons/content/backspace';
+import NavigationCancel from 'material-ui/svg-icons/navigation/cancel';
 import HardwareKeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import HardwareKeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
-import { red500 } from 'material-ui/styles/colors';
+import { blue500, red500 } from 'material-ui/styles/colors';
 
 class Question extends Component {
   handleRemoveQuestion = () => {
@@ -76,12 +77,6 @@ class Question extends Component {
         />
       );
     });
-    let createBtn = '';
-    if (type !== 3) {
-      createBtn = <IconButton onTouchTap={this.handleAddOption}>
-                    <ContentAdd />
-                  </IconButton>
-    }
     const questionItems = items.map((item, index) => {
       return (
         <div key={'item' + index}>
@@ -90,7 +85,7 @@ class Question extends Component {
               width: '50%',
               minWidth: 170
             }}
-            hintText='选项'
+            floatingLabelText='选项'
             value={item}
             multiLine={type === 3}
             onChange={(event) => {
@@ -98,10 +93,10 @@ class Question extends Component {
               this.handleChangeItems(event, index);
             }}
           />
-          <IconButton tooltip='删除选项' touch={true} onTouchTap={
+          <IconButton tooltip='删除选项' tooltipPosition='top-right' onTouchTap={
             this.handleRemoveOption.bind(this, index)
           }>
-            <ContentClear mini={true} />
+            <ContentBackspace mini={true}  hoverColor={red500} />
           </IconButton>
         </div>
       );
@@ -121,26 +116,31 @@ class Question extends Component {
               </SelectField>
             </ToolbarGroup>
             <ToolbarGroup>
-              {createBtn}
-              <IconButton onTouchTap={this.handleRemoveQuestion}>
-                <ContentClear />
-              </IconButton>
-              {
-                index > 0 &&
-                <IconButton onTouchTap={() => {
-                  this.handleLowerQuestion(index);
-                }}>
-                  <HardwareKeyboardArrowUp />
-                </IconButton>
-              }
               {
                 index < questionsLen - 1 &&
-                <IconButton onTouchTap={() => {
+                <IconButton tooltip='下移' onTouchTap={() => {
                   this.handleUpperQuestion(index);
                 }}>
-                  <HardwareKeyboardArrowDown />
+                  <HardwareKeyboardArrowDown color={blue500} />
                 </IconButton>
               }
+              {
+                index > 0 &&
+                <IconButton tooltip='上移' onTouchTap={() => {
+                  this.handleLowerQuestion(index);
+                }}>
+                  <HardwareKeyboardArrowUp color={blue500} />
+                </IconButton>
+              }
+              {
+                type !== 3 &&
+                <IconButton tooltip='新增选项' onTouchTap={this.handleAddOption}>
+                  <ContentAddCircle color={blue500} />
+                </IconButton>
+              }
+              <IconButton tooltip='删除' onTouchTap={this.handleRemoveQuestion}>
+                <NavigationCancel color={red500} />
+              </IconButton>
             </ToolbarGroup>
           </Toolbar>
         }
@@ -148,7 +148,7 @@ class Question extends Component {
         <CardText>
           <TextField
             value={content}
-            hintText='题目'
+            floatingLabelText='问题'
             style={{
               width: '50%',
               minWidth: 200

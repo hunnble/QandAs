@@ -7,10 +7,13 @@ import Question from './Question.jsx';
 import ErrMsg from '../containers/ErrMsg';
 import Divider from 'material-ui/Divider';
 import Dialog from 'material-ui/Dialog';
-import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
+import ActionRestorePage from 'material-ui/svg-icons/action/restore-page';
+import ContentUnarchive from 'material-ui/svg-icons/content/unarchive';
+import ContentSend from 'material-ui/svg-icons/content/send';
 import { TOKEN_NAME } from '../../configs/config';
 
 class Editor extends Component {
@@ -132,27 +135,32 @@ class Editor extends Component {
     return (
       <div>
         <Header />
-        <Paper className='create'>
+        <div className='create'>
           <TextField
             style={{ display: 'block' }}
-            floatingLabelText='问卷标题'
+            floatingLabelText='问卷名称'
             value={title}
             onChange={this.handleChangeTitle}
           />
           <RaisedButton
             className='createBtn'
+            primary={true}
             label='添加新问题'
+            icon={<ActionNoteAdd />}
             onClick={this.handleCreateQuestion}
           />
           <RaisedButton
             className='createBtn'
+            primary={true}
             label='全部删除'
+            icon={<ActionRestorePage />}
             onClick={this.handleRemoveAllQuestions}
           />
           <RaisedButton
-            primary={true}
             className='createBtn'
+            primary={true}
             label='保存'
+            icon={<ContentUnarchive />}
             onTouchTap={this.handleSubmit}
           />
           {
@@ -162,19 +170,15 @@ class Editor extends Component {
             saved) &&
             <RaisedButton
               primary={true}
-              className='publishButton'
+              className='createBtn'
+              primary={true}
               label='发布'
+              icon={<ContentSend />}
               onTouchTap={() => {
                 actions.changePublishConfirm(true);
               }}
             />
           }
-          <Link to='/'>
-            <RaisedButton
-              className='createBtn'
-              label='取消'
-            />
-          </Link>
           <Calendar
             calendar={calendar}
             time={time}
@@ -206,7 +210,7 @@ class Editor extends Component {
             modal={true}
             open={publishConfirmOpen}
           />
-        </Paper>
+        </div>
         <ErrMsg />
       </div>
     );

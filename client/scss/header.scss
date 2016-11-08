@@ -1,10 +1,8 @@
 @import 'base';
 
 .header {
-  // overflow: hidden;
   position: fixed;
-  // padding: 8px 24px;
+  top: 0;
   width: 100%;
-  // background-color: $blue500;
   z-index: 100;
 }

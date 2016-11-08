@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import IconButton from 'material-ui/IconButton';
+import FlatButton from 'material-ui/FlatButton';
+import ActionToday from 'material-ui/svg-icons/action/today';
 import HardwareKeyboardArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import HardwareKeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 
@@ -101,20 +103,16 @@ class Calendar extends Component {
     };
     return (
       <div className='calendar'>
-        <p className='calendarTitle'>{title}</p>
-        <p className='timeRow'>
-          <span>{monthTitles[time.month - 1]}</span>
-          <span>{time.year}</span>
-          <span>{formatDate}</span>
-        </p>
-        <RaisedButton
-          className='createBtn'
-          label='更改'
-          onClick={this.onToggleVisible}
-        />
+        <FlatButton
+          icon={<ActionToday />}
+          onTouchTap={this.onToggleVisible}
+          primary={true}
+        >
+          {time.year}-{time.month}-{formatDate}
+        </FlatButton>
         <Dialog
           open={time.visible}
-          title='选择试卷截止日期'
+          title='设定截止日期'
           onRequestClose={() => {
             this.props.changeCalendarVisible(false);
           }}
