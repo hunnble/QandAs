@@ -124,31 +124,28 @@ router.post('/search', function* (next) {
  * 提交答案
  */
 router.post('/answer', function* (next) {
- let body = this.request.body;
- let _id = body._id;
- let answerer = jwt.verify(body.token, config.TOKEN_KEY).account;
- if (!answerer) {
-   return this.response.body = {
-     success: false,
-     errMsg: '请先登录'
-   };
- }
- let answer = body.answer;
- delete body._id;
- delete body.answerer;
- let op = { '_id': _id };
- let data = {
-   'answerer': answerer,
-   'answer': answer
- };
- let result = yield paper.removeAnswer(op, data);
- if (result) {
-   result = yield paper.setAnswer(op, data);
- }
- return this.response.body = {
-   success: result,
-   errMsg: result ? '回答成功' : '出错了，请重试'
- };
+  let body = this.request.body;
+  let _id = body._id;
+  if (!answerer) {
+    return this.response.body = {
+      success: false,
+      errMsg: '请先登录'
+    };
+  }
+  let answer = body.answer;
+  delete body._id;
+  let op = { '_id': _id };
+  let data = {
+    'answer': answer
+  };
+  // let result = yield paper.removeAnswer(op, data);
+  // if (result) {
+  let result = yield paper.setAnswer(op, data);
+  // }
+  return this.response.body = {
+    success: result,
+    errMsg: result ? '回答成功' : '网络错误,请重试'
+  };
 });
 
 module.exports = router;

@@ -84,6 +84,12 @@ class Profile extends Component {
     this.props.actions.changeIsEditing(false);
     index >= 0 && this.props.actions.changeProfileTabIndex(index);
   }
+  handlePublishPaper = (paper) => {
+    const { changePaper, publishPaper } = this.props.actions;
+    const token = window.localStorage.getItem(TOKEN_NAME);
+    changePaper(paper);
+    publishPaper(paper._id, token);
+  }
   renderPapers = (papers) => {
     const { user, publishedPage, actions } = this.props;
     if (!papers) {
@@ -111,6 +117,13 @@ class Profile extends Component {
                   <span className={'profilePaperState' + paper.state}>
                     {paperStateMap.get(paper.state)}
                   </span>
+                  {
+                    paper.state === 0 &&
+                    <FlatButton
+                      onTouchTap={this.handlePublishPaper.bind(this, paper)}
+                      label='发布'
+                    />
+                  }
                   <Link to='/papers/paper'>
                     <FlatButton
                       label={

@@ -300,7 +300,7 @@ export function submitPaper (data) {
     .then((res) => {
       dispatch(changeErrMsg(res.errMsg));
       dispatch(finishCreatePaper(res));
-      browserHistory.push('/profile');
+      browserHistory.replace('/profile');
     })
     .catch((err) => {
       dispatch(changeErrMsg('保存失败,请重试'));
@@ -452,6 +452,7 @@ export function publishPaper (_id, token) {
     .then((res) => {
       dispatch(changeErrMsg(res.errMsg));
       dispatch(finishPublishPaper(_id));
+      dispatch(getUserInfo(token));
     })
     .catch((err) => {
       dispatch(changeErrMsg('发布失败, 请重试'));

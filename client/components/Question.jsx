@@ -96,7 +96,7 @@ class Question extends Component {
           <IconButton tooltip='删除选项' tooltipPosition='top-right' onTouchTap={
             this.handleRemoveOption.bind(this, index)
           }>
-            <ContentBackspace mini={true}  hoverColor={red500} />
+            <ContentBackspace hoverColor={red500} />
           </IconButton>
         </div>
       );

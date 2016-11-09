@@ -103,7 +103,7 @@ function renderQuestions (questions) {
             <Field
               type='text'
               name={'q' + index}
-              hint='答案编辑区'
+              hint=''
               component={renderText}
             />
           </Paper>
@@ -114,64 +114,9 @@ function renderQuestions (questions) {
   });
 }
 
-// function renderAnsweredQuestions (questions, answers) {
-//   return questions.map((question, index) => {
-//     switch (question.type) {
-//       case 1:
-//         return (
-//           <Paper className='question' key={'question' + index}>
-//             <h3 className='content'>{question.content}</h3>
-//             <Field
-//               name={'q' + index}
-//               index={index}
-//               items={question.items}
-//               component={renderRadio}
-//               checkedIndex={answers[index]}
-//             />
-//           </Paper>
-//         );
-//       case 2:
-//         return (
-//           <Paper className='question' key={'question' + index}>
-//             <h3 className='content'>{question.content}</h3>
-//             {question.items.map((item, i) => {
-//               return (
-//                 <Field
-//                   key={'item' + index + i}
-//                   name={'q' + index + '_' + i}
-//                   item={item}
-//                   component={renderCheckBox}
-//                   checked={answers[index][i]}
-//                 />
-//               );
-//             })}
-//           </Paper>
-//         );
-//       case 3:
-//         return (
-//           <Paper className='question' key={'question' + index}>
-//             <h3 className='content'>{question.content}</h3>
-//             <Field
-//               type='text'
-//               name={'q' + index}
-//               hint='答案编辑区'
-//               component={renderText}
-//               answer={answers[index]}
-//             />
-//           </Paper>
-//         );
-//       default:
-//         return null;
-//     }
-//   });
-// }
-
 class AnswerBar extends Component {
   onSubmit = (data) => {
     const { paper, submitAnswer, changeErrMsg } = this.props;
-    // const answered = paper.answers.some((answer, index) => {
-    //   return answer.answerer === user.account ? index + 1 : 0;
-    // });
     let answer = [];
     for (let key in data) {
       let index = -1;
@@ -186,22 +131,6 @@ class AnswerBar extends Component {
         answer[index] = data[key];
       }
     }
-    // if (answered) {
-    //   let lastAnswer = paper.answers[answered - 1].answer;
-    //   for (let key in answer) {
-    //     if (Array.isArray(answer[key])) {
-    //       for (let i = 0, len = answer[key].length; i < len; ++i) {
-    //         let answerOption = answer[key][i];
-    //         if (answerOption === true || answerOption === false) {
-    //           lastAnswer[key][i] = answerOption;
-    //         }
-    //       }
-    //     } else {
-    //       lastAnswer[key] = answer[key];
-    //     }
-    //   }
-    //   answer = lastAnswer;
-    // }
     let isFullfilled = answer.length > 0 ? true : false;
     for (let i = 0, len = paper.questions.length; i < len; ++i) {
       if (Array.isArray(answer[i]) && !answer[i].find((value) => {
@@ -216,17 +145,12 @@ class AnswerBar extends Component {
     }
     submitAnswer({
       answer: answer,
-      _id: paper._id,
-      token: window.localStorage.getItem(TOKEN_NAME)
+      _id: paper._id
     });
-    browserHistory.push('/');
+    browserHistory.replace('/answer/finished');
   }
   render () {
     const { paper, handleSubmit, submitting } = this.props;
-    // const account = user.account;
-    // const answered = paper.answers.some((answer, index) => {
-    //   return answer.answerer === account ? index + 1 : 0;
-    // });
     return (
       <div>
         <Header />
