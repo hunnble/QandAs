@@ -23,6 +23,7 @@ import {
 function mapStateToProps (state) {
   return {
     user: state.user,
+    paper: state.papers.paper,
     title: state.page.questionTitle,
     detail: state.page.questionDetail,
     questions: state.page.questions,

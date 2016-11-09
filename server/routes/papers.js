@@ -9,7 +9,7 @@ let jwt = require('jsonwebtoken');
  */
 router.get('/create', function* (next) {
   yield this.render('index', {
-    title: '新问卷'
+    title: '编辑问卷'
   });
 });
 
@@ -67,7 +67,7 @@ router.put('/paper', function* (next) {
   if (!account) {
     return this.response.body = {
       success: false,
-      errMsg: '请先登录'
+      errMsg: '登录超时'
     };
   }
   let result = yield paper.publishPaper({
@@ -83,6 +83,34 @@ router.put('/paper', function* (next) {
   return this.body = {
     success: false,
     errMsg: '发布失败, 请重试'
+  };
+});
+
+/*
+ * 删除问卷
+ */
+router.delete('/paper', function* (next) {
+  let body = this.request.body;
+  let account = jwt.verify(body.token, config.TOKEN_KEY).account;
+  if (!account) {
+    return this.response.body = {
+      success: false,
+      errMsg: '登录超时'
+    };
+  }
+  let result = yield paper.removePaper({
+    '_id': body._id,
+    'creator': account
+  });
+  if (result) {
+    return this.response.body = {
+      success: true,
+      errMsg: '删除成功'
+    };
+  }
+  return this.body = {
+    success: false,
+    errMsg: '删除失败'
   };
 });
 
@@ -138,10 +166,7 @@ router.post('/answer', function* (next) {
   let data = {
     'answer': answer
   };
-  // let result = yield paper.removeAnswer(op, data);
-  // if (result) {
   let result = yield paper.setAnswer(op, data);
-  // }
   return this.response.body = {
     success: result,
     errMsg: result ? '回答成功' : '网络错误,请重试'

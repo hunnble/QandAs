@@ -11,7 +11,7 @@ import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
+import { BottomNavigation, BottomNavigationItem } from 'material-ui/BottomNavigation';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
@@ -24,6 +24,9 @@ import ActionSwapHoriz from 'material-ui/svg-icons/action/swap-horiz';
 import { List, ListItem } from 'material-ui/List';
 import { TOKEN_NAME } from '../../configs/config';
 import SwipeableViews from 'react-swipeable-views';
+
+import IconMenu from 'material-ui/IconMenu';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 const labelMap = new Map([
   ['nickname', '昵称'],
@@ -80,6 +83,11 @@ class Profile extends Component {
   handleChangePaper = (paper) => {
     this.props.actions.changePaper(paper);
   }
+  handleRemovePaper = (paper) => {
+    const { removePaper } = this.props.actions;
+    const token = window.localStorage.getItem(TOKEN_NAME);
+    removePaper(paper._id, token);
+  }
   handleChangeTabIndex = (index) => {
     this.props.actions.changeIsEditing(false);
     index >= 0 && this.props.actions.changeProfileTabIndex(index);
@@ -102,43 +110,66 @@ class Profile extends Component {
         divider={true}
         items={papers}
         pageItemsClassName='profileListItem'
-        pageBarClassName='profilePageBar fr'
+        pageBarClassName='profilePageBar'
         renderItem={(paper, index) => {
           return (
-            <ListItem
+            <li
               key={index}
               className='profileListItem'
-              disabled={true}
-              primaryText={paper.title}
-              initiallyOpen={true}
-              autoGenerateNestedIndicator={false}
-              nestedItems={[
-                <span key={-1 * index} className='profileListNestedItem'>
-                  <span className={'profilePaperState' + paper.state}>
-                    {paperStateMap.get(paper.state)}
-                  </span>
-                  {
-                    paper.state === 0 &&
+            >
+              <h3 className='profileListItemTitle'>
+                {paper.title}
+              </h3>
+              <Subheader style={{
+                display: 'inline-block',
+                width: 'auto'
+              }}>
+                {paper.closingDate.split(/[^\-0-9]/)[0]}
+              </Subheader>
+              <div key={-1 * index} className='profileListNestedItem'>
+                <span className={'profilePaperState' + paper.state}>
+                  {paperStateMap.get(paper.state)}
+                </span>
+                {
+                  paper.state === 0 &&
+                  <FlatButton
+                    onTouchTap={this.handlePublishPaper.bind(this, paper)}
+                    label='发布'
+                  />
+                }
+                {
+                  paper.creator === user.account &&
+                  paper.state === 0 &&
+                  <Link to='/papers/create'>
                     <FlatButton
-                      onTouchTap={this.handlePublishPaper.bind(this, paper)}
-                      label='发布'
-                    />
-                  }
-                  <Link to='/papers/paper'>
-                    <FlatButton
-                      label={
-                        paper.creator === user.account &&
-                        paper.state === 0 ? '编辑' : '查看'
+                      label='修改'
+                      onTouchTap={
+                        this.handleChangePaper.bind(this, paper)
                       }
-                      onTouchTap={this.handleChangePaper.bind(this, paper)}
                     />
                   </Link>
-                  {
-                    <Divider />
+                }
+                {
+                  paper.creator === user.account &&
+                  paper.state === 1 &&
+                  <Link to='/papers/paper'>
+                    <FlatButton
+                      label='查看'
+                      onTouchTap={
+                        this.handleChangePaper.bind(this, paper)
+                      }
+                    />
+                  </Link>
+                }
+                <FlatButton
+                  label='删除'
+                  onTouchTap={
+                    this.handleRemovePaper.bind(this, paper)
                   }
-                </span>
-              ]}
-            />
+                />
+              </div>
+              <Divider />
+            </li>
           );
         }}
         changePage={actions.changePublishedPage}
@@ -149,7 +180,15 @@ class Profile extends Component {
     this.props.actions.changeProfileTabOpen(!this.props.tabOpen);
   }
   render () {
-    const { user, tabOpen, tabIndex, isEditing, actions, handleSubmit, submitting } = this.props;
+    const {
+      user,
+      tabOpen,
+      tabIndex,
+      isEditing,
+      actions,
+      handleSubmit,
+      submitting
+    } = this.props;
     const drawerWidth = 56;
     const drawerIconStyle = {
       paddingTop: 16,
@@ -230,11 +269,11 @@ class Profile extends Component {
             onChange={this.handleChangeTabIndex}
           >
             <Paper className='profileList'>
-              <List>
-                <Subheader>创建问卷列表</Subheader>
-                <Divider />
+              <Subheader>问卷列表</Subheader>
+              <Divider />
+              <ul>
                 {this.renderPapers(user.publishedPapers)}
-              </List>
+              </ul>
             </Paper>
             <Paper>
               {

@@ -1,5 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import FlatButton from 'material-ui/FlatButton';
+import Subheader from 'material-ui/Subheader';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import HardwareKeyboardArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
+import HardwareKeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 
 class Page extends Component {
   constructor (props) {
@@ -25,11 +29,6 @@ class Page extends Component {
     if (pageNum === 0) {
       pageNum = 1;
     }
-    // for (let i = 1; i <= pageNum; ++i) {
-    //   pageArr.push(
-    //     <span key={i} pageBarClassName={pageClassName}>{i}</span>
-    //   );
-    // }
     return (
       <div>
         <div className={pageItemsClassName}>
@@ -38,23 +37,40 @@ class Page extends Component {
           })}
           {pageArr}
         </div>
-        <div className={pageBarClassName}>
-          <span>
-            第{page + 1}页/共{pageNum}页
-          </span>
-          {
-            page > 0 &&
-            <FlatButton primary={true} label='上一页' onClick={() => {
-              changePage(Math.max(page - 1, 0));
-            }} />
-          }
-          {
-            page < pageNum - 1 &&
-            <FlatButton primary={true} label='下一页' onClick={() => {
-              changePage(Math.min(page + 1, pageNum - 1));
-            }} />
-          }
-        </div>
+        <Toolbar className={pageBarClassName} style={{
+          overflow: 'hidden',
+          backgroundColor: 'transparent'
+        }}>
+          <ToolbarGroup>
+            <FloatingActionButton
+              mini={true}
+              disabled={!(page > 0)}
+              onTouchTap={() => {
+                changePage(Math.max(page - 1, 0));
+              }}
+              style={{ float: 'right' }}
+            >
+              <HardwareKeyboardArrowLeft />
+            </FloatingActionButton>
+          </ToolbarGroup>
+          <ToolbarGroup>
+            <Subheader>
+              {page + 1}/{pageNum}
+            </Subheader>
+          </ToolbarGroup>
+          <ToolbarGroup>
+            <FloatingActionButton
+              mini={true}
+              disabled={!(page < pageNum - 1)}
+              onTouchTap={() => {
+                changePage(Math.min(page + 1, pageNum - 1));
+              }}
+              style={{ float: 'right' }}
+            >
+              <HardwareKeyboardArrowRight />
+            </FloatingActionButton>
+          </ToolbarGroup>
+        </Toolbar>
       </div>
     );
   }

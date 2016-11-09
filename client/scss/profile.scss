@@ -24,7 +24,6 @@
     background-color: $white;
   }
   .profileText {
-    // display: inline-block;
     margin-top: 0.8rem;
     padding-left: 30%;
   }
@@ -60,8 +59,15 @@
       margin: auto 0.2rem;
     }
   }
+  .profileListItem {
+    padding: 0 1rem;
+    overflow: hidden;
+  }
+  .profileListItemTitle {
+    display: inline-block;
+  }
   .profileListNestedItem {
-    display: block;
+    display: inline-block;
     text-align: right;
   }
 }
@@ -105,5 +111,11 @@
     .profileText {
       padding-left: 0.4rem;
     }
+  }
+  .profileListItem {
+    padding: 0 0.5rem;
+  }
+  .profileListNestedItem {
+    display: inline-block;
   }
 }

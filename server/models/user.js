@@ -10,8 +10,6 @@ var user = new Schema({
   mail: { type: String, default: '' },
   info: { type: String, default: '' },
   settings: { type: Mixed },
-  classIds: { type: [String] },
-  score: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now }
 });
 

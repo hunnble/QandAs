@@ -10,7 +10,8 @@ import {
   changeProfileTabIndex,
   changePublishedPage,
   changeIsEditing,
-  publishPaper
+  publishPaper,
+  removePaper
 } from '../actions';
 
 const validate = (values) => {
@@ -55,7 +56,8 @@ function mapDispatchToProps (dispatch) {
       changeProfileTabIndex,
       changePublishedPage,
       changeIsEditing,
-      publishPaper
+      publishPaper,
+      removePaper
     }, dispatch)
   };
 }

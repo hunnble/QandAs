@@ -55,11 +55,7 @@ class Editor extends Component {
       title,
       detail,
       questions,
-      time: {
-        year,
-        month,
-        date
-      }
+      closingDate: new Date(year, month - 1, date)
     };
     if (!title) {
       return changeErrMsg('保存失败, 问卷名不能为空');
@@ -103,11 +99,16 @@ class Editor extends Component {
       createQuestion,
       changeCalendar
     } = actions;
+    this.handleRemoveAllQuestions();
     if (title) {
       changeQuestionTitle(title);
+    } else {
+      changeQuestionTitle('');
     }
     if (detail) {
       changeQuestionDetail(detail);
+    } else {
+      changeQuestionDetail('');
     }
     if (questions) {
       questions.forEach((q, i) => {
@@ -207,6 +208,7 @@ class Editor extends Component {
 Editor.PropTypes = {
   actions: PropTypes.object,
   user: PropTypes.object,
+  paper: PropTypes.object,
   title: PropTypes.string,
   questions: PropTypes.array,
   calendar: PropTypes.object,

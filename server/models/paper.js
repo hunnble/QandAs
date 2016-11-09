@@ -8,17 +8,9 @@ var paper = new Schema({
   detail: { type: String },
   questions: { type: Mixed },
   state: { type: Number, default: 0 }, // 0: unpublished, 1: published
-  time: {
-    type: Mixed,
-    default: {
-      year: new Date().getFullYear(),
-      month: new Date().getMonth() + 1,
-      date: new Date().getDate()
-    }
-  },
   answers: { type: Array },
-  createdAt: { type: Date, default: Date.now },
-  closingDate: {type: Date }
+  createdAt: { type: Date, default: new Date() },
+  closingDate: { type: Date, default: new Date() }
 });
 
 paper.statics.findPaper = function (op) {

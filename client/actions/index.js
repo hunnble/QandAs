@@ -30,6 +30,8 @@ export const START_SUBMIT_ANSWER = 'startSubmitAnswer';
 export const FINISH_SUBMIT_ANSWER = 'finishSubmitAnswer';
 export const START_PUBLISH_PAPER = 'startPublishPaper';
 export const FINISH_PUBLISH_PAPER = 'finishPublishPaper';
+export const START_REMOVE_PAPER = 'startRemovePaper';
+export const FINISH_REMOVE_PAPER = 'finishRemovePaper';
 export const CHANGE_PROFILE_TAB_OPEN = 'changeProfileTabOpen';
 export const CHANGE_PROFILE_TAB_INDEX = 'changeProfileTabIndex';
 export const CHANGE_SEARCHED_PAPER_PAGE = 'changeSearchedPaperPage';
@@ -471,8 +473,48 @@ export function startPublishPaper () {
 export function finishPublishPaper (_id) {
   return Object.assign({
     type: FINISH_PUBLISH_PAPER,
-    isFetching: false,
-    // _id: _id
+    isFetching: false
+  });
+}
+
+export function removePaper (_id, token) {
+  return (dispatch) => {
+    dispatch(startRemovePaper());
+    return fetch('/papers/paper', {
+      method: 'delete',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ _id: _id, token: token })
+    })
+    .then((res) => {
+      return res.json();
+    })
+    .then((res) => {
+      dispatch(changeErrMsg(res.errMsg));
+      dispatch(finishRemovePaper(_id));
+      dispatch(getUserInfo(token));
+    })
+    .catch((err) => {
+      dispatch(changeErrMsg('删除失败, 请重试'));
+      dispatch(finishRemovePaper(null));
+    })
+  };
+}
+
+export function startRemovePaper () {
+  return {
+    type: START_REMOVE_PAPER,
+    isFetching: true
+  };
+}
+
+export function finishRemovePaper (_id) {
+  return Object.assign({
+    type: FINISH_REMOVE_PAPER,
+    isFetching: false
   });
 }
 
