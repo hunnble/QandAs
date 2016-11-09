@@ -5,7 +5,6 @@ import Paper from '../components/Paper.jsx';
 
 function mapStateToProps (state) {
   return {
-    user: state.user,
     paper: state.papers.paper
   };
 }

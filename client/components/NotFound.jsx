@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class NotFound extends Component {
   render () {

@@ -25,8 +25,8 @@ const renderRadio = ({ input, name, index, items, checkedIndex }) => {
   return (
     <RadioButtonGroup
       {...input}
-      name={name}
-      style={boxStyle}
+      name={name}q
+      style={boxStyle}w
       defaultSelected={checkedIndex}
     >
       {items.map((item, i) => {
@@ -103,7 +103,7 @@ function renderQuestions (questions) {
             <Field
               type='text'
               name={'q' + index}
-              hint='请在这里输入回答'
+              hint='答案编辑区'
               component={renderText}
             />
           </Paper>
@@ -114,64 +114,64 @@ function renderQuestions (questions) {
   });
 }
 
-function renderAnsweredQuestions (questions, answers) {
-  return questions.map((question, index) => {
-    switch (question.type) {
-      case 1:
-        return (
-          <Paper className='question' key={'question' + index}>
-            <h3 className='content'>{question.content}</h3>
-            <Field
-              name={'q' + index}
-              index={index}
-              items={question.items}
-              component={renderRadio}
-              checkedIndex={answers[index]}
-            />
-          </Paper>
-        );
-      case 2:
-        return (
-          <Paper className='question' key={'question' + index}>
-            <h3 className='content'>{question.content}</h3>
-            {question.items.map((item, i) => {
-              return (
-                <Field
-                  key={'item' + index + i}
-                  name={'q' + index + '_' + i}
-                  item={item}
-                  component={renderCheckBox}
-                  checked={answers[index][i]}
-                />
-              );
-            })}
-          </Paper>
-        );
-      case 3:
-        return (
-          <Paper className='question' key={'question' + index}>
-            <h3 className='content'>{question.content}</h3>
-            <Field
-              type='text'
-              name={'q' + index}
-              hint='请在这里输入回答'
-              component={renderText}
-              answer={answers[index]}
-            />
-          </Paper>
-        );
-      default:
-        return null;
-    }
-  });
-}
+// function renderAnsweredQuestions (questions, answers) {
+//   return questions.map((question, index) => {
+//     switch (question.type) {
+//       case 1:
+//         return (
+//           <Paper className='question' key={'question' + index}>
+//             <h3 className='content'>{question.content}</h3>
+//             <Field
+//               name={'q' + index}
+//               index={index}
+//               items={question.items}
+//               component={renderRadio}
+//               checkedIndex={answers[index]}
+//             />
+//           </Paper>
+//         );
+//       case 2:
+//         return (
+//           <Paper className='question' key={'question' + index}>
+//             <h3 className='content'>{question.content}</h3>
+//             {question.items.map((item, i) => {
+//               return (
+//                 <Field
+//                   key={'item' + index + i}
+//                   name={'q' + index + '_' + i}
+//                   item={item}
+//                   component={renderCheckBox}
+//                   checked={answers[index][i]}
+//                 />
+//               );
+//             })}
+//           </Paper>
+//         );
+//       case 3:
+//         return (
+//           <Paper className='question' key={'question' + index}>
+//             <h3 className='content'>{question.content}</h3>
+//             <Field
+//               type='text'
+//               name={'q' + index}
+//               hint='答案编辑区'
+//               component={renderText}
+//               answer={answers[index]}
+//             />
+//           </Paper>
+//         );
+//       default:
+//         return null;
+//     }
+//   });
+// }
 
 class AnswerBar extends Component {
   onSubmit = (data) => {
-    const { paper, user, submitAnswer, changeErrMsg } = this.props;
-    const answered = paper.answers.some((answer, index) => {
-      return answer.answerer === user.account ? index + 1 : 0;
-    });
+    const { paper, submitAnswer, changeErrMsg } = this.props;
+    // const answered = paper.answers.some((answer, index) => {
+    //   return answer.answerer === user.account ? index + 1 : 0;
+    // });
     let answer = [];
     for (let key in data) {
       let index = -1;
@@ -186,22 +186,22 @@ class AnswerBar extends Component {
         answer[index] = data[key];
       }
     }
-    if (answered) {
-      let lastAnswer = paper.answers[answered - 1].answer;
-      for (let key in answer) {
-        if (Array.isArray(answer[key])) {
-          for (let i = 0, len = answer[key].length; i < len; ++i) {
-            let answerOption = answer[key][i];
-            if (answerOption === true || answerOption === false) {
-              lastAnswer[key][i] = answerOption;
-            }
-          }
-        } else {
-          lastAnswer[key] = answer[key];
-        }
-      }
-      answer = lastAnswer;
-    }
+    // if (answered) {
+    //   let lastAnswer = paper.answers[answered - 1].answer;
+    //   for (let key in answer) {
+    //     if (Array.isArray(answer[key])) {
+    //       for (let i = 0, len = answer[key].length; i < len; ++i) {
+    //         let answerOption = answer[key][i];
+    //         if (answerOption === true || answerOption === false) {
+    //           lastAnswer[key][i] = answerOption;
+    //         }
+    //       }
+    //     } else {
+    //       lastAnswer[key] = answer[key];
+    //     }
+    //   }
+    //   answer = lastAnswer;
+    // }
     let isFullfilled = answer.length > 0 ? true : false;
     for (let i = 0, len = paper.questions.length; i < len; ++i) {
       if (Array.isArray(answer[i]) && !answer[i].find((value) => {
@@ -212,7 +212,7 @@ class AnswerBar extends Component {
       }
     }
     if (!isFullfilled) {
-      return changeErrMsg('请完成后再提交');
+      return changeErrMsg('请先完成问卷');
     }
     submitAnswer({
       answer: answer,
@@ -222,25 +222,18 @@ class AnswerBar extends Component {
     browserHistory.push('/');
   }
   render () {
-    const { user, paper, handleSubmit, submitting } = this.props;
-    const account = user.account;
-    const answered = paper.answers.some((answer, index) => {
-      return answer.answerer === account ? index + 1 : 0;
-    });
+    const { paper, handleSubmit, submitting } = this.props;
+    // const account = user.account;
+    // const answered = paper.answers.some((answer, index) => {
+    //   return answer.answerer === account ? index + 1 : 0;
+    // });
     return (
       <div>
         <Header />
         <div className='answerWrapper'>
           <h3>{paper.title}</h3>
           <form onSubmit={handleSubmit(this.onSubmit)}>
-            {
-              !answered &&
-              renderQuestions(paper.questions)
-            }
-            {
-              answered &&
-              renderAnsweredQuestions(paper.questions, paper.answers[answered - 1].answer)
-            }
+            {renderQuestions(paper.questions)}
             <div className="fr">
               <RaisedButton type="submit" label="提交" disabled={submitting} />
             </div>
@@ -253,7 +246,6 @@ class AnswerBar extends Component {
 }
 
 AnswerBar.PropTypes = {
-  user: PropTypes.object,
   paper: PropTypes.object,
   submitAnswer: PropTypes.func,
   changeErrMsg: PropTypes.func

@@ -35,9 +35,8 @@
     margin: 0.8rem;
   }
   .profileList {
-    float: left;
-    margin: 1%;
-    width: 48%;
+    margin: 0 auto;
+    max-width: $profileItemMaxWidth;
   }
   .profilePaperState0 {
     color: $grey500;
@@ -84,10 +83,6 @@
 
 @media only all and (max-width: 1024px) {
   .profile {
-    .profileList {
-      margin: 5% 0;
-      width: 100%;
-    }
     .profileText {
       width: 90%;
       padding-left: 10%;
@@ -101,6 +96,10 @@
   }
   .profile {
     .profileForm {
+      width: 100%;
+    }
+    .profileList {
+      margin: 5% 0;
       width: 100%;
     }
     .profileText {

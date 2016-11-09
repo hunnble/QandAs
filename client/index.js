@@ -65,10 +65,13 @@ render(
           <Route path='profile' component={Profile} onEnter={(nextState, replace) => {
             handleEnter(replace);
           }} />
-          <Route path='papers' onEnter={(nextState, replace) => {
-            handleEnter(replace);
-          }}>
-            <Route path='create' component={Editor}  />
+          <Route path='papers'>
+            <Route path='create'
+              component={Editor}
+              onEnter={(nextState, replace) => {
+                handleEnter(replace);
+              }}
+            />
             <Route path='paper' component={Paper} />
           </Route>
         </Route>

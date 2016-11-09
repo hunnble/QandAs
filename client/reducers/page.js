@@ -5,6 +5,7 @@ import {
   CHANGE_ERR_MSG,
   SET_CALENDAR,
   CHANGE_QUESTION_TITLE,
+  CHANGE_QUESTION_DETAIL,
   CREATE_QUESTION,
   EDIT_QUESTION,
   REMOVE_QUESTION,
@@ -17,7 +18,6 @@ import {
   CHANGE_PROFILE_TAB_INDEX,
   CHANGE_SEARCHED_PAPER_PAGE,
   CHANGE_PUBLISHED_PAGE,
-  CHANGE_ANSWERED_PAGE,
   CHANGE_PAPER_SAVED,
   CHANGE_PUBLISH_CONFIRM,
   CHANGE_ISEDITING
@@ -35,6 +35,7 @@ const initialState = {
   settingsVisible: false,
   anchorEl: {},
   questionTitle: '',
+  questionDetail: '',
   questions: [],
   calendar: {
     year: year,
@@ -53,7 +54,6 @@ const initialState = {
   profileTabIndex: 0,
   searchedPaperPage: 0,
   publishedPage: 0,
-  answeredPage: 0,
   paperSaved: false,
   publishConfirmOpen: false,
   isEditing: false
@@ -89,6 +89,8 @@ export default function page (state = initialState, action) {
       });
     case CHANGE_QUESTION_TITLE:
       return Object.assign({}, state, { questionTitle: action.title });
+    case CHANGE_QUESTION_DETAIL:
+      return Object.assign({}, state, { questionDetail: action.detail });
     case CREATE_QUESTION:
       let createdQuestions = state.questions.concat();
       createdQuestions.push(action.question);
@@ -149,8 +151,6 @@ export default function page (state = initialState, action) {
       return Object.assign({}, state, { searchedPaperPage: action.page });
     case CHANGE_PUBLISHED_PAGE:
       return Object.assign({}, state, { publishedPage: action.page });
-    case CHANGE_ANSWERED_PAGE:
-      return Object.assign({}, state, { answeredPage: action.page });
     case CHANGE_PAPER_SAVED:
       return Object.assign({}, state, { paperSaved: action.saved });
     case CHANGE_PUBLISH_CONFIRM:

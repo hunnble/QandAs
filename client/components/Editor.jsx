@@ -23,6 +23,9 @@ class Editor extends Component {
   handleChangeTitle = (event) => {
     this.props.actions.changeQuestionTitle(event.target.value);
   }
+  handleChangeDetail = (event) => {
+    this.props.actions.changeQuestionDetail(event.target.value);
+  }
   handleCreateQuestion = () => {
     this.props.actions.createQuestion({
       type: 1,
@@ -34,13 +37,23 @@ class Editor extends Component {
     this.props.actions.removeQuestion(true);
   }
   handleSubmit = () => {
-    const { user, title, questions, time, paper, saved, actions } = this.props;
+    const {
+      user,
+      title,
+      detail,
+      questions,
+      time,
+      paper,
+      saved,
+      actions
+    } = this.props;
     const { year, month, date } = time;
     const { account } = user;
     const { changeErrMsg } = actions;
     const data = {
       token: window.localStorage.getItem(TOKEN_NAME),
       title,
+      detail,
       questions,
       time: {
         year,
@@ -80,16 +93,21 @@ class Editor extends Component {
     const { paper, actions } = this.props;
     const {
       title,
+      detail,
       questions,
       time
     } = paper;
     const {
       changeQuestionTitle,
+      changeQuestionDetail,
       createQuestion,
       changeCalendar
     } = actions;
     if (title) {
       changeQuestionTitle(title);
+    }
+    if (detail) {
+      changeQuestionDetail(detail);
     }
     if (questions) {
       questions.forEach((q, i) => {
@@ -109,13 +127,13 @@ class Editor extends Component {
     const {
       user,
       title,
+      detail,
       questions,
       calendar,
       time,
       actions,
       paper,
-      saved,
-      publishConfirmOpen
+      saved
     } = this.props;
     const qs = questions.map((q, index) => {
       return (
@@ -142,6 +160,13 @@ class Editor extends Component {
             value={title}
             onChange={this.handleChangeTitle}
           />
+          <TextField
+            style={{ display: 'block' }}
+            floatingLabelText='问卷详细信息'
+            multiLine={true}
+            value={detail}
+            onChange={this.handleChangeDetail}
+          />
           <RaisedButton
             className='createBtn'
             primary={true}
@@ -163,22 +188,6 @@ class Editor extends Component {
             icon={<ContentUnarchive />}
             onTouchTap={this.handleSubmit}
           />
-          {
-            (paper &&
-            paper.creator === user.account &&
-            paper.state === 0 ||
-            saved) &&
-            <RaisedButton
-              primary={true}
-              className='createBtn'
-              primary={true}
-              label='发布'
-              icon={<ContentSend />}
-              onTouchTap={() => {
-                actions.changePublishConfirm(true);
-              }}
-            />
-          }
           <Calendar
             calendar={calendar}
             time={time}
@@ -188,28 +197,6 @@ class Editor extends Component {
             title='截止日期'
           />
           {qs}
-          <Dialog
-            title='确认发布?'
-            actions={[
-              <FlatButton
-                label='确认'
-                primary={true}
-                onTouchTap={() => {
-                  actions.publishPaper(paper._id, window.localStorage.getItem(TOKEN_NAME));
-                  actions.changePublishConfirm(false);
-                  browserHistory.push('/');
-                }}
-              />,
-              <FlatButton
-                label='取消'
-                onTouchTap={() => {
-                  actions.changePublishConfirm(false);
-                }}
-              />
-            ]}
-            modal={true}
-            open={publishConfirmOpen}
-          />
         </div>
         <ErrMsg />
       </div>

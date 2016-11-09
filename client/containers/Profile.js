@@ -6,11 +6,9 @@ import {
   updateUserInfo,
   changePaper,
   publishedPage,
-  answeredPage,
   changeProfileTabOpen,
   changeProfileTabIndex,
   changePublishedPage,
-  changeAnsweredPage,
   changeIsEditing
 } from '../actions';
 
@@ -43,8 +41,7 @@ function mapStateToProps (state) {
     tabOpen: state.page.profileTabOpen,
     tabIndex: state.page.profileTabIndex,
     isEditing: state.page.isEditing,
-    publishedPage: state.page.publishedPage,
-    answeredPage: state.page.answeredPage
+    publishedPage: state.page.publishedPage
   };
 }
 
@@ -56,7 +53,6 @@ function mapDispatchToProps (dispatch) {
       changeProfileTabOpen,
       changeProfileTabIndex,
       changePublishedPage,
-      changeAnsweredPage,
       changeIsEditing
     }, dispatch)
   };

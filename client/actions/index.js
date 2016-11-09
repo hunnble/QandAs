@@ -13,6 +13,7 @@ export const SET_CALENDAR = 'setCalendar';
 export const CHANGE_CALENDAR = 'changeCalendar';
 export const CHANGE_CALENDAR_VISIBLE = 'changeCalendarVisible';
 export const CHANGE_QUESTION_TITLE = 'changeQuestionTitle';
+export const CHANGE_QUESTION_DETAIL = 'changeQuestionDetail';
 export const CREATE_QUESTION = 'createQuestion';
 export const EDIT_QUESTION = 'editQuestion';
 export const REMOVE_QUESTION = 'removeQuestion';
@@ -33,10 +34,11 @@ export const CHANGE_PROFILE_TAB_OPEN = 'changeProfileTabOpen';
 export const CHANGE_PROFILE_TAB_INDEX = 'changeProfileTabIndex';
 export const CHANGE_SEARCHED_PAPER_PAGE = 'changeSearchedPaperPage';
 export const CHANGE_PUBLISHED_PAGE = 'changePublishedPage';
-export const CHANGE_ANSWERED_PAGE = 'changeAnsweredPage';
 export const CHANGE_PAPER_SAVED = 'changePaperSaved';
 export const CHANGE_PUBLISH_CONFIRM = 'changePublishConfirm';
 export const CHANGE_ISEDITING = 'changeIsEditing';
+
+import { browserHistory } from 'react-router';
 
 export function initialPageState () {
   return (dispatch) => {
@@ -49,7 +51,6 @@ export function initialPageState () {
     dispatch(changeSearchStep(1));
     dispatch(changeSearchedPaperPage(0));
     dispatch(changePublishedPage(0));
-    dispatch(changeAnsweredPage(0));
     dispatch(changePaperSaved(false));
     dispatch(changePublishConfirm(false));
   };
@@ -240,7 +241,14 @@ export function changeQuestionTitle (title) {
   return {
     type: CHANGE_QUESTION_TITLE,
     title: title
-  }
+  };
+}
+
+export function changeQuestionDetail (detail) {
+  return {
+    type: CHANGE_QUESTION_DETAIL,
+    detail: detail
+  };
 }
 
 export function createQuestion (question) {
@@ -290,14 +298,12 @@ export function submitPaper (data) {
       return res.json();
     })
     .then((res) => {
-      if (res.success) {
-        res.errMsg = '保存成功';
-      }
       dispatch(changeErrMsg(res.errMsg));
       dispatch(finishCreatePaper(res));
+      browserHistory.push('/profile');
     })
     .catch((err) => {
-      dispatch(changeErrMsg('网络错误, 请重试'));
+      dispatch(changeErrMsg('保存失败,请重试'));
       dispatch(finishCreatePaper({ success: false }));
     })
   };
@@ -493,13 +499,6 @@ export function changeSearchedPaperPage (page) {
 export function changePublishedPage (page) {
   return {
     type: CHANGE_PUBLISHED_PAGE,
-    page: page
-  }
-}
-
-export function changeAnsweredPage (page) {
-  return {
-    type: CHANGE_ANSWERED_PAGE,
     page: page
   }
 }

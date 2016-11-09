@@ -5,8 +5,9 @@ var Mixed = Schema.Types.Mixed;
 var paper = new Schema({
   creator: { type: String }, // account of the creator user
   title: { type: String },
+  detail: { type: String },
   questions: { type: Mixed },
-  state: { type: Number, default: 0 }, // 0: editable, 1: published
+  state: { type: Number, default: 0 }, // 0: unpublished, 1: published
   time: {
     type: Mixed,
     default: {

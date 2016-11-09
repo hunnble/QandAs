@@ -5,6 +5,7 @@ import Editor from '../components/Editor.jsx';
 import {
   updateUserInfo,
   changeQuestionTitle,
+  changeQuestionDetail,
   createQuestion,
   editQuestion,
   removeQuestion,
@@ -23,6 +24,7 @@ function mapStateToProps (state) {
   return {
     user: state.user,
     title: state.page.questionTitle,
+    detail: state.page.questionDetail,
     questions: state.page.questions,
     calendar: state.page.calendar,
     time: state.page.time,
@@ -36,6 +38,7 @@ function mapDispatchToProps (dispatch) {
     actions: bindActionCreators({
       updateUserInfo,
       changeQuestionTitle,
+      changeQuestionDetail,
       createQuestion,
       editQuestion,
       removeQuestion,

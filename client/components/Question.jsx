@@ -85,7 +85,7 @@ class Question extends Component {
               width: '50%',
               minWidth: 170
             }}
-            floatingLabelText='选项'
+            hintText='选项'
             value={item}
             multiLine={type === 3}
             onChange={(event) => {
@@ -135,11 +135,11 @@ class Question extends Component {
               {
                 type !== 3 &&
                 <IconButton tooltip='新增选项' onTouchTap={this.handleAddOption}>
-                  <ContentAddCircle color={blue500} />
+                  <ContentAddCircle hoverColor={blue500} />
                 </IconButton>
               }
-              <IconButton tooltip='删除' onTouchTap={this.handleRemoveQuestion}>
-                <NavigationCancel color={red500} />
+              <IconButton tooltip='删除问题' onTouchTap={this.handleRemoveQuestion}>
+                <NavigationCancel hoverColor={red500} />
               </IconButton>
             </ToolbarGroup>
           </Toolbar>
@@ -148,7 +148,7 @@ class Question extends Component {
         <CardText>
           <TextField
             value={content}
-            floatingLabelText='问题'
+            floatingLabelText='问题描述'
             style={{
               width: '50%',
               minWidth: 200

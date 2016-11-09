@@ -84,16 +84,14 @@ class Profile extends Component {
     this.props.actions.changeIsEditing(false);
     index >= 0 && this.props.actions.changeProfileTabIndex(index);
   }
-  renderPapers = (papers, i) => {
-    const { user, publishedPage, answeredPage, actions } = this.props;
+  renderPapers = (papers) => {
+    const { user, publishedPage, actions } = this.props;
     if (!papers) {
       return null;
     }
     return (
       <Page
-        page={i === 0 ?
-          publishedPage :
-          answeredPage}
+        page={publishedPage}
         perPage={5}
         divider={true}
         items={papers}
@@ -130,9 +128,7 @@ class Profile extends Component {
             />
           );
         }}
-        changePage={i === 0 ?
-          actions.changePublishedPage :
-          actions.changeAnsweredPage}
+        changePage={actions.changePublishedPage}
       />
     );
   }
@@ -199,13 +195,13 @@ class Profile extends Component {
             selectedIndex={tabIndex}
           >
             <BottomNavigationItem
-              label='个人信息'
-              icon={<SocialPerson />}
+              label='问卷管理'
+              icon={<AvLibraryBooks />}
               onTouchTap={ () => { this.handleChangeTabIndex(0) }}
             />
             <BottomNavigationItem
-              label='问卷管理'
-              icon={<AvLibraryBooks />}
+              label='个人信息'
+              icon={<SocialPerson />}
               onTouchTap={ () => { this.handleChangeTabIndex(1) }}
             />
             <BottomNavigationItem
@@ -220,6 +216,13 @@ class Profile extends Component {
             index={tabIndex}
             onChange={this.handleChangeTabIndex}
           >
+            <Paper className='profileList'>
+              <List>
+                <Subheader>创建问卷列表</Subheader>
+                <Divider />
+                {this.renderPapers(user.publishedPapers)}
+              </List>
+            </Paper>
             <Paper>
               {
                 !isEditing &&
@@ -263,22 +266,6 @@ class Profile extends Component {
               }
             </Paper>
             <Paper>
-              <Paper className='profileList'>
-                <List>
-                  <Subheader>创建问卷列表</Subheader>
-                  <Divider />
-                  {this.renderPapers(user.publishedPapers, 0)}
-                </List>
-              </Paper>
-              <Paper className='profileList'>
-                <List>
-                  <Subheader>填写问卷列表</Subheader>
-                  <Divider />
-                  {this.renderPapers(user.answeredPapers, 1)}
-                </List>
-              </Paper>
-            </Paper>
-            <Paper>
               <form className='profileForm' onSubmit={handleSubmit(this.onSubmit)}>
                 <div className='profileWrapper'>
                   <Field
@@ -320,8 +307,7 @@ Profile.PropTypes = {
   tabIndex: PropTypes.number,
   tabOpen: PropTypes.boolean,
   isEditing: PropTypes.boolean,
-  publishedPage: PropTypes.number,
-  answeredPage: PropTypes.number
+  publishedPage: PropTypes.number
 };
 
 export default Profile;
