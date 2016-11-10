@@ -24,6 +24,7 @@ import ActionSwapHoriz from 'material-ui/svg-icons/action/swap-horiz';
 import { List, ListItem } from 'material-ui/List';
 import { TOKEN_NAME } from '../../configs/config';
 import SwipeableViews from 'react-swipeable-views';
+import moment from 'moment';
 
 import IconMenu from 'material-ui/IconMenu';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
@@ -117,57 +118,63 @@ class Profile extends Component {
               key={index}
               className='profileListItem'
             >
-              <h3 className='profileListItemTitle'>
-                {paper.title}
-              </h3>
-              <Subheader style={{
-                display: 'inline-block',
-                width: 'auto'
-              }}>
-                {paper.closingDate.split(/[^\-0-9]/)[0]}
-              </Subheader>
               <div key={-1 * index} className='profileListNestedItem'>
                 <span className={'profilePaperState' + paper.state}>
                   {paperStateMap.get(paper.state)}
                 </span>
-                {
-                  paper.state === 0 &&
-                  <FlatButton
-                    onTouchTap={this.handlePublishPaper.bind(this, paper)}
-                    label='发布'
-                  />
-                }
-                {
-                  paper.creator === user.account &&
-                  paper.state === 0 &&
-                  <Link to='/papers/create'>
-                    <FlatButton
-                      label='修改'
-                      onTouchTap={
-                        this.handleChangePaper.bind(this, paper)
-                      }
+                <IconMenu
+                  iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                  anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                  targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                >
+                  {
+                    paper.state === 0 &&
+                    <MenuItem
+                      primaryText='发布'
+                      onTouchTap={this.handlePublishPaper.bind(this, paper)}
                     />
-                  </Link>
-                }
-                {
-                  paper.creator === user.account &&
-                  paper.state === 1 &&
-                  <Link to='/papers/paper'>
-                    <FlatButton
-                      label='查看'
-                      onTouchTap={
-                        this.handleChangePaper.bind(this, paper)
-                      }
-                    />
-                  </Link>
-                }
-                <FlatButton
-                  label='删除'
-                  onTouchTap={
-                    this.handleRemovePaper.bind(this, paper)
                   }
-                />
+                  {
+                    paper.creator === user.account &&
+                    paper.state === 0 &&
+                    <Link to='/papers/create'>
+                      <MenuItem
+                        primaryText='修改'
+                        onTouchTap={
+                          this.handleChangePaper.bind(this, paper)
+                        }
+                      />
+                    </Link>
+                  }
+                  {
+                    paper.creator === user.account &&
+                    paper.state === 1 &&
+                    <Link to='/papers/paper'>
+                      <MenuItem
+                        primaryText='查看'
+                        onTouchTap={
+                          this.handleChangePaper.bind(this, paper)
+                        }
+                      />
+                    </Link>
+                  }
+                  <MenuItem
+                    primaryText='删除'
+                    onTouchTap={
+                      this.handleRemovePaper.bind(this, paper)
+                    }
+                  />
+                </IconMenu>
               </div>
+              <h1 className='profileListItemTitle'>
+                {paper.title}
+              </h1>
+              <Subheader style={{
+                display: 'inline-block',
+                width: 'auto'
+              }}>
+                截止日期:{moment(new Date(paper.closingDate)).format('YYYY-M-D')}
+              </Subheader>
               <Divider />
             </li>
           );

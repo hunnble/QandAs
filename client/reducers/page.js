@@ -123,7 +123,7 @@ export default function page (state = initialState, action) {
       for (let i = 1; i <= dateCount; ++i) {
         days.push(i);
       }
-      for (let i = 0, len = 7 - days.length % 7; i < len; ++i) {
+      for (let i = 0, len = (7 - days.length % 7) % 7; i < len; ++i) {
         days.push(0);
       }
       return Object.assign({}, state, {

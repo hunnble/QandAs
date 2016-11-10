@@ -49,6 +49,7 @@
     "koa-static": "^2.0.0",
     "koa-views": "^4.1.0",
     "material-ui": "^0.15.4",
+    "moment": "^2.15.2",
     "mongoose": "^4.5.10",
     "pug": "^2.0.0-beta6",
     "react": "^15.3.1",

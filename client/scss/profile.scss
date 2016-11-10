@@ -67,8 +67,7 @@
     display: inline-block;
   }
   .profileListNestedItem {
-    display: inline-block;
-    text-align: right;
+    float: right;
   }
 }
 
@@ -114,8 +113,5 @@
   }
   .profileListItem {
     padding: 0 0.5rem;
-  }
-  .profileListNestedItem {
-    display: inline-block;
   }
 }

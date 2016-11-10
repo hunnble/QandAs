@@ -113,6 +113,10 @@ class Calendar extends Component {
         <Dialog
           open={time.visible}
           title='设定截止日期'
+          titleStyle={{
+            padding: '6px 14px'
+          }}
+          modal={true}
           onRequestClose={() => {
             this.props.changeCalendarVisible(false);
           }}

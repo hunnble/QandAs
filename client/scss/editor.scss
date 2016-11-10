@@ -19,7 +19,6 @@ $calendarWidth: 11.375rem;
 }
 .calendar {
   display: inline-block;
-  // width: $calendarWidth + 7rem;
   .calendarTitle {
     float: left;
     margin: 0 1rem 0 0.8rem;
@@ -31,7 +30,7 @@ $calendarWidth: 11.375rem;
   }
 }
 .calendarDialog {
-  margin: 0.5rem auto;
+  margin: 0.25rem auto;
   width: $calendarWidth + 7rem;
   font-size: 1rem;
 }
@@ -64,7 +63,7 @@ $calendarWidth: 11.375rem;
   // }
 }
 .controlRow {
-  height: 3rem;
+  height: 2rem;
   >span {
     display: inline-block;
     margin: 0 per(10 / 6);
@@ -74,8 +73,8 @@ $calendarWidth: 11.375rem;
     cursor: pointer;
   }
   >span:nth-child(2) {
-    height: 3rem;
-    line-height: 3rem;
+    height: 2rem;
+    line-height: 2rem;
   }
 }
 .day {
