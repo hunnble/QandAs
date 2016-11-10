@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import IconButton from 'material-ui/IconButton';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import ActionToday from 'material-ui/svg-icons/action/today';
 import HardwareKeyboardArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import HardwareKeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
@@ -92,24 +91,20 @@ class Calendar extends Component {
         </span>
       );
     });
-    const dateMap = new Map([
-      [1, 'st'],
-      [2, 'nd'],
-      [3, 'rd']
-    ]);
-    const formatDate = time.date + '' + (dateMap.has(time.date % 10) ? dateMap.get(time.date % 10) : 'th');
-    const iconButtonStyle = {
-      padding: 0
-    };
+    // const dateMap = new Map([
+    //   [1, 'st'],
+    //   [2, 'nd'],
+    //   [3, 'rd']
+    // ]);
+    // const formatDate = time.date + '' + (dateMap.has(time.date % 10) ? dateMap.get(time.date % 10) : 'th');
     return (
       <div className='calendar'>
-        <FlatButton
+        <RaisedButton
           icon={<ActionToday />}
-          onTouchTap={this.onToggleVisible}
           primary={true}
-        >
-          {time.year}-{time.month}-{formatDate}
-        </FlatButton>
+          label={time.month + '.' + time.date + '截止'}
+          onTouchTap={this.onToggleVisible}
+        />
         <Dialog
           open={time.visible}
           title='设定截止日期'
@@ -137,7 +132,7 @@ class Calendar extends Component {
                 </IconButton>
               </span>
               <span>
-                {calendar.year}年
+                {calendar.year}
               </span>
               <span>
                 <IconButton onTouchTap={this.increaseYear}>
@@ -152,7 +147,7 @@ class Calendar extends Component {
                 </IconButton>
               </span>
               <span>
-                {calendar.month}月
+                {calendar.month}
               </span>
               <span>
                 <IconButton onTouchTap={this.increaseMonth}>

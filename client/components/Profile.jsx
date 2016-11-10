@@ -8,7 +8,7 @@ import { Field } from 'redux-form';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import IconButton from 'material-ui/IconButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
 import { BottomNavigation, BottomNavigationItem } from 'material-ui/BottomNavigation';
@@ -17,17 +17,21 @@ import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
+import IconMenu from 'material-ui/IconMenu';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import AvLibraryBooks from 'material-ui/svg-icons/av/library-books';
 import ActionLock from 'material-ui/svg-icons/action/lock';
-import ActionSwapHoriz from 'material-ui/svg-icons/action/swap-horiz';
+// import ActionSwapHoriz from 'material-ui/svg-icons/action/swap-horiz';
+import HardwareKeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
+import ContentSend from 'material-ui/svg-icons/content/send';
+import ContentCreate from 'material-ui/svg-icons/content/create';
+import ContentDeleteSweep from 'material-ui/svg-icons/content/delete-sweep';
+import ImageRemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye';
 import { List, ListItem } from 'material-ui/List';
+import { blueGrey700 } from 'material-ui/styles/colors';
 import { TOKEN_NAME } from '../../configs/config';
 import SwipeableViews from 'react-swipeable-views';
 import moment from 'moment';
-
-import IconMenu from 'material-ui/IconMenu';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 const labelMap = new Map([
   ['nickname', '昵称'],
@@ -123,14 +127,26 @@ class Profile extends Component {
                   {paperStateMap.get(paper.state)}
                 </span>
                 <IconMenu
-                  iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                  iconButtonElement={
+                    <FloatingActionButton
+                      backgroundColor={blueGrey700}
+                      mini={true}
+                      zDepth={0}
+                      style={{
+                        marginTop: 5
+                      }}
+                    >
+                      <HardwareKeyboardArrowDown />
+                    </FloatingActionButton>
+                  }
                   anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                   targetOrigin={{horizontal: 'right', vertical: 'top'}}
                 >
                   {
                     paper.state === 0 &&
                     <MenuItem
-                      primaryText='发布'
+                      leftIcon={<ContentSend />}
+                      primaryText='发布问卷'
                       onTouchTap={this.handlePublishPaper.bind(this, paper)}
                     />
                   }
@@ -139,7 +155,8 @@ class Profile extends Component {
                     paper.state === 0 &&
                     <Link to='/papers/create'>
                       <MenuItem
-                        primaryText='修改'
+                        leftIcon={<ContentCreate />}
+                        primaryText='编辑问卷'
                         onTouchTap={
                           this.handleChangePaper.bind(this, paper)
                         }
@@ -151,7 +168,8 @@ class Profile extends Component {
                     paper.state === 1 &&
                     <Link to='/papers/paper'>
                       <MenuItem
-                        primaryText='查看'
+                        leftIcon={<ImageRemoveRedEye />}
+                        primaryText='查看回答统计'
                         onTouchTap={
                           this.handleChangePaper.bind(this, paper)
                         }
@@ -159,16 +177,17 @@ class Profile extends Component {
                     </Link>
                   }
                   <MenuItem
-                    primaryText='删除'
+                    leftIcon={<ContentDeleteSweep />}
+                    primaryText='删除问卷'
                     onTouchTap={
                       this.handleRemovePaper.bind(this, paper)
                     }
                   />
                 </IconMenu>
               </div>
-              <h1 className='profileListItemTitle'>
+              <h3 className='profileListItemTitle'>
                 {paper.title}
-              </h1>
+              </h3>
               <Subheader style={{
                 display: 'inline-block',
                 width: 'auto'
@@ -276,7 +295,22 @@ class Profile extends Component {
             onChange={this.handleChangeTabIndex}
           >
             <Paper className='profileList'>
-              <Subheader>问卷列表</Subheader>
+              <Subheader>
+                问卷列表
+                <Link to='/papers/create' style={{
+                  float: 'right',
+                  margin: 5
+                }}>
+                  <RaisedButton
+                    primary={true}
+                    label='新建问卷'
+                    zDepth={0}
+                    onTouchTap={
+                      this.handleChangePaper.bind(this, {})
+                    }
+                  />
+                </Link>
+              </Subheader>
               <Divider />
               <ul>
                 {this.renderPapers(user.publishedPapers)}

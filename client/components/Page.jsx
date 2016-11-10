@@ -48,6 +48,7 @@ class Page extends Component {
               onTouchTap={() => {
                 changePage(Math.max(page - 1, 0));
               }}
+              zDepth={0}
               style={{ float: 'right' }}
             >
               <HardwareKeyboardArrowLeft />
@@ -65,6 +66,7 @@ class Page extends Component {
               onTouchTap={() => {
                 changePage(Math.min(page + 1, pageNum - 1));
               }}
+              zDepth={0}
               style={{ float: 'right' }}
             >
               <HardwareKeyboardArrowRight />

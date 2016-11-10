@@ -7,12 +7,13 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
-import ContentBackspace from 'material-ui/svg-icons/content/backspace';
+import ActionDelete from 'material-ui/svg-icons/action/delete';
 import NavigationCancel from 'material-ui/svg-icons/navigation/cancel';
 import HardwareKeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import HardwareKeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
-import { blue500, red500 } from 'material-ui/styles/colors';
+import { greyblue500, red500 } from 'material-ui/styles/colors';
 
 class Question extends Component {
   handleRemoveQuestion = () => {
@@ -93,10 +94,10 @@ class Question extends Component {
               this.handleChangeItems(event, index);
             }}
           />
-          <IconButton tooltip='删除选项' tooltipPosition='top-right' onTouchTap={
+          <IconButton tooltip='删除此选项' tooltipPosition='top-right' onTouchTap={
             this.handleRemoveOption.bind(this, index)
           }>
-            <ContentBackspace hoverColor={red500} />
+            <NavigationCancel color={red500} />
           </IconButton>
         </div>
       );
@@ -118,29 +119,41 @@ class Question extends Component {
             <ToolbarGroup>
               {
                 index < questionsLen - 1 &&
-                <IconButton tooltip='下移' onTouchTap={() => {
+                <FloatingActionButton zDepth={0} mini={true} onTouchTap={() => {
                   this.handleUpperQuestion(index);
+                }} style={{
+                  marginRight: 2
                 }}>
-                  <HardwareKeyboardArrowDown color={blue500} />
-                </IconButton>
+                  <HardwareKeyboardArrowDown />
+                </FloatingActionButton>
               }
               {
                 index > 0 &&
-                <IconButton tooltip='上移' onTouchTap={() => {
+                <FloatingActionButton zDepth={0} mini={true} onTouchTap={() => {
                   this.handleLowerQuestion(index);
+                }} style={{
+                  marginRight: 2
                 }}>
-                  <HardwareKeyboardArrowUp color={blue500} />
-                </IconButton>
+                  <HardwareKeyboardArrowUp />
+                </FloatingActionButton>
               }
               {
                 type !== 3 &&
-                <IconButton tooltip='新增选项' onTouchTap={this.handleAddOption}>
-                  <ContentAddCircle hoverColor={blue500} />
-                </IconButton>
+                <FloatingActionButton zDepth={0} mini={true} onTouchTap={
+                    this.handleAddOption
+                } style={{
+                  marginRight: 2
+                }}>
+                  <ContentAddCircle />
+                </FloatingActionButton>
               }
-              <IconButton tooltip='删除问题' onTouchTap={this.handleRemoveQuestion}>
-                <NavigationCancel hoverColor={red500} />
-              </IconButton>
+              <FloatingActionButton zDepth={0} mini={true} onTouchTap={
+                this.handleRemoveQuestion
+              } style={{
+                marginRight: 2
+              }}>
+                <ActionDelete />
+              </FloatingActionButton>
             </ToolbarGroup>
           </Toolbar>
         }

@@ -11,9 +11,6 @@
   @include wrapper(70%, 6.25rem);
   color: $white;
 }
-.homePageTitle {
-  font-family: 'minijianxiyuan5c3ce34f816557';
-}
 .homePageBtn {
   margin: 0 0.25rem;
 }
@@ -60,7 +57,7 @@
   text-align: center;
   cursor: pointer;
   &:hover {
-    background-color: $blue500;
+    background-color: $blueGrey700;
     color: $white;
   }
 }
