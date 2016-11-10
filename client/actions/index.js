@@ -130,7 +130,7 @@ export function getUserInfo (token, replace) {
       return res.json();
     })
     .then((res) => {
-      for (let key in res){
+      for (let key in res) {
         if (key !== 'user' && key !== 'verify' && !res.user[key]) {
           res.user[key] = res[key];
           delete res[key];
@@ -175,14 +175,11 @@ export function updateUserInfo (data) {
       return res.json();
     })
     .then((res) => {
-      if (res.success) {
-        res.errMsg = '更改成功';
-      }
       dispatch(changeErrMsg(res.errMsg));
       dispatch(finishUpdateUserInfo(res));
     })
     .catch((err) => {
-      dispatch(changeErrMsg('更改失败'));
+      dispatch(changeErrMsg(res.errMsg));
       dispatch(finishUpdateUserInfo({ success: false }));
     })
   };

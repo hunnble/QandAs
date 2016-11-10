@@ -27,7 +27,13 @@ router.put('/', function* (next) {
       errMsg: '更改信息失败, 请重新登录并重试'
     };
   }
-  if (body.password) {
+  if (!body) {
+    return this.response.body = {
+      success: false,
+      errMsg: '什么都没有改变'
+    };
+  }
+  if (body.curPassword && body.password && body.password2) {
     const userWithPassword = yield user.findUserWithPassword({ 'account': account });
     const oldPassword = userWithPassword.password;
     const changePasswordPermission = bcrypt.compareSync(body.curPassword, oldPassword);

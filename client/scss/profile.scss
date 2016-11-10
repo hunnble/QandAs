@@ -13,13 +13,16 @@
       animation: none;
     }
   }
+  .profileWrapper {
+    overflow: hidden;
+    padding: 1rem;
+  }
   .profileItem {
     margin: 0 auto 3.75rem;
     max-width: $profileItemMaxWidth;
   }
   .profileForm {
     margin: 0 auto;
-    padding: 2rem 0;
     width: 95%;
     background-color: $white;
   }
@@ -106,10 +109,14 @@
     }
     .profileList {
       margin: 5% 0;
+      padding-left: 0;
       width: 100%;
     }
     .profileText {
       padding-left: 0.4rem;
+      .profileTextInput {
+        max-width: 200px;
+      }
     }
   }
   .profileListItem {
