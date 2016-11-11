@@ -6,11 +6,11 @@ var user = new Schema({
   account: { type: String },
   avatar: { type: String, default: './images/avatar.png' },
   password: { type: String },
-  nickname: { type: String, default: 'no one' },
+  nickname: { type: String, default: '' },
   mail: { type: String, default: '' },
   info: { type: String, default: '' },
   settings: { type: Mixed },
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: new Date() }
 });
 
 user.statics.findUserWithPassword = function (op) {

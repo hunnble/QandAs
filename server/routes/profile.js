@@ -24,13 +24,13 @@ router.put('/', function* (next) {
   if (!curUser) {
     return this.response.body = {
       success: false,
-      errMsg: '更改信息失败, 请重新登录并重试'
+      errMsg: '更改失败,请重新登录'
     };
   }
   if (isEmpty(body)) {
     return this.response.body = {
       success: false,
-      errMsg: '请做出修改后再提交'
+      errMsg: '表单填写不全'
     };
   }
   if (body.curPassword && body.password && body.password2) {
@@ -40,13 +40,18 @@ router.put('/', function* (next) {
     if (!changePasswordPermission) {
       return this.response.body = {
         success: false,
-        errMsg: '密码错误, 无法更换新密码'
+        errMsg: '请输入正确的密码'
       };
     }
     const hash = bcrypt.hashSync(body.password, config.SALT_ROUND);
     body.password = hash;
     delete body.curPassword;
     delete body.password2;
+  } else if (body.curPassword || body.password || body.password2) {
+    return this.response.body = {
+      success: false,
+      errMsg: '表单填写不全'
+    };
   }
   let result = yield user.updateUser({
     'account': account
@@ -54,7 +59,7 @@ router.put('/', function* (next) {
   if (!result) {
     return this.response.body = {
       success: false,
-      errMsg: '更改信息失败'
+      errMsg: '更改失败,请重试'
     };
   }
   return this.response.body = {

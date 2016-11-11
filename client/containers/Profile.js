@@ -10,17 +10,19 @@ import {
   changePublishedPage,
   changeIsEditing,
   publishPaper,
-  removePaper
+  removePaper,
+  changePublishConfirm
 } from '../actions';
 
 function mapStateToProps (state) {
   return {
     user: state.user,
-    papers: state.papers,
+    paper: state.papers.paper,
     tabOpen: state.page.profileTabOpen,
     tabIndex: state.page.profileTabIndex,
     isEditing: state.page.isEditing,
-    publishedPage: state.page.publishedPage
+    publishedPage: state.page.publishedPage,
+    publishConfirmOpen: state.page.publishConfirmOpen
   };
 }
 
@@ -34,7 +36,8 @@ function mapDispatchToProps (dispatch) {
       changePublishedPage,
       changeIsEditing,
       publishPaper,
-      removePaper
+      removePaper,
+      changePublishConfirm
     }, dispatch)
   };
 }

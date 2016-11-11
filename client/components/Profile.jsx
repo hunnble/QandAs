@@ -13,6 +13,7 @@ import Paper from 'material-ui/Paper';
 import { BottomNavigation, BottomNavigationItem } from 'material-ui/BottomNavigation';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
+import Dialog from 'material-ui/Dialog';
 import Drawer from 'material-ui/Drawer';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
@@ -64,10 +65,9 @@ class Profile extends Component {
     }
   }
   handlePublishPaper = (paper) => {
-    const { changePaper, publishPaper } = this.props.actions;
-    const token = window.localStorage.getItem(TOKEN_NAME);
+    const { changePaper, changePublishConfirm } = this.props.actions;
     changePaper(paper);
-    publishPaper(paper._id, token);
+    changePublishConfirm(true);
   }
   renderPapers = (papers) => {
     if (!papers) {
@@ -173,9 +173,11 @@ class Profile extends Component {
   render () {
     const {
       user,
+      paper,
       tabOpen,
       tabIndex,
       isEditing,
+      publishConfirmOpen,
       actions
     } = this.props;
     const drawerWidth = 56;
@@ -245,6 +247,32 @@ class Profile extends Component {
               <ul>
                 {this.renderPapers(user.publishedPapers)}
               </ul>
+              <Dialog
+                title='确认发布'
+                actions={[
+                  <FlatButton
+                    label='确认'
+                    onTouchTap={() => {
+                      const token = window.localStorage.getItem(TOKEN_NAME);
+                      actions.publishPaper(paper._id, token);
+                      actions.changePublishConfirm(false);
+                    }}
+                  />,
+                  <FlatButton
+                    label='取消'
+                    onTouchTap={() => {
+                      actions.changePublishConfirm(false);
+                    }}
+                  />
+                ]}
+                modal={true}
+                open={publishConfirmOpen}
+                onRequestClose={() => {
+                  actions.changePublishConfirm(false);
+                }}
+              >
+                问卷发布后不可修改或撤回,确认发布?
+              </Dialog>
             </Paper>
             <Paper>
               <Subheader>
@@ -281,11 +309,12 @@ class Profile extends Component {
 Profile.PropTypes = {
   actions: PropTypes.object,
   user: PropTypes.object,
-  papers: PropTypes.array,
+  paper: PropTypes.object,
   tabIndex: PropTypes.number,
   tabOpen: PropTypes.boolean,
   isEditing: PropTypes.boolean,
-  publishedPage: PropTypes.number
+  publishedPage: PropTypes.number,
+  publishConfirmOpen: PropTypes.boolean
 };
 
 export default Profile;

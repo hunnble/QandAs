@@ -152,10 +152,13 @@ export function requestUserInfo (token) {
 }
 
 export function receiveUserInfo (res, replace) {
+  if (!res.verify) {
+    browserHistory.replace('/signIn');
+  }
   return Object.assign({
     type: RECEIVE_USER_INFO,
     isFetching: false,
-    replace: replace,
+    replace: replace
   }, res);
 }
 
