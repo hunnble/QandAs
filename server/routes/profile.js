@@ -27,10 +27,10 @@ router.put('/', function* (next) {
       errMsg: '更改信息失败, 请重新登录并重试'
     };
   }
-  if (!body) {
+  if (isEmpty(body)) {
     return this.response.body = {
       success: false,
-      errMsg: '什么都没有改变'
+      errMsg: '请做出修改后再提交'
     };
   }
   if (body.curPassword && body.password && body.password2) {
@@ -62,5 +62,14 @@ router.put('/', function* (next) {
     errMsg: '更改成功'
   };
 });
+
+function isEmpty(obj) {
+  for(var name in obj) {
+    if(obj.hasOwnProperty(name)) {
+      return false;
+    }
+  }
+  return true;
+}
 
 module.exports = router;

@@ -1,5 +1,5 @@
 import { reduxForm } from 'redux-form';
-import ProfileForm from '../components/ProfileForm.jsx';
+import ProfilePasswordForm from '../components/ProfilePasswordForm.jsx';
 
 const validate = (values) => {
   let errors = {};
@@ -25,4 +25,4 @@ const validate = (values) => {
 export default reduxForm({
   form: 'profilePassword',
   validate
-})(ProfileForm);
+})(ProfilePasswordForm);

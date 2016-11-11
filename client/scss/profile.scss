@@ -52,8 +52,10 @@
   .profilePaperState0,
   .profilePaperState1,
   .profilePaperState1 {
-    margin: auto 1rem;
+    display: inline-block;
+    margin: -2rem 1rem auto;
     font-size: 0.8rem;
+    vertical-align: middle;
   }
   .profilePageBar {
     text-align: right;
