@@ -177,10 +177,12 @@ export function updateUserInfo (data) {
     .then((res) => {
       dispatch(changeErrMsg(res.errMsg));
       dispatch(finishUpdateUserInfo(res));
+      dispatch(getUserInfo(data.token));
     })
     .catch((err) => {
       dispatch(changeErrMsg(res.errMsg));
       dispatch(finishUpdateUserInfo({ success: false }));
+      dispatch(getUserInfo(data.token));
     })
   };
 }

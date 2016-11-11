@@ -4,7 +4,6 @@ import { Field } from 'redux-form';
 import { blueGrey700 } from 'material-ui/styles/colors';
 import TextField from 'material-ui/TextField';
 import Subheader from 'material-ui/Subheader';
-
 import ActionLock from 'material-ui/svg-icons/action/lock';
 import ActionLockOpen from 'material-ui/svg-icons/action/lock-open';
 import ActionLockOutline from 'material-ui/svg-icons/action/lock-outline';
@@ -32,7 +31,8 @@ class ProfileForm extends Component {
           display: 'inline-block',
           marginRight: 6,
           width: 'auto',
-          minWidth: 72
+          minWidth: 72,
+          verticalAlign: 'middle'
         }}>
           {this.props.labelMap.get(name)}
         </Subheader>
@@ -50,9 +50,10 @@ class ProfileForm extends Component {
     );
   }
   onSubmit = (data) => {
-    const { updateUserInfo } = this.props;
+    const { updateUserInfo, destroy } = this.props;
     data.token = window.localStorage.getItem(TOKEN_NAME);
     updateUserInfo(data);
+    destroy();
   }
   render () {
     const {
@@ -60,7 +61,8 @@ class ProfileForm extends Component {
       user,
       handleSubmit,
       submitting,
-      pristine
+      pristine,
+      destroy
     } = this.props;
     const iconStyle = {
       verticalAlign: 'middle'
@@ -96,7 +98,12 @@ class ProfileForm extends Component {
             type='submit'
             primary={true}
             label='修改'
+            disabled={submitting || pristine}
+          />
+          <RaisedButton
+            label='重置'
             disabled={submitting}
+            onTouchTap={destroy}
           />
         </div>
       </form>
@@ -105,6 +112,8 @@ class ProfileForm extends Component {
 }
 
 ProfileForm.PropTypes = {
+  user: PropTypes.object,
+  labelMap: PropTypes.object,
   updateUserInfo: PropTypes.func
 };
 

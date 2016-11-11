@@ -26,7 +26,6 @@ import ContentCreate from 'material-ui/svg-icons/content/create';
 import ContentDeleteSweep from 'material-ui/svg-icons/content/delete-sweep';
 import ImageRemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye';
 import ActionLock from 'material-ui/svg-icons/action/lock';
-
 import { TOKEN_NAME } from '../../configs/config';
 import SwipeableViews from 'react-swipeable-views';
 import moment from 'moment';
@@ -59,7 +58,10 @@ class Profile extends Component {
     removePaper(paper._id, token);
   }
   handleChangeTabIndex = (index) => {
-    index >= 0 && this.props.actions.changeProfileTabIndex(index);
+    if (index >= 0) {
+      this.props.actions.changeProfileTabIndex(index);
+      this.props.actions.changeIsEditing(false);
+    }
   }
   handlePublishPaper = (paper) => {
     const { changePaper, publishPaper } = this.props.actions;
@@ -207,7 +209,7 @@ class Profile extends Component {
               onTouchTap={ () => { this.handleChangeTabIndex(0) }}
             />
             <BottomNavigationItem
-              label='用户'
+              label='个人信息'
               icon={<SocialPerson />}
               onTouchTap={ () => { this.handleChangeTabIndex(1) }}
             />
@@ -225,7 +227,7 @@ class Profile extends Component {
           >
             <Paper className='profileList'>
               <Subheader>
-                问卷列表
+                问卷管理
                 <Link to='/papers/create' style={{
                   float: 'right',
                   margin: 5
@@ -245,35 +247,23 @@ class Profile extends Component {
               </ul>
             </Paper>
             <Paper>
-              {
-                !isEditing &&
-                <div className='profileWrapper'>
-                  <h3><span>{labelMap.get('account')}:</span>{user.account}</h3>
-                  <h3><span>{labelMap.get('nickname')}:</span>{user.nickname}</h3>
-                  <h3><span>{labelMap.get('mail')}:</span>{user.mail}</h3>
-                  <h3><span>{labelMap.get('info')}:</span>{user.info}</h3>
-                  <div className='profileBtnWrapper fr'>
-                    <RaisedButton
-                      primary={true}
-                      label='编辑'
-                      onTouchTap={() => {
-                        actions.changeIsEditing(true);
-                      }}
-                    />
-                  </div>
-                </div>
-              }
-              {
-                isEditing &&
-                <ProfileUserForm
-                  labelMap={labelMap}
-                  user={user}
-                  changeIsEditing={actions.changeIsEditing}
-                  updateUserInfo={actions.updateUserInfo}
-                />
-              }
+              <Subheader>
+                个人信息
+              </Subheader>
+              <Divider />
+              <ProfileUserForm
+                labelMap={labelMap}
+                user={user}
+                isEditing={isEditing}
+                changeIsEditing={actions.changeIsEditing}
+                updateUserInfo={actions.updateUserInfo}
+              />
             </Paper>
             <Paper>
+              <Subheader>
+                修改密码
+              </Subheader>
+              <Divider />
               <ProfilePasswordForm
                 labelMap={labelMap}
                 user={user}

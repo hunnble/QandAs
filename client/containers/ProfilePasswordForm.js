@@ -14,10 +14,16 @@ const validate = (values) => {
       errors.password2 = '密码长度不对';
     }
     if (!(values.curPassword && values.password && values.password2) && !(!values.curPassword && !values.password && !values.password2)) {
-      errors.curPassword = errors.password = errors.password2 = '修改密码必须填写完整';
+      let keywords = ['curPassword', 'password', 'password2'];
+      for (let i in keywords) {
+        let key = keywords[i];
+        if (!values[key]) {
+          errors[key] = '请填写表单';
+        }
+      }
     }
   } else {
-    errors.curPassword = errors.password = errors.password2 = '修改密码必须填写完整';
+    errors.curPassword = errors.password = errors.password2 = '请填写表单';
   }
   return errors;
 };
