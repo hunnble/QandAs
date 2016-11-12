@@ -56,6 +56,12 @@ class MenuBar extends Component {
           <Menu
             onTouchTap={handleMenuClose}
           >
+            {
+              !isEmpty(user) &&
+              <MenuItem leftIcon={<ActionPermIdentity />} style={bgMenuItemStyle}>
+                <Link className="insideLink" to={'/profile'}>{user.account}</Link>
+              </MenuItem>
+            }
             <MenuItem leftIcon={<ActionHome />} style={bgMenuItemStyle}>
               <Link className="insideLink" to={'/'}>主页</Link>
             </MenuItem>
@@ -69,12 +75,6 @@ class MenuBar extends Component {
               !isEmpty(user) &&
               <MenuItem leftIcon={<ActionDescription />} style={bgMenuItemStyle}>
                 <Link className="insideLink" to={'/archives'}>问卷</Link>
-              </MenuItem>
-            }
-            {
-              !isEmpty(user) &&
-              <MenuItem leftIcon={<ActionPermIdentity />} style={bgMenuItemStyle}>
-                <Link className="insideLink" to={'/profile'}>用户</Link>
               </MenuItem>
             }
             <MenuItem
@@ -101,6 +101,12 @@ class MenuBar extends Component {
             zDepth={0}
           />
           <Menu onClick={handleMenuClose}>
+            {
+              !isEmpty(user) &&
+              <MenuItem leftIcon={<ActionPermIdentity />} style={bgMenuItemStyle}>
+                <Link className="insideLink" to={'/profile'}>{user.account}</Link>
+              </MenuItem>
+            }
             <MenuItem leftIcon={<ActionHome />}>
               <Link className="insideLink" to={'/'}>主页</Link>
             </MenuItem>
@@ -114,12 +120,6 @@ class MenuBar extends Component {
               !isEmpty(user) &&
               <MenuItem leftIcon={<ActionDescription />} style={bgMenuItemStyle}>
                 <Link className="insideLink" to={'/archives'}>问卷</Link>
-              </MenuItem>
-            }
-            {
-              !isEmpty(user) &&
-              <MenuItem leftIcon={<ActionPermIdentity />} style={bgMenuItemStyle}>
-                <Link className="insideLink" to={'/profile'}>用户</Link>
               </MenuItem>
             }
             <MenuItem leftIcon={<ActionSettings />} onTouchTap={openSettings}>

@@ -1,14 +1,37 @@
 import React, { Component, PropTypes } from 'react';
 import '../scss/homePage.scss';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import Search from './Search.jsx';
 import Page from './Page.jsx';
 import RaisedButton from 'material-ui/RaisedButton';
 import Subheader from 'material-ui/Subheader';
 import Paper from 'material-ui/Paper';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ActionInput from 'material-ui/svg-icons/action/input';
+import ActionBookmarkBorder from 'material-ui/svg-icons/action/bookmark-border';
 import ContentUndo from 'material-ui/svg-icons/content/undo';
 import EditorBorderColor from 'material-ui/svg-icons/editor/border-color';
+import {
+  red500,
+  deepPurple500,
+  blue500,
+  green500,
+  deepOrange500,
+  amber500,
+  cyan500,
+  blueGrey500
+} from 'material-ui/styles/colors';
+import moment from 'moment';
+
+const palette = [
+  red500,
+  deepPurple500,
+  blue500,
+  green500,
+  deepOrange500,
+  amber500,
+  cyan500
+];
 
 class HomePage extends Component {
   handleCloseSearchResults = () => {
@@ -16,6 +39,7 @@ class HomePage extends Component {
   }
   handleClickPaper = (index) => {
     this.props.changePaper(this.props.papers[index]);
+    browserHistory.push('/papers/paper');
   }
   render () {
     const {
@@ -44,9 +68,8 @@ class HomePage extends Component {
     return (
       <div style={{
         position: 'relative',
-        height: '100%'
+        minHeight: '100%'
       }}>
-        <div className='fullPage-1'></div>
         {
           stepIndex === 0 &&
           <div className='homePageWrapper'>
@@ -85,15 +108,30 @@ class HomePage extends Component {
               pageBarClassName='homePagePageBar'
               pageClassName='homePagePageNum'
               renderItem={(item, index) => {
+                let randomNumber = Math.floor(Math.random() * palette.length, 10);
                 return (
                   <Paper className='paper' key={'paper' + index}>
-                    <h3>{item.title}</h3>
-                    <Subheader>发布者: {item.creator}</Subheader>
-                    <Link to='/papers/paper'>
-                      <RaisedButton onTouchTap={() => {
-                        this.handleClickPaper(index)
-                      }} label='填写问卷' />
-                    </Link>
+                    <ActionBookmarkBorder
+                      style={{
+                        width: 60,
+                        height: 60
+                      }}
+                      color={palette[randomNumber]}
+                    />
+                    <h3 style={{ color: blueGrey500 }}>
+                      {item.title}
+                    </h3>
+                    <Subheader>
+                      发布者: {item.creator}
+                    </Subheader>
+                    <Subheader>
+                      截止日期:{moment(new Date(item.closingDate)).format('YYYY-M-D')}
+                    </Subheader>
+                    <FloatingActionButton mini={true} onTouchTap={() => {
+                      this.handleClickPaper(index)
+                    }} backgroundColor={palette[randomNumber]}>
+                      <ActionInput />
+                    </FloatingActionButton>
                   </Paper>
                 );
               }}

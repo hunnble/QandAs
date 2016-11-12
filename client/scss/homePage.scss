@@ -1,12 +1,5 @@
 @import 'base';
 
-.fullPage-1 {
-  // @include full-page('../images/homePage1.jpg');
-  position: fixed;
-}
-.fullPage-2 {
-  min-height: 100%;
-}
 .homePageWrapper {
   @include wrapper(70%, 6.25rem);
   color: $white;
@@ -32,20 +25,21 @@
   top: $headerHeight - $btnHeight;
   margin: 0 auto;
   padding: 1rem;
-  width: 80%;
-  height: 70%;
+  overflow: hidden;
 }
 .paper {
   float: left;
-  margin: 1%;
-  padding: 0.8rem;
+  margin: 0.5rem 1%;
+  padding: 1rem 0.8rem;
   width: per(94 / 3);
+  min-height: 300px;
+  height: 50%;
+  text-align: center;
 }
 .homePagePageBar {
   display: block;
-  margin: 1rem auto 3.2rem;
+  margin: 1rem auto 0;
   width: 80%;
-  text-align: right;
 }
 .homePagePageNum {
   -webkit-transition: all 0.2s ease-in;
@@ -62,8 +56,12 @@
   }
 }
 
-/*1024px X 768px */
-@media only all and (max-width: 1024px) and (max-height: 768px) {
+@media only all and (min-width: 1280px) {
+  .paper {
+    width: per(92 / 4);
+  }
+}
+@media only all and (max-width: 1024px) {
   .fullPage-1, .fullPage-2 {
     -webkit-background-size: 1024px 768px;
     -moz-background-size: 1024px 768px;
@@ -71,8 +69,8 @@
     background-size: 1024px 768px;
   }
   .paper {
-    padding: 0.6rem;
-    width: per(94 / 2);
+    width: per(96 / 2);
+    height: 40%;
   }
 }
 /*640px X 480px*/
@@ -86,7 +84,7 @@
 }
 @media only all and (max-width: 640px) {
   .paper {
-    padding: 0.4rem;
-    width: per(94);
+    width: per(96);
+    height: per(100 / 3);
   }
 }
