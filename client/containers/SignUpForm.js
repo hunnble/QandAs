@@ -83,27 +83,29 @@ class SignUpForm extends Component {
     const { handleSubmit, submitting, pristine } = this.props;
     return (
       <div className="formWrapper">
-        <div className="bgIcon"></div>
-        <form className="signForm" onSubmit={handleSubmit(this.onSubmit)}>
-          <div className="signWrapper">
-            <div>
-              <Field type="text" name="account" hint="账号" component={renderInput} />
+        <div>
+          <div className="bgIcon"></div>
+          <form className="signForm" onSubmit={handleSubmit(this.onSubmit)}>
+            <div className="signWrapper">
+              <div>
+                <Field type="text" name="account" hint="账号" component={renderInput} />
+              </div>
+              <div>
+                <Field type="text" name="nickname" hint="昵称(非必填)" component={renderInput} />
+              </div>
+              <div>
+                <Field type="password" name="password" hint="密码" component={renderInput} />
+              </div>
+              <div>
+                <Field type="password" name="password2" hint="确认密码" component={renderInput} />
+              </div>
+              <RaisedButton className="signBtn" containerElement={
+                <Link to={'/signIn'} />
+              } label="去登录" />
+              <RaisedButton className="signBtn" primary={true} type="submit" label="确认注册" disabled={submitting||pristine} />
             </div>
-            <div>
-              <Field type="text" name="nickname" hint="昵称(非必填)" component={renderInput} />
-            </div>
-            <div>
-              <Field type="password" name="password" hint="密码" component={renderInput} />
-            </div>
-            <div>
-              <Field type="password" name="password2" hint="确认密码" component={renderInput} />
-            </div>
-            <RaisedButton className="signBtn" containerElement={
-              <Link to={'/signIn'} />
-            } label="去登录" />
-            <RaisedButton className="signBtn" primary={true} type="submit" label="确认注册" disabled={submitting||pristine} />
-          </div>
-        </form>
+          </form>
+        </div>
         <ErrMsg />
       </div>
     );

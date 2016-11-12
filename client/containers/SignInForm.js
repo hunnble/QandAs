@@ -78,32 +78,34 @@ class SignInForm extends Component {
     const { handleSubmit, submitting, pristine } = this.props;
     return (
       <div className="formWrapper">
-        <div className="bgIcon"></div>
-        <form className="signForm" onSubmit={handleSubmit(this.onSubmit)}>
-          <div className="signWrapper">
-            <div>
-              <Field type="text" name="account" hint="账号" component={renderInput} />
+        <div>
+          <div className="bgIcon"></div>
+          <form className="signForm" onSubmit={handleSubmit(this.onSubmit)}>
+            <div className="signWrapper">
+              <div>
+                <Field type="text" name="account" hint="账号" component={renderInput} />
+              </div>
+              <div>
+                <Field type="password" name="password" hint="密码" component={renderInput} />
+              </div>
+              <Checkbox name="remember" label="记住我" style={{
+                left: '10%',
+                width: '80%',
+                textAlign: 'left'
+              }} />
+              <RaisedButton className="signBtn" containerElement={
+                <Link to={'/signUp'} />
+              } label="去注册" />
+              <RaisedButton
+                className="signBtn"
+                primary={true}
+                type="submit"
+                label="登录"
+                disabled={submitting||pristine}
+              />
             </div>
-            <div>
-              <Field type="password" name="password" hint="密码" component={renderInput} />
-            </div>
-            <Checkbox name="remember" label="记住我" style={{
-              left: '10%',
-              width: '80%',
-              textAlign: 'left'
-            }} />
-            <RaisedButton className="signBtn" containerElement={
-              <Link to={'/signUp'} />
-            } label="去注册" />
-            <RaisedButton
-              className="signBtn"
-              primary={true}
-              type="submit"
-              label="登录"
-              disabled={submitting||pristine}
-            />
-          </div>
-        </form>
+          </form>
+        </div>
         <ErrMsg />
       </div>
     );

@@ -1,7 +1,17 @@
 @import 'base';
 
 .formWrapper {
-  @include wrapper(70%, 34rem);
+  @include wrapper(100%, 34rem);
+  @include bg();
+  >div {
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    position: absolute;
+    top: 50%;
+    width: 100%;
+  }
 }
 .signForm {
   background-color: $white;

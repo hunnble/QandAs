@@ -49,6 +49,17 @@ $profileItemMaxWidth: 980px;
   background-image: url($bgUrl);
   background-repeat: no-repeat;
 }
+@mixin bg() {
+  min-height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -ms-background-size: cover;
+  background-size: cover;
+  background-color: $grey200;
+  background-image: url('../images/homePage1.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
 
 body {
   margin: 0;
@@ -69,15 +80,7 @@ ul {
 }
 .container {
   margin-left: $sidebarWidth;
-  min-height: 100%;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -ms-background-size: cover;
-  background-size: cover;
-  background-color: $grey200;
-  background-image: url('../images/homePage1.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  @include bg();
 }
 .fl {
   float: left;

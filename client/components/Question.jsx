@@ -8,9 +8,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAddCircle from 'material-ui/svg-icons/content/add-circle';
+import ImageAddToPhotos from 'material-ui/svg-icons/image/add-to-photos';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
-import NavigationCancel from 'material-ui/svg-icons/navigation/cancel';
 import HardwareKeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import HardwareKeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import { greyblue500, red500 } from 'material-ui/styles/colors';
@@ -97,7 +96,7 @@ class Question extends Component {
           <IconButton tooltip='删除此选项' tooltipPosition='top-right' onTouchTap={
             this.handleRemoveOption.bind(this, index)
           }>
-            <NavigationCancel color={red500} />
+            <ActionDelete />
           </IconButton>
         </div>
       );
@@ -144,7 +143,7 @@ class Question extends Component {
                 } style={{
                   marginRight: 2
                 }}>
-                  <ContentAddCircle />
+                  <ImageAddToPhotos />
                 </FloatingActionButton>
               }
               <FloatingActionButton zDepth={0} mini={true} onTouchTap={

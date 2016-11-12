@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import '../scss/menu.scss';
 import { Link } from 'react-router';
+import Appbar from 'material-ui/Appbar';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
@@ -46,6 +47,10 @@ class MenuBar extends Component {
           handleClick={this.handleClick}
         />
         <aside className='sidebarBg'>
+          <Appbar
+            title='QandA'
+            zDepth={0}
+          />
           <Menu
             onTouchTap={handleMenuClose}
           >
@@ -74,6 +79,10 @@ class MenuBar extends Component {
           containerClassName='sidebarSm'
           onRequestChange={handleMenuClose}
         >
+          <Appbar
+            title='QandA'
+            zDepth={0}
+          />
           <Menu onClick={handleMenuClose}>
             <MenuItem leftIcon={<ActionHome />}>
               <Link className="insideLink" to={'/'}>主页</Link>
