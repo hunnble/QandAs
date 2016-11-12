@@ -4,7 +4,6 @@ import MenuItem from 'material-ui/MenuItem';
 import { Card, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import FloatingActionButton from 'material-ui/FloatingActionButton';

@@ -58,7 +58,12 @@ render(
     <Provider store={store}>
       <Router history={history}>
         <Route path='/' component={App}>
-          <IndexRoute component={Home} />
+          <IndexRoute component={Home} onEnter={(nextState, replace) => {
+            const token = window.localStorage.getItem(TOKEN_NAME);
+            if (token) {
+              store.dispatch(getUserInfo(token));
+            }
+          }} />
           <Route path='signIn' component={SignInForm} />
           <Route path='signUp' component={SignUpForm} />
           <Route path='archives' component={Archive} onEnter={(nextState, replace) => {

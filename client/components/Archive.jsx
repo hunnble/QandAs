@@ -52,7 +52,7 @@ class Archive extends Component {
     return (
       <Page
         page={publishedPage}
-        perPage={5}
+        perPage={10}
         divider={true}
         items={papers}
         pageItemsClassName='profileListItem'
@@ -69,15 +69,11 @@ class Archive extends Component {
                 </span>
                 <IconMenu
                   iconButtonElement={
-                    <FloatingActionButton
-                      mini={true}
-                      zDepth={0}
-                      style={{
-                        margin: '5px 0'
-                      }}
-                    >
-                      <HardwareKeyboardArrowDown />
-                    </FloatingActionButton>
+                    <FlatButton
+                      label=''
+                      labelPosition='before'
+                      icon={<HardwareKeyboardArrowDown />}
+                    />
                   }
                   anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                   targetOrigin={{horizontal: 'right', vertical: 'top'}}

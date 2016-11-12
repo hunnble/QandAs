@@ -47,10 +47,10 @@ class HomePage extends Component {
         height: '100%'
       }}>
         <div className='fullPage-1'></div>
-        <div className='homePageWrapper'>
-          <div className='bgIcon'></div>
-          {
-            stepIndex === 0 &&
+        {
+          stepIndex === 0 &&
+          <div className='homePageWrapper'>
+            <div className='bgIcon'></div>
             <Search
               user={user}
               keywords={keywords}
@@ -64,56 +64,43 @@ class HomePage extends Component {
                     icon={<EditorBorderColor />}
                   />
                 </Link>
-              }
+            }
             />
-          }
-        </div>
-
-        <div className='fullPage-2 homePageSearch'>
-          {
-            stepIndex === 0 &&
-            <Search
-              user={user}
-              className='homePageWrapper'
-              keywords={keywords}
-              changeKeywords={changeKeywords}
-              searchPaper={searchPaper}
+          </div>
+        }
+        {
+          stepIndex === 1 &&
+          <div>
+            <FloatingActionButton
+              className='homePageBackBtn'
+              onTouchTap={this.handleCloseSearchResults}
+            >
+              <ContentUndo />
+            </FloatingActionButton>
+            <Page
+              page={searchedPaperPage}
+              perPage={Infinity}
+              items={papers}
+              pageItemsClassName='homePagePapers'
+              pageBarClassName='homePagePageBar'
+              pageClassName='homePagePageNum'
+              renderItem={(item, index) => {
+                return (
+                  <Paper className='paper' key={'paper' + index}>
+                    <h3>{item.title}</h3>
+                    <Subheader>发布者: {item.creator}</Subheader>
+                    <Link to='/papers/paper'>
+                      <RaisedButton onTouchTap={() => {
+                        this.handleClickPaper(index)
+                      }} label='填写问卷' />
+                    </Link>
+                  </Paper>
+                );
+              }}
+              changePage={changePage}
             />
-          }
-          {
-            stepIndex === 1 &&
-            <div>
-              <FloatingActionButton
-                className='homePageBackBtn'
-                onTouchTap={this.handleCloseSearchResults}
-              >
-                <ContentUndo />
-              </FloatingActionButton>
-              <Page
-                page={searchedPaperPage}
-                perPage={6}
-                items={papers}
-                pageItemsClassName='homePagePapers'
-                pageBarClassName='homePagePageBar'
-                pageClassName='homePagePageNum'
-                renderItem={(item, index) => {
-                  return (
-                    <Paper className='paper' key={'paper' + index}>
-                      <h3>{item.title}</h3>
-                      <Subheader>发布者: {item.creator}</Subheader>
-                      <Link to='/papers/paper'>
-                        <RaisedButton onTouchTap={() => {
-                          this.handleClickPaper(index)
-                        }} label='填写问卷' />
-                      </Link>
-                    </Paper>
-                  );
-                }}
-                changePage={changePage}
-              />
-            </div>
-          }
-        </div>
+          </div>
+        }
       </div>
     );
   }

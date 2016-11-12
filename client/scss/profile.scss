@@ -52,7 +52,6 @@
   .profilePaperState1,
   .profilePaperState1 {
     display: inline-block;
-    margin: -2rem 1rem auto;
     font-size: 0.8rem;
     vertical-align: middle;
   }
@@ -73,6 +72,7 @@
   }
   .profileListNestedItem {
     float: right;
+    margin-top: 0.625rem;
   }
 }
 

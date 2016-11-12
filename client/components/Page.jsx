@@ -42,17 +42,19 @@ class Page extends Component {
           backgroundColor: 'transparent'
         }}>
           <ToolbarGroup>
-            <FloatingActionButton
-              mini={true}
-              disabled={!(page > 0)}
-              onTouchTap={() => {
-                changePage(Math.max(page - 1, 0));
-              }}
-              zDepth={0}
-              style={{ float: 'right' }}
-            >
-              <HardwareKeyboardArrowLeft />
-            </FloatingActionButton>
+            {
+              page > 0 &&
+              <FloatingActionButton
+                mini={true}
+                onTouchTap={() => {
+                  changePage(Math.max(page - 1, 0));
+                }}
+                zDepth={0}
+                style={{ float: 'right' }}
+              >
+                <HardwareKeyboardArrowLeft />
+              </FloatingActionButton>
+            }
           </ToolbarGroup>
           <ToolbarGroup>
             <Subheader>
@@ -60,17 +62,19 @@ class Page extends Component {
             </Subheader>
           </ToolbarGroup>
           <ToolbarGroup>
-            <FloatingActionButton
-              mini={true}
-              disabled={!(page < pageNum - 1)}
-              onTouchTap={() => {
-                changePage(Math.min(page + 1, pageNum - 1));
-              }}
-              zDepth={0}
-              style={{ float: 'right' }}
-            >
-              <HardwareKeyboardArrowRight />
-            </FloatingActionButton>
+            {
+              page < pageNum - 1 &&
+              <FloatingActionButton
+                mini={true}
+                onTouchTap={() => {
+                  changePage(Math.min(page + 1, pageNum - 1));
+                }}
+                zDepth={0}
+                style={{ float: 'right' }}
+              >
+                <HardwareKeyboardArrowRight />
+              </FloatingActionButton>
+            }
           </ToolbarGroup>
         </Toolbar>
       </div>
