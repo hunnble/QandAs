@@ -8,6 +8,7 @@ import Subheader from 'material-ui/Subheader';
 import Paper from 'material-ui/Paper';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentUndo from 'material-ui/svg-icons/content/undo';
+import EditorBorderColor from 'material-ui/svg-icons/editor/border-color';
 
 class HomePage extends Component {
   handleCloseSearchResults = () => {
@@ -48,13 +49,24 @@ class HomePage extends Component {
         <div className='fullPage-1'></div>
         <div className='homePageWrapper'>
           <div className='bgIcon'></div>
-          <Link to='/papers/create'>
-            <RaisedButton
-              className='homePageBtn'
-              label='创建问卷'
+          {
+            stepIndex === 0 &&
+            <Search
+              user={user}
+              keywords={keywords}
+              changeKeywords={changeKeywords}
+              searchPaper={searchPaper}
+              children={
+                <Link to='/papers/create'>
+                  <RaisedButton
+                    className='homePageBtn'
+                    label='新建问卷'
+                    icon={<EditorBorderColor />}
+                  />
+                </Link>
+              }
             />
-          </Link>
-          <RaisedButton className='homePageBtn' label='查找问卷' />
+          }
         </div>
 
         <div className='fullPage-2 homePageSearch'>

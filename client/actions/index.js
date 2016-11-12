@@ -304,7 +304,7 @@ export function submitPaper (data) {
     .then((res) => {
       dispatch(changeErrMsg(res.errMsg));
       dispatch(finishCreatePaper(res));
-      browserHistory.replace('/profile');
+      browserHistory.replace('/archives');
     })
     .catch((err) => {
       dispatch(changeErrMsg('保存失败,请重试'));

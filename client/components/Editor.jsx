@@ -14,6 +14,7 @@ import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 import ActionRestorePage from 'material-ui/svg-icons/action/restore-page';
 import ContentUnarchive from 'material-ui/svg-icons/content/unarchive';
 import ContentSend from 'material-ui/svg-icons/content/send';
+import { white } from 'material-ui/styles/colors';
 import { TOKEN_NAME } from '../../configs/config';
 
 class Editor extends Component {
@@ -151,21 +152,36 @@ class Editor extends Component {
         />
       );
     });
+    const whiteStyle = {
+      color: white,
+      borderColor: white
+    };
     return (
       <div>
-        <Header />
+        <Header user={user} />
         <div className='create'>
           <TextField
             style={{ display: 'block' }}
             floatingLabelText='问卷名称'
             value={title}
+            fullWidth={true}
+            inputStyle={whiteStyle}
+            hintStyle={whiteStyle}
+            floatingLabelStyle={whiteStyle}
+            floatingLabelFocueStyle={whiteStyle}
+            underlineFocusStyle={whiteStyle}
             onChange={this.handleChangeTitle}
           />
           <TextField
             style={{ display: 'block' }}
             floatingLabelText='问卷详细信息'
-            multiLine={true}
             value={detail}
+            fullWidth={true}
+            inputStyle={whiteStyle}
+            hintStyle={whiteStyle}
+            floatingLabelStyle={whiteStyle}
+            floatingLabelFocueStyle={whiteStyle}
+            underlineFocusStyle={whiteStyle}
             onChange={this.handleChangeDetail}
           />
           <RaisedButton

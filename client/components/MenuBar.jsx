@@ -9,9 +9,11 @@ import Dialog from 'material-ui/Dialog';
 import Drawer from 'material-ui/Drawer';
 import FlatButton from 'material-ui/FlatButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
+import ActionDescription from 'material-ui/svg-icons/action/description';
 import ActionPermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
 import ActionPowerSettingsNew from 'material-ui/svg-icons/action/power-settings-new';
+import CommunicationVpnKey from 'material-ui/svg-icons/communication/vpn-key';
 import { white } from 'material-ui/styles/colors';
 import MenuOpener from './MenuOpener.jsx';
 import Settings from '../containers/Settings';
@@ -24,7 +26,7 @@ class MenuBar extends Component {
     this.props.actions.closeSettings();
   }
   render () {
-    const { actions, isOpen, anchorEl, settingsVisible } = this.props;
+    const { actions, isOpen, user, anchorEl, settingsVisible } = this.props;
     const { handleMenuClose, openSettings, closeSettings } = actions;
     const dialogActions = [
       <FlatButton
@@ -57,9 +59,24 @@ class MenuBar extends Component {
             <MenuItem leftIcon={<ActionHome />} style={bgMenuItemStyle}>
               <Link className="insideLink" to={'/'}>主页</Link>
             </MenuItem>
-            <MenuItem leftIcon={<ActionPermIdentity />} style={bgMenuItemStyle}>
-              <Link className="insideLink" to={'/profile'}>用户资料</Link>
-            </MenuItem>
+            {
+              isEmpty(user) &&
+              <MenuItem leftIcon={<CommunicationVpnKey />} style={bgMenuItemStyle}>
+                <Link className="insideLink" to={'/signIn'}>登录</Link>
+              </MenuItem>
+            }
+            {
+              !isEmpty(user) &&
+              <MenuItem leftIcon={<ActionDescription />} style={bgMenuItemStyle}>
+                <Link className="insideLink" to={'/archives'}>问卷</Link>
+              </MenuItem>
+            }
+            {
+              !isEmpty(user) &&
+              <MenuItem leftIcon={<ActionPermIdentity />} style={bgMenuItemStyle}>
+                <Link className="insideLink" to={'/profile'}>用户</Link>
+              </MenuItem>
+            }
             <MenuItem
               leftIcon={<ActionSettings />}
               onTouchTap={openSettings}
@@ -68,7 +85,7 @@ class MenuBar extends Component {
               设置
             </MenuItem>
             <MenuItem leftIcon={<ActionPowerSettingsNew />} style={bgMenuItemStyle}>
-              <Link className="insideLink" to={'/signIn'}>退出</Link>
+              <Link className="insideLink" to={'/signIn'}>注销</Link>
             </MenuItem>
           </Menu>
         </aside>
@@ -87,14 +104,29 @@ class MenuBar extends Component {
             <MenuItem leftIcon={<ActionHome />}>
               <Link className="insideLink" to={'/'}>主页</Link>
             </MenuItem>
-            <MenuItem leftIcon={<ActionPermIdentity />}>
-              <Link className="insideLink" to={'/profile'}>用户资料</Link>
-            </MenuItem>
+            {
+              isEmpty(user) &&
+              <MenuItem leftIcon={<CommunicationVpnKey />} style={bgMenuItemStyle}>
+                <Link className="insideLink" to={'/signIn'}>登录</Link>
+              </MenuItem>
+            }
+            {
+              !isEmpty(user) &&
+              <MenuItem leftIcon={<ActionDescription />} style={bgMenuItemStyle}>
+                <Link className="insideLink" to={'/archives'}>问卷</Link>
+              </MenuItem>
+            }
+            {
+              !isEmpty(user) &&
+              <MenuItem leftIcon={<ActionPermIdentity />} style={bgMenuItemStyle}>
+                <Link className="insideLink" to={'/profile'}>用户</Link>
+              </MenuItem>
+            }
             <MenuItem leftIcon={<ActionSettings />} onTouchTap={openSettings}>
               设置
             </MenuItem>
             <MenuItem leftIcon={<ActionPowerSettingsNew />}>
-              <Link className="insideLink" to={'/signIn'}>退出</Link>
+              <Link className="insideLink" to={'/signIn'}>注销</Link>
             </MenuItem>
           </Menu>
         </Drawer>
@@ -111,10 +143,20 @@ class MenuBar extends Component {
 }
 
 MenuBar.PropTypes = {
+  user: PropTypes.object,
   isOpen: PropTypes.boolean,
   anchorEl: PropTypes.object,
   settingsVisible: PropTypes.boolean,
   actions: PropTypes.object
 };
+
+function isEmpty (obj) {
+  for (var name in obj) {
+    if (obj.hasOwnProperty(name)) {
+      return false;
+    }
+  }
+  return true;
+}
 
 export default MenuBar;

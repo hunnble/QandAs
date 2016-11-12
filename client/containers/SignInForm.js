@@ -2,6 +2,7 @@ import 'babel-polyfill';
 import '../scss/sign.scss';
 import React, { Component, PropTypes } from 'react';
 import { push } from 'react-router-redux';
+import { getUserInfo } from '../actions';
 import { reduxForm, Field } from 'redux-form';
 import ErrMsg from './ErrMsg';
 import TextField from 'material-ui/TextField';
@@ -62,12 +63,14 @@ class SignInForm extends Component {
     .then((resBody) => {
       if (resBody.token) {
         window.localStorage.setItem(TOKEN_NAME, resBody.token);
+        dispatch(getUserInfo(resBody.token));
         dispatch(push('/'));
       } else {
         dispatch(changeErrMsg(resBody.errMsg));
       }
     })
     .catch((err) => {
+      this.props.destroy();
       dispatch(changeErrMsg('登录失败，请重试'));
     });
   }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import '../scss/header.scss';
 import { Link } from 'react-router';
 import MenuBar from '../containers/MenuBar';
@@ -11,10 +11,13 @@ class Header extends Component {
   render () {
     return (
       <header className="header">
-        <MenuBar />
+        <MenuBar user={this.props.user} />
       </header>
     );
   }
 }
 
+Header.PropTypes = {
+  user: PropTypes.object
+};
 export default Header;

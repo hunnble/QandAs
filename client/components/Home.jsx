@@ -16,7 +16,7 @@ class Home extends Component {
     } = this.props;
     return (
       <div>
-        <Header />
+        <Header user={user} />
         <HomePage
           user={user}
           keywords={keywords}

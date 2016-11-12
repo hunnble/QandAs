@@ -22,6 +22,7 @@ import App from './components/App.jsx';
 import Home from './containers/Home';
 import SignInForm from './containers/SignInForm';
 import SignUpForm from './containers/SignUpForm';
+import Archive from './containers/Archive';
 import Profile from './containers/Profile';
 import Editor from './containers/Editor';
 import Paper from './containers/Paper';
@@ -57,11 +58,12 @@ render(
     <Provider store={store}>
       <Router history={history}>
         <Route path='/' component={App}>
-          <IndexRoute component={Home} onEnter={(nextState, replace) => {
-            handleEnter(replace);
-          }} />
+          <IndexRoute component={Home} />
           <Route path='signIn' component={SignInForm} />
           <Route path='signUp' component={SignUpForm} />
+          <Route path='archives' component={Archive} onEnter={(nextState, replace) => {
+            handleEnter(replace);
+          }} />
           <Route path='profile' component={Profile} onEnter={(nextState, replace) => {
             handleEnter(replace);
           }} />
