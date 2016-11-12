@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import {
-  blueGrey700,
+  grey900,
   blueGrey500,
   grey400,
   amber700,
@@ -32,7 +32,7 @@ const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: blueGrey700,
+    primary1Color: grey900,
     primary2Color: blueGrey500,
     primary3Color: grey400,
     accent1Color: amber700,

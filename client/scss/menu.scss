@@ -1,6 +1,7 @@
 @import 'base';
 
 .menu {
+  display: none;
   transform: rotate(0);
   transition: 0.5s ease-in-out;
   margin: 13px 6px;
@@ -71,5 +72,11 @@
   >span:nth-child(2),
   >span:nth-child(5) {
     transform: rotate(-45deg);
+  }
+}
+
+@media only all and (max-width: 640px) {
+  .menu {
+    display: block;
   }
 }

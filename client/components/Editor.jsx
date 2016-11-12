@@ -170,21 +170,18 @@ class Editor extends Component {
           />
           <RaisedButton
             className='createBtn'
-            primary={true}
             label='添加新问题'
             icon={<ActionNoteAdd />}
             onClick={this.handleCreateQuestion}
           />
           <RaisedButton
             className='createBtn'
-            primary={true}
             label='全部删除'
             icon={<ActionRestorePage />}
             onClick={this.handleRemoveAllQuestions}
           />
           <RaisedButton
             className='createBtn'
-            primary={true}
             label='保存'
             icon={<ContentUnarchive />}
             onTouchTap={this.handleSubmit}

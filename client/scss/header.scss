@@ -6,3 +6,29 @@
   width: 100%;
   z-index: 100;
 }
+
+.sidebarSm {
+  display: none;
+}
+
+.sidebarBg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: $sidebarWidth;
+  background-color: $grey900;
+  overflow: hidden;
+  .insideLink {
+    color: $white;
+  }
+}
+
+@media only all and (max-width: 640px) {
+  .sidebarOpener, .sidebarSm {
+    display: block;
+  }
+  .sidebarBg {
+    display: none;
+  }
+}

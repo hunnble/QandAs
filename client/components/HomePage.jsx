@@ -41,7 +41,10 @@ class HomePage extends Component {
       );
     });
     return (
-      <div>
+      <div style={{
+        position: 'relative',
+        height: '100%'
+      }}>
         <div className='fullPage-1'></div>
         <div className='homePageWrapper'>
           <div className='bgIcon'></div>

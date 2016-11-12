@@ -1,7 +1,7 @@
 @import 'base';
 
 .fullPage-1 {
-  @include full-page('../images/homePage1.jpg');
+  // @include full-page('../images/homePage1.jpg');
   position: fixed;
 }
 .fullPage-2 {
@@ -57,7 +57,7 @@
   text-align: center;
   cursor: pointer;
   &:hover {
-    background-color: $blueGrey700;
+    background-color: $mainColor;
     color: $white;
   }
 }

@@ -3,8 +3,9 @@
 $calendarWidth: 11.375rem;
 
 .create {
-  margin: $headerHeight auto;
-  padding: 1rem;
+  // margin: $headerHeight auto;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
   max-width: $profileItemMaxWidth;
 }
 .createBtn {
@@ -26,7 +27,7 @@ $calendarWidth: 11.375rem;
     height: $btnHeight;
     line-height: $btnHeight;
     font-size: 0.8rem;
-    color: $blueGrey700;
+    color: $mainColor;
   }
 }
 .calendarDialog {
@@ -66,12 +67,12 @@ $calendarWidth: 11.375rem;
   width: 2rem;
   height: 2rem;
   line-height: 2rem;
-  // color: $blueGrey700;
+  // color: $mainColor;
   text-align: center;
   cursor: pointer;
 }
 .daysWrapper>.day:hover {
-  background-color: $blueGrey700;
+  background-color: $mainColor;
   color: $white;
   opacity: 1;
 }
