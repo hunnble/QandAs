@@ -9,6 +9,7 @@ import Paper from 'material-ui/Paper';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ActionInput from 'material-ui/svg-icons/action/input';
 import ActionBookmarkBorder from 'material-ui/svg-icons/action/bookmark-border';
+import AlertErrorOutline from 'material-ui/svg-icons/alert/error-outline';
 import ContentUndo from 'material-ui/svg-icons/content/undo';
 import EditorBorderColor from 'material-ui/svg-icons/editor/border-color';
 import {
@@ -87,15 +88,17 @@ class HomePage extends Component {
                     icon={<EditorBorderColor />}
                   />
                 </Link>
-            }
+              }
             />
           </div>
         }
         {
           stepIndex === 1 &&
+          papers.length > 0 &&
           <div>
             <FloatingActionButton
               className='homePageBackBtn'
+              secondary={true}
               onTouchTap={this.handleCloseSearchResults}
             >
               <ContentUndo />
@@ -137,6 +140,26 @@ class HomePage extends Component {
               }}
               changePage={changePage}
             />
+          </div>
+        }
+        {
+          stepIndex === 1 &&
+          papers.length === 0 &&
+          <div className='homePageWrapper'>
+            <AlertErrorOutline style={{
+              width: 80,
+              height: 80
+            }} color={red500} />
+            <Subheader style={{ color: red500 }}>
+              没有和关键字匹配的问卷
+            </Subheader>
+            <FloatingActionButton
+              secondary={true}
+              mini={true}
+              onTouchTap={this.handleCloseSearchResults}
+            >
+              <ContentUndo />
+            </FloatingActionButton>
           </div>
         }
       </div>

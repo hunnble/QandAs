@@ -120,32 +120,27 @@ router.delete('/paper', function* (next) {
 router.post('/search', function* (next) {
   let body = this.request.body;
   let keywords = body.keywords;
-  let account = jwt.verify(body.token, config.TOKEN_KEY).account;
-  if (!account) {
-    return this.response.body = {
-      success: false,
-      errMsg: '请先登录'
-    };
-  }
   let keywordsExp = new RegExp(keywords);
   let success = false;
   let errMsg = '查询试卷失败，请重试';
+  let account = '';
+  if (body.token) {
+    account = jwt.verify(body.token, config.TOKEN_KEY).account;
+  }
   let papers = yield paper.findPapers({
     'title': keywordsExp,
-    'creator':{ '$ne': account },
+    'creator': { '$ne': account },
     'state': 1
   });
-  if (papers && papers.length !== 0) {
+  if (papers) {
     success = true;
     errMsg = '查询成功';
-  } else if (papers.length === 0) {
-    errMsg = '无相关试卷，请换个关键词查询';
   }
   return this.response.body = {
     success: success,
     papers: success ? papers : [],
     errMsg: errMsg
-  }
+  };
 });
 
 /*
