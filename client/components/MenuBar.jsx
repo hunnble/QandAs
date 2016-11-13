@@ -81,12 +81,15 @@ class MenuBar extends Component {
             >
               设置
             </MenuItem>
-            <MenuItem
-              leftIcon={<ActionPowerSettingsNew color={white} />}
-              className='menuItem'
-            >
-              <Link className="insideLink" to={'/signIn'}>注销</Link>
-            </MenuItem>
+            {
+              !isEmpty(user) &&
+              <MenuItem
+                leftIcon={<ActionPowerSettingsNew color={white} />}
+                className='menuItem'
+              >
+                <Link className="insideLink" to={'/signIn'}>注销</Link>
+              </MenuItem>
+            }
           </Menu>
         </aside>
         <Drawer
@@ -128,9 +131,15 @@ class MenuBar extends Component {
             >
               设置
             </MenuItem>
-            <MenuItem leftIcon={<ActionPowerSettingsNew />}>
-              <Link className="insideLink" to={'/signIn'}>注销</Link>
-            </MenuItem>
+            {
+              !isEmpty(user) &&
+              <MenuItem
+                leftIcon={<ActionPowerSettingsNew color={white} />}
+                className='menuItem'
+              >
+                <Link className="insideLink" to={'/signIn'}>注销</Link>
+              </MenuItem>
+            }
           </Menu>
         </Drawer>
         <Dialog

@@ -3,8 +3,9 @@ export const HIDE_PASSWORD = 'hidePassword';
 export const TOGGLE_PASSWORD = 'togglePassword';
 export const TOGGLE_SWITCHER = 'toggleSwitcher';
 export const TOGGLE_SETTINGS_VISIBLE = 'toggleSettingsVisible';
-export const REQUEST_USER_INFO = 'setUserInfo';
-export const RECEIVE_USER_INFO = 'getUserInfo';
+export const REQUEST_USER_INFO = 'requestUserInfo';
+export const RECEIVE_USER_INFO = 'receiveUserInfo';
+export const REMOVE_USER_INFO = 'removeUserInfo';
 export const START_UPDATE_USER_INFO = 'startUpdateUserInfo';
 export const FINISH_UPDATE_USER_INFO = 'finishUpdateUserInfo';
 export const CHANGE_MSG_VISIBLE = 'changeMsgVisible';
@@ -162,6 +163,12 @@ export function receiveUserInfo (res, replace) {
     replace: replace
   }, res);
 }
+
+export function removeUserInfo () {
+  return Object.assign({
+    type: REMOVE_USER_INFO
+  });
+};
 
 export function updateUserInfo (data) {
   return (dispatch) => {

@@ -1,6 +1,7 @@
 import {
   REQUEST_USER_INFO,
-  RECEIVE_USER_INFO
+  RECEIVE_USER_INFO,
+  REMOVE_USER_INFO
 } from '../actions';
 
 const initialState = {};
@@ -13,6 +14,8 @@ export default function user (state = initialState, action) {
         return state;
       }
       return action.user;
+    case REMOVE_USER_INFO:
+      return {};
     default:
       return state;
   }

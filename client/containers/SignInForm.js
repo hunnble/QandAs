@@ -102,12 +102,6 @@ class SignInForm extends Component {
               <div>
                 <Field type='password' name='password' hint='密码' component={renderInput} />
               </div>
-              <Checkbox name='remember' label='记住我' style={{
-                left: '10%',
-                width: '80%',
-                textAlign: 'left',
-                color: white
-              }} />
               <RaisedButton className='signBtn' containerElement={
                 <Link to='/signUp' />
               } label='前往注册' />

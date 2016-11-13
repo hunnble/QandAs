@@ -17,7 +17,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import fetch from 'isomorphic-fetch';
 import injectTapEventPlugin from "react-tap-event-plugin";
 import configureStore from './store';
-import { getUserInfo, initialPageState } from './actions';
+import { getUserInfo, removeUserInfo, initialPageState } from './actions';
 import App from './components/App.jsx';
 import Home from './containers/Home';
 import SignInForm from './containers/SignInForm';
@@ -69,7 +69,9 @@ render(
           <IndexRoute component={Home} onEnter={(nextState, replace) => {
             handleEnterWithoutReplace();
           }} />
-          <Route path='signIn' component={SignInForm} />
+          <Route path='signIn' component={SignInForm} onEnter={(nextState, replace) => {
+            store.dispatch(removeUserInfo());
+          }} />
           <Route path='signUp' component={SignUpForm} />
           <Route path='archives' component={Archive} onEnter={(nextState, replace) => {
             handleEnter(replace);
