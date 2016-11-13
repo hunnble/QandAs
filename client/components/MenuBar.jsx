@@ -124,7 +124,7 @@ class MenuBar extends Component {
             }
             <MenuItem
               leftIcon={<ActionSettings />}
-              nTouchTap={openSettings}
+              onTouchTap={openSettings}
             >
               设置
             </MenuItem>

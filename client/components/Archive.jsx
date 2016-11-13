@@ -58,14 +58,18 @@ class Archive extends Component {
         pageItemsClassName='profileListItem'
         pageBarClassName='profilePageBar'
         renderItem={(paper, index) => {
+          let paperState = paper.state;
+          if (paperState === 1 && new Date(paper.closingDate) < new Date()) {
+            paperState = 2;
+          }
           return (
             <li
               key={index}
               className='profileListItem'
             >
               <div key={-1 * index} className='profileListNestedItem'>
-                <span className={'profilePaperState' + paper.state}>
-                  {paperStateMap.get(paper.state)}
+                <span className={'profilePaperState' + paperState}>
+                  {paperStateMap.get(paperState)}
                 </span>
                 <IconMenu
                   iconButtonElement={

@@ -50,7 +50,6 @@ class Editor extends Component {
       actions
     } = this.props;
     const { year, month, date } = time;
-    const { account } = user;
     const { changeErrMsg } = actions;
     const data = {
       token: window.localStorage.getItem(TOKEN_NAME),
@@ -236,7 +235,6 @@ Editor.PropTypes = {
   questions: PropTypes.array,
   calendar: PropTypes.object,
   time: PropTypes.objectOf(PropTypes.number),
-  paper: PropTypes.object,
   saved: PropTypes.boolean
 }
 

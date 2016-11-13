@@ -15,7 +15,6 @@
   }
 }
 .signForm {
-  background-color: $white;
   display: inline-block;
   width: 30rem;
   padding: 1rem;
@@ -26,7 +25,7 @@
 
 @media only all and (max-width: 640px) {
   .formWrapper {
-    @include wrapper(70%, 27rem);
+    @include wrapper(100%, 27rem);
   }
   .signForm {
     padding: 0;

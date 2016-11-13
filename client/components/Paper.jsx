@@ -5,9 +5,8 @@ import NotFound from './NotFound.jsx';
 
 class Paper extends Component {
   render () {
-    const { paper, actions } = this.props;
-    // const isCreator = (user.account === paper.creator);
-    const isCreator = false;
+    const { user, paper, actions } = this.props;
+    const isCreator = (user && user.account === paper.creator);
     // const answered = paper.answers.some((a) => a.answerer === user.account);
     return (
       <div>
@@ -20,6 +19,7 @@ class Paper extends Component {
           isCreator &&
           paper.state === 0 &&
           <Editor
+            user={user}
             paper={paper}
             refresh={this.refresh}
           />
@@ -32,7 +32,10 @@ class Paper extends Component {
         }
         {
           paper &&
+          !isCreator &&
+          paper.state === 1 &&
           <AnswerBar
+            user={user}
             paper={paper}
             submitAnswer={actions.submitAnswer}
             changeErrMsg={actions.changeErrMsg}
@@ -44,6 +47,7 @@ class Paper extends Component {
 }
 
 Paper.PropTypes = {
+  user: PropTypes.object,
   paper: PropTypes.object,
   actions: PropTypes.object
 };

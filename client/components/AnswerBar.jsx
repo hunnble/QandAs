@@ -1,14 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-import { browserHistory } from 'react-router';
+import '../scss/answerBar.scss';
 import Header from './Header.jsx';
 import ErrMsg from '../containers/ErrMsg';
 import { Field } from 'redux-form';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
+import Subheader from 'material-ui/Subheader';
 import RaisedButton from 'material-ui/RaisedButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Checkbox from 'material-ui/Checkbox';
-import '../scss/answerBar.scss';
+import { blueGrey700 } from 'material-ui/styles/colors';
 import { TOKEN_NAME } from '../../configs/config';
 
 const boxStyle = {
@@ -71,7 +72,9 @@ function renderQuestions (questions) {
       case 1:
         return (
           <Paper className='question' key={'question' + index}>
-            <h3 className='content'>{question.content}</h3>
+            <h3 className='content'>
+              {question.content}
+            </h3>
             <Field
               name={'q' + index}
               index={index}
@@ -83,23 +86,29 @@ function renderQuestions (questions) {
       case 2:
         return (
           <Paper className='question' key={'question' + index}>
-            <h3 className='content'>{question.content}</h3>
-            {question.items.map((item, i) => {
-              return (
-                <Field
-                  key={'item' + index + i}
-                  name={'q' + index + '_' + i}
-                  item={item}
-                  component={renderCheckBox}
-                />
-              );
-            })}
+            <h3 className='content'>
+              {question.content}
+            </h3>
+            {
+              question.items.map((item, i) => {
+                return (
+                  <Field
+                    key={'item' + index + i}
+                    name={'q' + index + '_' + i}
+                    item={item}
+                    component={renderCheckBox}
+                  />
+                );
+              })
+            }
           </Paper>
         );
       case 3:
         return (
           <Paper className='question' key={'question' + index}>
-            <h3 className='content'>{question.content}</h3>
+            <h3 className='content'>
+              {question.content}
+            </h3>
             <Field
               type='text'
               name={'q' + index}
@@ -147,15 +156,18 @@ class AnswerBar extends Component {
       answer: answer,
       _id: paper._id
     });
-    browserHistory.replace('/answer/finished');
   }
   render () {
-    const { paper, handleSubmit, submitting } = this.props;
+    const { user, paper, handleSubmit, submitting } = this.props;
     return (
       <div>
-        <Header />
+        <Header user={user} />
         <div className='answerWrapper'>
-          <h3>{paper.title}</h3>
+          <h3 style={{ color: blueGrey700 }}>{paper.title}</h3>
+          {
+            paper.detail &&
+            <Subheader>{paper.detail}</Subheader>
+          }
           <form onSubmit={handleSubmit(this.onSubmit)}>
             {renderQuestions(paper.questions)}
             <div className="fr">
@@ -170,6 +182,7 @@ class AnswerBar extends Component {
 }
 
 AnswerBar.PropTypes = {
+  user: PropTypes.object,
   paper: PropTypes.object,
   submitAnswer: PropTypes.func,
   changeErrMsg: PropTypes.func

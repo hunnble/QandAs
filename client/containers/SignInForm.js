@@ -8,6 +8,7 @@ import ErrMsg from './ErrMsg';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from 'material-ui/Checkbox';
+import { white } from 'material-ui/styles/colors';
 import { Link } from 'react-router';
 import fetch from 'isomorphic-fetch';
 import { changeErrMsg } from '../actions';
@@ -30,6 +31,11 @@ const validate = (values) => {
   return errors;
 };
 
+const whiteStyle = {
+  color: white,
+  borderColor: white
+};
+
 const renderInput = ({ input, name, type, hint, meta: { touched, error } }) => {
   const style = {
     width: '80%'
@@ -41,6 +47,11 @@ const renderInput = ({ input, name, type, hint, meta: { touched, error } }) => {
       hintText={hint}
       errorText={touched && error}{...error}
       style={style}
+      inputStyle={whiteStyle}
+      hintStyle={whiteStyle}
+      floatingLabelStyle={whiteStyle}
+      floatingLabelFocusStyle={whiteStyle}
+      underlineFocusStyle={whiteStyle}
     />
   );
 };
@@ -80,32 +91,35 @@ class SignInForm extends Component {
   render () {
     const { handleSubmit, submitting, pristine } = this.props;
     return (
-      <div className="formWrapper">
+      <div className='formWrapper'>
         <div>
-          <div className="bgIcon"></div>
-          <form className="signForm" onSubmit={handleSubmit(this.onSubmit)}>
-            <div className="signWrapper">
+          <div className='bgIcon'></div>
+          <form className='signForm' onSubmit={handleSubmit(this.onSubmit)}>
+            <div className='signWrapper'>
               <div>
-                <Field type="text" name="account" hint="账号" component={renderInput} />
+                <Field type='text' name='account' hint='账号' component={renderInput} />
               </div>
               <div>
-                <Field type="password" name="password" hint="密码" component={renderInput} />
+                <Field type='password' name='password' hint='密码' component={renderInput} />
               </div>
-              <Checkbox name="remember" label="记住我" style={{
+              <Checkbox name='remember' label='记住我' style={{
                 left: '10%',
                 width: '80%',
-                textAlign: 'left'
+                textAlign: 'left',
+                color: white
               }} />
-              <RaisedButton className="signBtn" containerElement={
-                <Link to={'/signUp'} />
-              } label="去注册" />
+              <RaisedButton className='signBtn' containerElement={
+                <Link to='/signUp' />
+              } label='前往注册' />
               <RaisedButton
-                className="signBtn"
-                primary={true}
-                type="submit"
-                label="登录"
+                className='signBtn'
+                type='submit'
+                label='登录'
                 disabled={submitting||pristine}
               />
+              <RaisedButton className='signBtn' containerElement={
+                <Link to='/' />
+              } label='试用' />
             </div>
           </form>
         </div>

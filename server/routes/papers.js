@@ -130,7 +130,8 @@ router.post('/search', function* (next) {
   let papers = yield paper.findPapers({
     'title': keywordsExp,
     'creator': { '$ne': account },
-    'state': 1
+    'state': 1,
+    'closingDate': { '$gt': new Date() }
   });
   if (papers) {
     success = true;
@@ -149,22 +150,13 @@ router.post('/search', function* (next) {
 router.post('/answer', function* (next) {
   let body = this.request.body;
   let _id = body._id;
-  if (!answerer) {
-    return this.response.body = {
-      success: false,
-      errMsg: '请先登录'
-    };
-  }
   let answer = body.answer;
   delete body._id;
   let op = { '_id': _id };
-  let data = {
-    'answer': answer
-  };
-  let result = yield paper.setAnswer(op, data);
+  let result = yield paper.setAnswer(op, answer);
   return this.response.body = {
     success: result,
-    errMsg: result ? '回答成功' : '网络错误,请重试'
+    errMsg: result ? '提交成功,感谢您的参与' : '提交问卷失败,请重试'
   };
 });
 

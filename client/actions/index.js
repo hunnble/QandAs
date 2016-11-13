@@ -55,6 +55,7 @@ export function initialPageState () {
     dispatch(changePublishedPage(0));
     dispatch(changePaperSaved(false));
     dispatch(changePublishConfirm(false));
+    dispatch(changePapers([]));
   };
 }
 
@@ -418,7 +419,7 @@ export function submitAnswer (data) {
       dispatch(finishSubmitAnswer(res));
     })
     .catch((err) => {
-      dispatch(changeErrMsg('出错了, 请重试'));
+      dispatch(changeErrMsg('提交失败,请重试'));
       dispatch(finishSubmitAnswer({ success: false }));
     })
   };
@@ -432,6 +433,9 @@ export function startSubmitAnswer () {
 }
 
 export function finishSubmitAnswer (res) {
+  if (res.success) {
+    browserHistory.replace('/');
+  }
   return Object.assign({
     type: FINISH_SUBMIT_ANSWER,
     isFetching: false

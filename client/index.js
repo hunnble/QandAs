@@ -53,16 +53,21 @@ function handleEnter (replace) {
   store.dispatch(initialPageState());
 }
 
+function handleEnterWithoutReplace () {
+  const token = window.localStorage.getItem(TOKEN_NAME);
+  if (token) {
+    store.dispatch(getUserInfo(token));
+    store.dispatch(initialPageState());
+  }
+}
+
 render(
   <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
       <Router history={history}>
         <Route path='/' component={App}>
           <IndexRoute component={Home} onEnter={(nextState, replace) => {
-            const token = window.localStorage.getItem(TOKEN_NAME);
-            if (token) {
-              store.dispatch(getUserInfo(token));
-            }
+            handleEnterWithoutReplace();
           }} />
           <Route path='signIn' component={SignInForm} />
           <Route path='signUp' component={SignUpForm} />
@@ -79,7 +84,7 @@ render(
                 handleEnter(replace);
               }}
             />
-            <Route path='paper' component={Paper} />
+          <Route path='paper' component={Paper} />
           </Route>
         </Route>
       </Router>

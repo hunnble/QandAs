@@ -6,6 +6,7 @@ import { reduxForm, Field } from 'redux-form';
 import ErrMsg from './ErrMsg';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import { white } from 'material-ui/styles/colors';
 import { Link } from 'react-router';
 import fetch from 'isomorphic-fetch';
 import { changeErrMsg } from '../actions';
@@ -37,6 +38,11 @@ const validate = (values) => {
   return errors;
 };
 
+const whiteStyle = {
+  color: white,
+  borderColor: white
+};
+
 const renderInput = ({ input, name, type, hint, meta: { touched, error } }) => {
   const style = {
     width: '80%'
@@ -48,6 +54,11 @@ const renderInput = ({ input, name, type, hint, meta: { touched, error } }) => {
       hintText={hint}
       errorText={touched && error}{...error}
       style={style}
+      inputStyle={whiteStyle}
+      hintStyle={whiteStyle}
+      floatingLabelStyle={whiteStyle}
+      floatingLabelFocusStyle={whiteStyle}
+      underlineFocusStyle={whiteStyle}
     />
   );
 };
@@ -69,8 +80,8 @@ class SignUpForm extends Component {
     })
     .then((resBody) => {
       if (resBody.success) {
-        dispatch(changeErrMsg('注册成功，登录看看吧'));
-        dispatch(push('/signIn'));
+        dispatch(changeErrMsg('注册成功'));
+        dispatch(push('/'));
       } else {
         dispatch(changeErrMsg(resBody.errMsg));
       }
@@ -82,13 +93,13 @@ class SignUpForm extends Component {
   render () {
     const { handleSubmit, submitting, pristine } = this.props;
     return (
-      <div className="formWrapper">
+      <div className='formWrapper'>
         <div>
-          <div className="bgIcon"></div>
-          <form className="signForm" onSubmit={handleSubmit(this.onSubmit)}>
-            <div className="signWrapper">
+          <div className='bgIcon'></div>
+          <form className='signForm' onSubmit={handleSubmit(this.onSubmit)}>
+            <div className='signWrapper'>
               <div>
-                <Field type="text" name="account" hint="账号" component={renderInput} />
+                <Field type='text' name='account' hint='账号' component={renderInput} />
               </div>
               <div>
                 <Field type="text" name="nickname" hint="昵称(非必填)" component={renderInput} />
@@ -101,8 +112,16 @@ class SignUpForm extends Component {
               </div>
               <RaisedButton className="signBtn" containerElement={
                 <Link to={'/signIn'} />
-              } label="去登录" />
-              <RaisedButton className="signBtn" primary={true} type="submit" label="确认注册" disabled={submitting||pristine} />
+              } label='前往登录' />
+              <RaisedButton
+                className='signBtn'
+                type='submit'
+                label='注册'
+                disabled={submitting || pristine}
+              />
+              <RaisedButton className='signBtn' containerElement={
+                <Link to='/' />
+              } label='试用' />
             </div>
           </form>
         </div>
