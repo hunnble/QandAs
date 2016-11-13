@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import '../scss/editor.scss';
 import { browserHistory, Link } from 'react-router';
 import Header from './Header.jsx';
@@ -168,7 +169,7 @@ class Editor extends Component {
             inputStyle={whiteStyle}
             hintStyle={whiteStyle}
             floatingLabelStyle={whiteStyle}
-            floatingLabelFocueStyle={whiteStyle}
+            floatingLabelFocusStyle={whiteStyle}
             underlineFocusStyle={whiteStyle}
             onChange={this.handleChangeTitle}
           />
@@ -180,25 +181,28 @@ class Editor extends Component {
             inputStyle={whiteStyle}
             hintStyle={whiteStyle}
             floatingLabelStyle={whiteStyle}
-            floatingLabelFocueStyle={whiteStyle}
+            floatingLabelFocusStyle={whiteStyle}
             underlineFocusStyle={whiteStyle}
             onChange={this.handleChangeDetail}
           />
           <RaisedButton
             className='createBtn'
             label='添加新问题'
+            secondary={true}
             icon={<ActionNoteAdd />}
             onClick={this.handleCreateQuestion}
           />
           <RaisedButton
             className='createBtn'
             label='全部删除'
+            secondary={true}
             icon={<ActionRestorePage />}
             onClick={this.handleRemoveAllQuestions}
           />
           <RaisedButton
             className='createBtn'
             label='保存'
+            secondary={true}
             icon={<ContentUnarchive />}
             onTouchTap={this.handleSubmit}
           />
@@ -210,7 +214,13 @@ class Editor extends Component {
             changeCalendarVisible={actions.changeCalendarVisible}
             title='截止日期'
           />
-          {qs}
+          <ReactCSSTransitionGroup
+            transitionName='question'
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={500}
+          >
+            {qs}
+          </ReactCSSTransitionGroup>
         </div>
         <ErrMsg />
       </div>

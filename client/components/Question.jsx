@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { Card, CardHeader, CardTitle, CardText } from 'material-ui/Card';
@@ -9,9 +10,10 @@ import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ImageAddToPhotos from 'material-ui/svg-icons/image/add-to-photos';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
+import ContentClear from 'material-ui/svg-icons/content/clear';
 import HardwareKeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import HardwareKeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
-import { greyblue500, red500 } from 'material-ui/styles/colors';
+import { white, blueGrey700, red500 } from 'material-ui/styles/colors';
 
 class Question extends Component {
   handleRemoveQuestion = () => {
@@ -95,7 +97,7 @@ class Question extends Component {
           <IconButton tooltip='删除此选项' tooltipPosition='top-right' onTouchTap={
             this.handleRemoveOption.bind(this, index)
           }>
-            <ActionDelete />
+            <ContentClear color={blueGrey700} hoverColor={red500} />
           </IconButton>
         </div>
       );
@@ -119,8 +121,8 @@ class Question extends Component {
                 index < questionsLen - 1 &&
                 <FloatingActionButton zDepth={0} mini={true} onTouchTap={() => {
                   this.handleUpperQuestion(index);
-                }} style={{
-                  marginRight: 2
+                }} secondary={true} style={{
+                  marginRight: 2,
                 }}>
                   <HardwareKeyboardArrowDown />
                 </FloatingActionButton>
@@ -129,8 +131,8 @@ class Question extends Component {
                 index > 0 &&
                 <FloatingActionButton zDepth={0} mini={true} onTouchTap={() => {
                   this.handleLowerQuestion(index);
-                }} style={{
-                  marginRight: 2
+                }} secondary={true} style={{
+                  marginRight: 2,
                 }}>
                   <HardwareKeyboardArrowUp />
                 </FloatingActionButton>
@@ -139,15 +141,15 @@ class Question extends Component {
                 type !== 3 &&
                 <FloatingActionButton zDepth={0} mini={true} onTouchTap={
                     this.handleAddOption
-                } style={{
-                  marginRight: 2
+                } secondary={true} style={{
+                  marginRight: 2,
                 }}>
                   <ImageAddToPhotos />
                 </FloatingActionButton>
               }
               <FloatingActionButton zDepth={0} mini={true} onTouchTap={
                 this.handleRemoveQuestion
-              } style={{
+              } secondary={true} style={{
                 marginRight: 2
               }}>
                 <ActionDelete />
@@ -169,7 +171,13 @@ class Question extends Component {
               this.handleChangeContent(event);
             }}
           />
-          {questionItems}
+          <ReactCSSTransitionGroup
+            transitionName='question'
+            transitionEnterTimeout={200}
+            transitionLeaveTimeout={200}
+          >
+            {questionItems}
+          </ReactCSSTransitionGroup>
         </CardText>
       </Card>
     );

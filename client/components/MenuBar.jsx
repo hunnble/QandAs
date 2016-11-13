@@ -39,9 +39,6 @@ class MenuBar extends Component {
         onTouchTap={closeSettings}
       />
     ];
-    const bgMenuItemStyle = {
-      color: white
-    };
     return (
       <div>
         <MenuOpener
@@ -58,33 +55,36 @@ class MenuBar extends Component {
           >
             {
               !isEmpty(user) &&
-              <MenuItem leftIcon={<ActionPermIdentity />} style={bgMenuItemStyle}>
+              <MenuItem leftIcon={<ActionPermIdentity color={white} />} className='menuItem'>
                 <Link className="insideLink" to={'/profile'}>{user.account}</Link>
               </MenuItem>
             }
-            <MenuItem leftIcon={<ActionHome />} style={bgMenuItemStyle}>
+            <MenuItem leftIcon={<ActionHome color={white} />} className='menuItem'>
               <Link className="insideLink" to={'/'}>主页</Link>
             </MenuItem>
             {
               isEmpty(user) &&
-              <MenuItem leftIcon={<CommunicationVpnKey />} style={bgMenuItemStyle}>
+              <MenuItem leftIcon={<CommunicationVpnKey color={white} />} className='menuItem'>
                 <Link className="insideLink" to={'/signIn'}>登录</Link>
               </MenuItem>
             }
             {
               !isEmpty(user) &&
-              <MenuItem leftIcon={<ActionDescription />} style={bgMenuItemStyle}>
+              <MenuItem leftIcon={<ActionDescription color={white} />} className='menuItem'>
                 <Link className="insideLink" to={'/archives'}>问卷</Link>
               </MenuItem>
             }
             <MenuItem
-              leftIcon={<ActionSettings />}
+              leftIcon={<ActionSettings color={white} />}
               onTouchTap={openSettings}
-              style={bgMenuItemStyle}
+              className='menuItem'
             >
               设置
             </MenuItem>
-            <MenuItem leftIcon={<ActionPowerSettingsNew />} style={bgMenuItemStyle}>
+            <MenuItem
+              leftIcon={<ActionPowerSettingsNew color={white} />}
+              className='menuItem'
+            >
               <Link className="insideLink" to={'/signIn'}>注销</Link>
             </MenuItem>
           </Menu>
@@ -103,7 +103,7 @@ class MenuBar extends Component {
           <Menu onClick={handleMenuClose}>
             {
               !isEmpty(user) &&
-              <MenuItem leftIcon={<ActionPermIdentity />} style={bgMenuItemStyle}>
+              <MenuItem leftIcon={<ActionPermIdentity />}>
                 <Link className="insideLink" to={'/profile'}>{user.account}</Link>
               </MenuItem>
             }
@@ -112,17 +112,20 @@ class MenuBar extends Component {
             </MenuItem>
             {
               isEmpty(user) &&
-              <MenuItem leftIcon={<CommunicationVpnKey />} style={bgMenuItemStyle}>
+              <MenuItem leftIcon={<CommunicationVpnKey />}>
                 <Link className="insideLink" to={'/signIn'}>登录</Link>
               </MenuItem>
             }
             {
               !isEmpty(user) &&
-              <MenuItem leftIcon={<ActionDescription />} style={bgMenuItemStyle}>
+              <MenuItem leftIcon={<ActionDescription />}>
                 <Link className="insideLink" to={'/archives'}>问卷</Link>
               </MenuItem>
             }
-            <MenuItem leftIcon={<ActionSettings />} onTouchTap={openSettings}>
+            <MenuItem
+              leftIcon={<ActionSettings />}
+              nTouchTap={openSettings}
+            >
               设置
             </MenuItem>
             <MenuItem leftIcon={<ActionPowerSettingsNew />}>

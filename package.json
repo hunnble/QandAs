@@ -53,7 +53,7 @@
     "mongoose": "^4.5.10",
     "pug": "^2.0.0-beta6",
     "react": "^15.3.1",
-    "react-addons-css-transition-group": "^15.3.1",
+    "react-addons-css-transition-group": "^15.3.2",
     "react-dom": "^15.3.1",
     "react-motion": "^0.4.5",
     "react-redux": "^4.4.5",

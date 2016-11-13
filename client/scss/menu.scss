@@ -74,6 +74,14 @@
     transform: rotate(-45deg);
   }
 }
+.menuItem {
+  transition: none;
+  color: $white !important;
+  cursor: pointer;
+  &:hover {
+    background-color: $secondaryColor !important;
+  }
+}
 
 @media only all and (max-width: 640px) {
   .menu {

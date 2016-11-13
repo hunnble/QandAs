@@ -3,7 +3,6 @@
 $calendarWidth: 11.375rem;
 
 .create {
-  // margin: $headerHeight auto;
   margin: 0 auto;
   padding: 1.5rem 1rem;
   max-width: $profileItemMaxWidth;
@@ -131,4 +130,19 @@ $calendarWidth: 11.375rem;
       line-height: 0.8rem;
     }
   }
+}
+
+.question-enter {
+  opacity: 0.01;
+  transition: opacity 0.5s ease-in;
+}
+.question-enter-active {
+  opacity: 1;
+}
+.question-leave {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
+.question-leave-active {
+  opacity: 0.01;
 }

@@ -13,6 +13,7 @@ import AlertErrorOutline from 'material-ui/svg-icons/alert/error-outline';
 import ContentUndo from 'material-ui/svg-icons/content/undo';
 import EditorBorderColor from 'material-ui/svg-icons/editor/border-color';
 import {
+  white,
   red500,
   deepPurple500,
   blue500,
@@ -149,8 +150,8 @@ class HomePage extends Component {
             <AlertErrorOutline style={{
               width: 80,
               height: 80
-            }} color={red500} />
-            <Subheader style={{ color: red500 }}>
+            }} color={white} />
+          <Subheader style={{ color: white }}>
               没有和关键字匹配的问卷
             </Subheader>
             <FloatingActionButton

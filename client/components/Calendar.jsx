@@ -101,7 +101,8 @@ class Calendar extends Component {
       <div className='calendar'>
         <RaisedButton
           icon={<ActionToday />}
-          label={time.month + '.' + time.date + '截止'}
+          label={'截止日期:' + time.month + '.' + time.date}
+          secondary={true}
           onTouchTap={this.onToggleVisible}
         />
         <Dialog
