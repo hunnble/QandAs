@@ -3,6 +3,10 @@ export const HIDE_PASSWORD = 'hidePassword';
 export const TOGGLE_PASSWORD = 'togglePassword';
 export const TOGGLE_SWITCHER = 'toggleSwitcher';
 export const TOGGLE_SETTINGS_VISIBLE = 'toggleSettingsVisible';
+export const START_SIGN_UP = 'startSignUp';
+export const FINISH_SIGN_UP = 'finishSignUp';
+export const START_SIGN_IN = 'startSignIn';
+export const FINISH_SIGN_IN = 'finishSignIn';
 export const REQUEST_USER_INFO = 'requestUserInfo';
 export const RECEIVE_USER_INFO = 'receiveUserInfo';
 export const REMOVE_USER_INFO = 'removeUserInfo';
@@ -42,6 +46,7 @@ export const CHANGE_PUBLISH_CONFIRM = 'changePublishConfirm';
 export const CHANGE_ISEDITING = 'changeIsEditing';
 
 import { browserHistory } from 'react-router';
+import { TOKEN_NAME } from '../../configs/config';
 
 export function initialPageState () {
   return (dispatch) => {
@@ -113,6 +118,98 @@ export function closeSettings () {
   return {
     type: TOGGLE_SETTINGS_VISIBLE,
     visible: false
+  };
+}
+
+export function handleSignUp (data) {
+  return (dispatch) => {
+    dispatch(startSignUp());
+    return fetch('/signUp', {
+      method: 'post',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then((res) => {
+      return res.json();
+    })
+    .then((resBody) => {
+      dispatch(finishSignUp());
+      if (resBody.success) {
+        dispatch(changeErrMsg('注册成功'));
+        browserHistory.replace('/');
+      } else {
+        dispatch(changeErrMsg(resBody.errMsg));
+      }
+    })
+    .catch((err) => {
+      dispatch(changeErrMsg('注册失败,请重试'));
+    });
+  };
+}
+
+export function startSignUp () {
+  return {
+    type: START_SIGN_UP,
+    isFetching: true
+  };
+}
+
+export function finishSignUp () {
+  return {
+    type: FINISH_SIGN_UP,
+    isFetching: false
+  };
+}
+
+export function handleSignIn (data, destroy) {
+  return (dispatch) => {
+    dispatch(startSignIn());
+    return fetch('/signIn', {
+      method: 'post',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then((res) => {
+      return res.json();
+    })
+    .then((resBody) => {
+      dispatch(finishSignIn());
+      if (resBody.token) {
+        window.localStorage.setItem(TOKEN_NAME, resBody.token);
+        dispatch(getUserInfo(resBody.token));
+        browserHistory.replace('/');
+      } else {
+        destroy();
+        dispatch(changeErrMsg(resBody.errMsg));
+      }
+    })
+    .catch((err) => {
+      dispatch(finishSignIn());
+      destroy();
+      dispatch(changeErrMsg('登录失败，请重试'));
+    });
+  };
+}
+
+export function startSignIn () {
+  return {
+    type: START_SIGN_IN,
+    isFetching: true
+  };
+}
+
+export function finishSignIn () {
+  return {
+    type: FINISH_SIGN_IN,
+    isFetching: false
   };
 }
 

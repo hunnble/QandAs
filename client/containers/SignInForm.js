@@ -1,18 +1,8 @@
-import 'babel-polyfill';
-import '../scss/sign.scss';
-import React, { Component, PropTypes } from 'react';
-import { push } from 'react-router-redux';
-import { getUserInfo } from '../actions';
-import { reduxForm, Field } from 'redux-form';
-import ErrMsg from './ErrMsg';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import Checkbox from 'material-ui/Checkbox';
-import { white } from 'material-ui/styles/colors';
-import { Link } from 'react-router';
-import fetch from 'isomorphic-fetch';
-import { changeErrMsg } from '../actions';
-import { TOKEN_NAME } from '../../configs/config';
+import { reduxForm } from 'redux-form';
+import SignInForm from '../components/SignInForm.jsx';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { handleSignIn } from '../actions';
 
 const validate = (values) => {
   let errors = {};
@@ -31,99 +21,21 @@ const validate = (values) => {
   return errors;
 };
 
-const whiteStyle = {
-  color: white,
-  borderColor: white
-};
+function mapStateToProps (state) {
+  return {};
+}
 
-const renderInput = ({ input, name, type, hint, meta: { touched, error } }) => {
-  const style = {
-    width: '80%'
+function mapDispatchToProps (dispatch) {
+  return {
+    actions: bindActionCreators({
+      handleSignIn: handleSignIn
+    }, dispatch)
   };
-  return (
-    <TextField {...input}
-      type={type}
-      name={name}
-      hintText={hint}
-      errorText={touched && error}{...error}
-      style={style}
-      inputStyle={whiteStyle}
-      hintStyle={whiteStyle}
-      floatingLabelStyle={whiteStyle}
-      floatingLabelFocusStyle={whiteStyle}
-      underlineFocusStyle={whiteStyle}
-    />
-  );
-};
+}
 
-class SignInForm extends Component {
-  onSubmit = (data) => {
-    const { dispatch } = this.props;
-    fetch('/signIn', {
-      method: 'post',
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    .then((res) => {
-      return res.json();
-    })
-    .then((resBody) => {
-      if (resBody.token) {
-        window.localStorage.setItem(TOKEN_NAME, resBody.token);
-        dispatch(getUserInfo(resBody.token));
-        dispatch(push('/'));
-      } else {
-        dispatch(changeErrMsg(resBody.errMsg));
-      }
-    })
-    .catch((err) => {
-      this.props.destroy();
-      dispatch(changeErrMsg('登录失败，请重试'));
-    });
-  }
-  componentDidMount () {
-    window.localStorage.removeItem(TOKEN_NAME);
-  }
-  render () {
-    const { handleSubmit, submitting, pristine } = this.props;
-    return (
-      <div className='formWrapper'>
-        <div>
-          <div className='bgIcon'></div>
-          <form className='signForm' onSubmit={handleSubmit(this.onSubmit)}>
-            <div className='signWrapper'>
-              <div>
-                <Field type='text' name='account' hint='账号' component={renderInput} />
-              </div>
-              <div>
-                <Field type='password' name='password' hint='密码' component={renderInput} />
-              </div>
-              <RaisedButton className='signBtn' containerElement={
-                <Link to='/signUp' />
-              } label='前往注册' />
-              <RaisedButton
-                className='signBtn'
-                type='submit'
-                label='登录'
-                disabled={submitting||pristine}
-              />
-              <RaisedButton className='signBtn' containerElement={
-                <Link to='/' />
-              } label='试用' />
-            </div>
-          </form>
-        </div>
-        <ErrMsg />
-      </div>
-    );
-  }
-};
+let SignInFormComponent = connect(mapStateToProps, mapDispatchToProps)(SignInForm);
 
 export default reduxForm({
   form: 'signIn',
   validate
-})(SignInForm);
+})(SignInFormComponent);

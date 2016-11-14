@@ -14,6 +14,7 @@ import ActionPermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
 import ActionPowerSettingsNew from 'material-ui/svg-icons/action/power-settings-new';
 import CommunicationVpnKey from 'material-ui/svg-icons/communication/vpn-key';
+import SocialPersonAdd from 'material-ui/svg-icons/social/person-add';
 import { white } from 'material-ui/styles/colors';
 import MenuOpener from './MenuOpener.jsx';
 import Settings from '../containers/Settings';
@@ -53,15 +54,21 @@ class MenuBar extends Component {
           <Menu
             onTouchTap={handleMenuClose}
           >
-            {
-              !isEmpty(user) &&
-              <MenuItem leftIcon={<ActionPermIdentity color={white} />} className='menuItem'>
-                <Link className="insideLink" to={'/profile'}>{user.account}</Link>
-              </MenuItem>
-            }
             <MenuItem leftIcon={<ActionHome color={white} />} className='menuItem'>
               <Link className="insideLink" to={'/'}>主页</Link>
             </MenuItem>
+            {
+              !isEmpty(user) &&
+              <MenuItem leftIcon={<ActionPermIdentity color={white} />} className='menuItem'>
+                <Link className="insideLink" to={'/profile'}>个人信息</Link>
+              </MenuItem>
+            }
+            {
+              isEmpty(user) &&
+              <MenuItem leftIcon={<SocialPersonAdd color={white} />} className='menuItem'>
+                <Link className="insideLink" to={'/signUp'}>注册</Link>
+              </MenuItem>
+            }
             {
               isEmpty(user) &&
               <MenuItem leftIcon={<CommunicationVpnKey color={white} />} className='menuItem'>
@@ -71,7 +78,7 @@ class MenuBar extends Component {
             {
               !isEmpty(user) &&
               <MenuItem leftIcon={<ActionDescription color={white} />} className='menuItem'>
-                <Link className="insideLink" to={'/archives'}>问卷</Link>
+                <Link className="insideLink" to={'/archives'}>问卷管理</Link>
               </MenuItem>
             }
             <MenuItem
@@ -104,15 +111,21 @@ class MenuBar extends Component {
             zDepth={0}
           />
           <Menu onClick={handleMenuClose}>
-            {
-              !isEmpty(user) &&
-              <MenuItem leftIcon={<ActionPermIdentity />}>
-                <Link className="insideLink" to={'/profile'}>{user.account}</Link>
-              </MenuItem>
-            }
             <MenuItem leftIcon={<ActionHome />}>
               <Link className="insideLink" to={'/'}>主页</Link>
             </MenuItem>
+            {
+              !isEmpty(user) &&
+              <MenuItem leftIcon={<ActionPermIdentity color={white} />} className='menuItem'>
+                <Link className="insideLink" to={'/profile'}>个人信息</Link>
+              </MenuItem>
+            }
+            {
+              isEmpty(user) &&
+              <MenuItem leftIcon={<SocialPersonAdd color={white} />} className='menuItem'>
+                <Link className="insideLink" to={'/signUp'}>注册</Link>
+              </MenuItem>
+            }
             {
               isEmpty(user) &&
               <MenuItem leftIcon={<CommunicationVpnKey />}>

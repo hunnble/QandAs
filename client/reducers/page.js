@@ -60,14 +60,14 @@ const initialState = {
 };
 
 function getDateCount(year, month) {
-    let monthSet = new Set([0, 2, 4, 6, 7, 9, 11]);
-    if(month == 1) {
-        return ((year % 4 == 0 && year % 100 !== 0) || (year % 400 == 0))? 29 : 28;
-    } else if (monthSet.has(month)) {
-        return 31;
-    } else {
-        return 30;
-    }
+  let monthSet = new Set([0, 2, 4, 6, 7, 9, 11]);
+  if(month == 1) {
+      return ((year % 4 == 0 && year % 100 !== 0) || (year % 400 == 0))? 29 : 28;
+  } else if (monthSet.has(month)) {
+      return 31;
+  } else {
+      return 30;
+  }
 }
 
 export default function page (state = initialState, action) {
