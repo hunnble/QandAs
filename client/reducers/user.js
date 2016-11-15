@@ -10,7 +10,7 @@ export default function user (state = initialState, action) {
   switch (action.type) {
     case RECEIVE_USER_INFO:
       if (!action.verify) {
-        action.replace({ pathname: '/signIn' });
+        action.replace && action.replace({ pathname: '/signIn' });
         return state;
       }
       return action.user;
