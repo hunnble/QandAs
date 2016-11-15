@@ -13,7 +13,7 @@ import ActionDelete from 'material-ui/svg-icons/action/delete';
 import ContentClear from 'material-ui/svg-icons/content/clear';
 import HardwareKeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import HardwareKeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
-import { white, blueGrey700, red500 } from 'material-ui/styles/colors';
+import { blueGrey700, red500 } from 'material-ui/styles/colors';
 
 class Question extends Component {
   handleRemoveQuestion = () => {
@@ -104,7 +104,7 @@ class Question extends Component {
     });
     let questionBar;
     return (
-      <Card className='question'>
+      <Card className='question' zDepth={0}>
         <CardHeader children={
           <Toolbar style={{ backgroundColor: 'transparent' }} noGutter={true}>
             <ToolbarGroup>

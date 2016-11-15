@@ -11,6 +11,7 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import Paper from 'material-ui/Paper';
 import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
 import ActionRestorePage from 'material-ui/svg-icons/action/restore-page';
 import ContentUnarchive from 'material-ui/svg-icons/content/unarchive';
@@ -58,7 +59,7 @@ class Editor extends Component {
       questions,
       closingDate: new Date(year, month - 1, date)
     };
-    if (!title) {
+    if (!title.trim()) {
       return changeErrMsg('保存失败, 问卷名不能为空');
     } else if (title.length > 30) {
       return changeErrMsg('保存失败, 问卷名过长');
@@ -67,7 +68,7 @@ class Editor extends Component {
     }
     for (let i = 0, len = questions.length; i < len; ++i) {
       let question = questions[i];
-      if (!question.content) {
+      if (!question.content.trim()) {
         return changeErrMsg('保存失败, 问题题干不能为空');
       }
       if (question.type === 1 || question.type === 2) {
@@ -152,24 +153,15 @@ class Editor extends Component {
         />
       );
     });
-    const whiteStyle = {
-      color: white,
-      borderColor: white
-    };
     return (
-      <div>
+      <div className='createWrapper'>
         <Header user={user} />
-        <div className='create'>
+        <Paper className='create'>
           <TextField
             style={{ display: 'block' }}
             floatingLabelText='问卷名称'
             value={title}
             fullWidth={true}
-            inputStyle={whiteStyle}
-            hintStyle={whiteStyle}
-            floatingLabelStyle={whiteStyle}
-            floatingLabelFocusStyle={whiteStyle}
-            underlineFocusStyle={whiteStyle}
             onChange={this.handleChangeTitle}
           />
           <TextField
@@ -177,11 +169,6 @@ class Editor extends Component {
             floatingLabelText='问卷详细信息'
             value={detail}
             fullWidth={true}
-            inputStyle={whiteStyle}
-            hintStyle={whiteStyle}
-            floatingLabelStyle={whiteStyle}
-            floatingLabelFocusStyle={whiteStyle}
-            underlineFocusStyle={whiteStyle}
             onChange={this.handleChangeDetail}
           />
           <RaisedButton
@@ -220,7 +207,7 @@ class Editor extends Component {
           >
             {qs}
           </ReactCSSTransitionGroup>
-        </div>
+        </Paper>
         <ErrMsg />
       </div>
     );

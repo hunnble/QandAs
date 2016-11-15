@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Editor from '../containers/Editor';
 import AnswerBar from '../containers/AnswerBar';
 import NotFound from './NotFound.jsx';
+import Showcase from './Showcase.jsx';
 
 class Paper extends Component {
   render () {
@@ -28,7 +29,10 @@ class Paper extends Component {
           paper &&
           isCreator &&
           paper.state === 1 &&
-          <div>制作并已经发布了的试卷</div>
+          <Showcase
+            user={user}
+            paper={paper}
+          />
         }
         {
           paper &&

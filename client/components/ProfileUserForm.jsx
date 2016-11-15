@@ -108,7 +108,6 @@ class ProfileForm extends Component {
             </div>
             <div className='profileBtnWrapper fr'>
               <RaisedButton
-                primary={true}
                 label='修改个人信息'
                 onTouchTap={() => {
                   changeIsEditing(true);
@@ -149,7 +148,6 @@ class ProfileForm extends Component {
             <div className='profileBtnWrapper fr'>
               <RaisedButton
                 type='submit'
-                primary={true}
                 label='修改'
                 disabled={submitting || pristine}
               />

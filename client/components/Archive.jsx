@@ -18,6 +18,8 @@ import ContentSend from 'material-ui/svg-icons/content/send';
 import ContentCreate from 'material-ui/svg-icons/content/create';
 import ContentDeleteSweep from 'material-ui/svg-icons/content/delete-sweep';
 import ImageRemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye';
+import ContentReport from 'material-ui/svg-icons/content/report';
+import { blueGrey700 } from 'material-ui/styles/colors';
 import { TOKEN_NAME } from '../../configs/config';
 import moment from 'moment';
 
@@ -45,8 +47,27 @@ class Archive extends Component {
     changePublishConfirm(true);
   }
   renderPapers = (papers) => {
-    if (!papers) {
-      return null;
+    if (!papers || papers.length === 0) {
+      return (
+        <div style={{
+          textAlign: 'center'
+        }}>
+          <ContentReport
+            style={{
+              margin: 14,
+              width: 72,
+              height: 72,
+              color: blueGrey700
+            }}
+          />
+          <h3 style={{
+            padding: 14,
+            color: blueGrey700
+          }}>
+            没有创建过问卷
+          </h3>
+        </div>
+      );
     }
     const { user, publishedPage, actions } = this.props;
     return (
@@ -161,7 +182,7 @@ class Archive extends Component {
                 margin: 5
               }}>
                 <RaisedButton
-                  primary={true}
+                  secondary={true}
                   label='新建问卷'
                   onTouchTap={
                     this.handleChangePaper.bind(this, {})

@@ -3,16 +3,18 @@
 .answerWrapper {
   margin: 0 auto;
   padding-top: $headerHeight;
-  padding-bottom: $btnHeight * 2;
-  width: 70%;
+  width: 90%;
+}
+.answerInner {
+  margin: 0 auto;
+  padding: $headerHeight / 2 0.4rem;
+  max-width: $maxWidth;
   text-align: center;
 }
-
 .question {
   color: $blueGrey700;
   margin: 0.8rem 0;
 }
-
 .content {
   margin: 0 auto 1rem;
   width: 80%;
@@ -22,9 +24,6 @@
 
 /*1024px X 768px */
 @media only all and (max-width: 1024px) {
-  .answerWrapper {
-    width: 90%;
-  }
   .question {
     font-size: 0.8rem;
   }

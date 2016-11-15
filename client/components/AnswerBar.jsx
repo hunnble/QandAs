@@ -13,8 +13,9 @@ import { blueGrey700 } from 'material-ui/styles/colors';
 import { TOKEN_NAME } from '../../configs/config';
 
 const boxStyle = {
-  marginLeft: '12.5%',
-  width: '75%',
+  margin: '0 auto',
+  width: '80%',
+  maxWidth: 980,
   textAlign: 'left'
 };
 
@@ -27,7 +28,7 @@ const renderRadio = ({ input, name, index, items, checkedIndex }) => {
     <RadioButtonGroup
       {...input}
       name={name}q
-      style={boxStyle}w
+      style={boxStyle}
       defaultSelected={checkedIndex}
     >
       {items.map((item, i) => {
@@ -71,7 +72,7 @@ function renderQuestions (questions) {
     switch (question.type) {
       case 1:
         return (
-          <Paper className='question' key={'question' + index}>
+          <div className='question' key={'question' + index}>
             <h3 className='content'>
               {question.content}
             </h3>
@@ -81,11 +82,11 @@ function renderQuestions (questions) {
               items={question.items}
               component={renderRadio}
             />
-          </Paper>
+        </div>
         );
       case 2:
         return (
-          <Paper className='question' key={'question' + index}>
+          <div className='question' key={'question' + index}>
             <h3 className='content'>
               {question.content}
             </h3>
@@ -101,11 +102,11 @@ function renderQuestions (questions) {
                 );
               })
             }
-          </Paper>
+          </div>
         );
       case 3:
         return (
-          <Paper className='question' key={'question' + index}>
+          <div className='question' key={'question' + index}>
             <h3 className='content'>
               {question.content}
             </h3>
@@ -115,7 +116,7 @@ function renderQuestions (questions) {
               hint=''
               component={renderText}
             />
-          </Paper>
+        </div>
         );
       default:
         return null;
@@ -160,9 +161,9 @@ class AnswerBar extends Component {
   render () {
     const { user, paper, handleSubmit, submitting } = this.props;
     return (
-      <div>
+      <div className='answerWrapper'>
         <Header user={user} />
-        <div className='answerWrapper'>
+        <Paper className='answerInner'>
           <h3 style={{ color: blueGrey700 }}>{paper.title}</h3>
           {
             paper.detail &&
@@ -174,7 +175,7 @@ class AnswerBar extends Component {
               <RaisedButton type="submit" label="提交" disabled={submitting} />
             </div>
           </form>
-        </div>
+        </Paper>
         <ErrMsg />
       </div>
     );

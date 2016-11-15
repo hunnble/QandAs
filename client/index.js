@@ -9,7 +9,7 @@ import {
   grey900,
   blueGrey500,
   grey400,
-  amber700,
+  blueGrey700,
   grey100,
   grey500
 } from 'material-ui/styles/colors';
@@ -36,7 +36,7 @@ const muiTheme = getMuiTheme({
     primary1Color: grey900,
     primary2Color: blueGrey500,
     primary3Color: grey400,
-    accent1Color: amber700,
+    accent1Color: blueGrey700,
     accent2Color: grey100,
     accent3Color: grey500
   }
@@ -46,11 +46,11 @@ injectTapEventPlugin();
 
 function handleEnter (replace) {
   const token = window.localStorage.getItem(TOKEN_NAME);
+  store.dispatch(initialPageState());
   if (!token) {
     return replace({ pathname: '/signIn' });
   }
   store.dispatch(getUserInfo(token, replace));
-  store.dispatch(initialPageState());
 }
 
 function handleEnterWithoutReplace () {

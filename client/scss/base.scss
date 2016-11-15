@@ -13,7 +13,7 @@ $secondaryColor: $amber700;
 $sidebarWidth: 256px;
 $headerHeight: 82px;
 $btnHeight: 36px;
-$profileItemMaxWidth: 980px;
+$maxWidth: 980px;
 
 @function per($value) {
   @return $value+%;

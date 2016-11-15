@@ -84,7 +84,7 @@ class Profile extends Component {
             />
           </BottomNavigation>
           <SwipeableViews
-            className='profileItem'
+            className='profileList'
             disabled={true}
             index={tabIndex}
             onChange={this.handleChangeTabIndex}

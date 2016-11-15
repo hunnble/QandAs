@@ -521,6 +521,10 @@ export function submitAnswer (data) {
     .then((res) => {
       dispatch(changeErrMsg(res.errMsg));
       dispatch(finishSubmitAnswer(res));
+      if (res.success) {
+        dispatch(changePaper({}));
+        browserHistory.replace('/');
+      }
     })
     .catch((err) => {
       dispatch(changeErrMsg('提交失败,请重试'));
@@ -537,9 +541,6 @@ export function startSubmitAnswer () {
 }
 
 export function finishSubmitAnswer (res) {
-  if (res.success) {
-    browserHistory.replace('/');
-  }
   return Object.assign({
     type: FINISH_SUBMIT_ANSWER,
     isFetching: false

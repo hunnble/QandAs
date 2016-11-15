@@ -2,9 +2,17 @@ var path = require('path');
 var webpack = require('webpack');
 var nodeModulesPath = path.join(__dirname, 'node_modules');
 var serverPath = path.join(__dirname, 'server');
+var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
 
 module.exports = {
-  entry: ['babel-polyfill', './client/index.js'],
+  entry: {
+    bundle: './client/index.js',
+    vendor: [
+      'react',
+      'react-dom',
+      // 'echarts'
+    ]
+  },
   devServer: {
     contentBase: '',
     devtool: 'eval',
@@ -15,13 +23,10 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'server/public'),
     publicPath: path.join(__dirname, 'server/public'),
-    // path: path.join(__dirname, 'client/dist'),
-    // publicPath: path.join(__dirname, 'client/dist'),
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    commonsPlugin
   ],
   module: {
     // preLoaders: [

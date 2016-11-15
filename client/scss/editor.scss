@@ -2,10 +2,15 @@
 
 $calendarWidth: 11.375rem;
 
+.createWrapper {
+  margin: 0 auto;
+  padding-top: $headerHeight;
+  width: 90%;
+}
 .create {
   margin: 0 auto;
-  padding: 1.5rem 1rem;
-  max-width: $profileItemMaxWidth;
+  padding: 1rem;
+  max-width: $maxWidth;
 }
 .createBtn {
   margin: 0.8rem;
@@ -66,7 +71,6 @@ $calendarWidth: 11.375rem;
   width: 2rem;
   height: 2rem;
   line-height: 2rem;
-  // color: $mainColor;
   text-align: center;
   cursor: pointer;
 }

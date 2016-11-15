@@ -96,7 +96,6 @@ class ProfileForm extends Component {
         <div className='profileBtnWrapper fr'>
           <RaisedButton
             type='submit'
-            primary={true}
             label='修改'
             disabled={submitting || pristine}
           />

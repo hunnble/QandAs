@@ -91,18 +91,12 @@ class Calendar extends Component {
         </span>
       );
     });
-    // const dateMap = new Map([
-    //   [1, 'st'],
-    //   [2, 'nd'],
-    //   [3, 'rd']
-    // ]);
-    // const formatDate = time.date + '' + (dateMap.has(time.date % 10) ? dateMap.get(time.date % 10) : 'th');
     return (
       <div className='calendar'>
         <RaisedButton
           icon={<ActionToday />}
-          label={'截止日期:' + time.month + '.' + time.date}
           secondary={true}
+          label={'截止日期:' + time.month + '.' + time.date}
           onTouchTap={this.onToggleVisible}
         />
         <Dialog

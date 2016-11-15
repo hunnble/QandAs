@@ -38,6 +38,7 @@
   "dependencies": {
     "bcrypt": "^0.8.7",
     "co-body": "^4.2.0",
+    "element-resize-event": "^2.0.7",
     "isomorphic-fetch": "^2.2.1",
     "jsonwebtoken": "^7.1.9",
     "koa": "^1.2.1",
@@ -63,7 +64,6 @@
     "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.5.2",
     "redux-form": "^6.0.1",
-    "redux-thunk": "^2.1.0",
-    "socket.io": "^1.4.8"
+    "redux-thunk": "^2.1.0"
   }
 }

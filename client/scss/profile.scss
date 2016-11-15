@@ -17,13 +17,9 @@
     overflow: hidden;
     padding: 1rem;
   }
-  .profileItem {
-    margin: 0 auto 3.75rem;
-    max-width: $profileItemMaxWidth;
-  }
   .profileForm {
     margin: 0 auto;
-    width: 95%;
+    width: 90%;
     background-color: $white;
   }
   .profileText {
@@ -37,7 +33,8 @@
   }
   .profileList {
     margin: 0 auto;
-    max-width: $profileItemMaxWidth;
+    width: 90%;
+    max-width: $maxWidth;
   }
   .profilePaperState0 {
     color: $grey500;
@@ -106,12 +103,11 @@
   }
   .profile {
     .profileForm {
-      width: 100%;
+      width: 90%;
     }
     .profileList {
-      margin: 5% 0;
-      padding-left: 0;
-      width: 100%;
+      margin: 5% auto;
+      width: 96%;
     }
     .profileText {
       padding-left: 0.4rem;
