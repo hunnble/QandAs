@@ -23,20 +23,12 @@ class MenuBar extends Component {
   handleClick = (event) => {
     this.props.actions.handleMenuOpen(event.currentTarget);
   }
-  changeSettings = () => {
-    this.props.actions.closeSettings();
-  }
   render () {
     const { actions, isOpen, user, anchorEl, settingsVisible } = this.props;
     const { handleMenuClose, openSettings, closeSettings } = actions;
     const dialogActions = [
       <FlatButton
-        keyboardFocused={true}
-        label="确定"
-        onTouchTap={this.changeSettings}
-      />,
-      <FlatButton
-        label="取消"
+        label='完成设置'
         onTouchTap={closeSettings}
       />
     ];
