@@ -27,9 +27,9 @@ const palette = [
 ];
 
 const itemStyle = {
-  marginLeft: '10%',
+  marginLeft: '5%',
   width: '40%',
-  textAlign: 'left'
+  textAlign: 'right'
 };
 
 const linearProgressStyle = {
@@ -104,6 +104,21 @@ const renderCheckbox = (items, answers, index) => {
   });
 };
 
+const renderText = (answers, index) => {
+  return (
+    answers.map((answer, i) => {
+      return (
+        <p key={index + '_' + i} style={{
+          color: blueGrey700,
+          fontSize: 14
+        }}>
+          {i + 1 + '. ' + answer[index]}
+        </p>
+      );
+    })
+  );
+};
+
 function renderQuestions (paper) {
   const { questions, answers } = paper;
   if (!answers || answers.length === 0) {
@@ -153,6 +168,7 @@ function renderQuestions (paper) {
           <div className='question' key={'question' + index}>
             <h3>
               {question.content}
+              {renderText(paper.answers, index)}
             </h3>
           </div>
         );

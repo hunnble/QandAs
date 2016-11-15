@@ -8,7 +8,6 @@ class Paper extends Component {
   render () {
     const { user, paper, actions } = this.props;
     const isCreator = (user && user.account === paper.creator);
-    // const answered = paper.answers.some((a) => a.answerer === user.account);
     return (
       <div>
         {

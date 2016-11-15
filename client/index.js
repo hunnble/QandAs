@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React from 'react';
 import { render } from 'react-dom';
@@ -17,7 +16,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import fetch from 'isomorphic-fetch';
 import injectTapEventPlugin from "react-tap-event-plugin";
 import configureStore from './store';
-import { getUserInfo, removeUserInfo, initialPageState } from './actions';
+import { getUserInfo, removeUserInfo, initialPageState, changePaper } from './actions';
 import App from './components/App.jsx';
 import Home from './containers/Home';
 import SignInForm from './containers/SignInForm';
@@ -83,6 +82,7 @@ render(
             <Route path='create'
               component={Editor}
               onEnter={(nextState, replace) => {
+                store.dispatch(changePaper({}));
                 handleEnter(replace);
               }}
             />
