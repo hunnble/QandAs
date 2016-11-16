@@ -1,6 +1,6 @@
 let router = require('koa-router')();
 let jwt = require('jsonwebtoken');
-let bcrypt = require('bcrypt');
+let bcrypt = require('bcrypt-nodejs');
 let user = require('../models/user');
 let config = require('../../configs/config');
 
@@ -25,8 +25,7 @@ router.post('/', function* (next) {
   }
   let result = bcrypt.compareSync(body.password, userFounded.password);
   if (result) {
-    // 根据用户是否点选checkbox，保存token6小时或10天
-    let shouldRememberDays = body.remember ? 0.25 : 10;
+    let shouldRememberDays = body.remember ? 10 : 0.25;
     let token = jwt.sign({
       account: body.account,
       exp: Math.floor((new Date().getTime()) / 1000) + 60 * 60 * 24 * shouldRememberDays

@@ -1,5 +1,5 @@
 let router = require('koa-router')();
-let bcrypt = require('bcrypt');
+let bcrypt = require('bcrypt-nodejs');
 let user = require('../models/user');
 let config = require('../../configs/config');
 
@@ -11,7 +11,8 @@ router.get('/', function* (next) {
 
 router.post('/', function* (next) {
   let body = this.request.body;
-  const hash = bcrypt.hashSync(body.password, config.SALT_ROUND);
+  const salt = bcrypt.genSaltSync(config.SALT_ROUND);
+  const hash = bcrypt.hashSync(body.password, salt);
   body.password = hash;
   let userExists = yield user.findUser({ 'account': body.account });
   if (userExists) {

@@ -1,6 +1,6 @@
 let router = require('koa-router')();
 let user = require('../models/user');
-let bcrypt = require('bcrypt');
+let bcrypt = require('bcrypt-nodejs');
 let jwt = require('jsonwebtoken');
 let config = require('../../configs/config');
 
@@ -43,7 +43,8 @@ router.put('/', function* (next) {
         errMsg: '请输入正确的密码'
       };
     }
-    const hash = bcrypt.hashSync(body.password, config.SALT_ROUND);
+    const salt = bcrypt.genSaltSync(config.SALT_ROUND);
+    const hash = bcrypt.hashSync(body.password, salt);
     body.password = hash;
     delete body.curPassword;
     delete body.password2;

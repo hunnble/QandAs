@@ -108,13 +108,13 @@ class MenuBar extends Component {
             </MenuItem>
             {
               !isEmpty(user) &&
-              <MenuItem leftIcon={<ActionPermIdentity color={white} />} className='menuItem'>
+              <MenuItem leftIcon={<ActionPermIdentity />} className='menuItem'>
                 <Link className="insideLink" to={'/profile'}>个人信息</Link>
               </MenuItem>
             }
             {
               isEmpty(user) &&
-              <MenuItem leftIcon={<SocialPersonAdd color={white} />} className='menuItem'>
+              <MenuItem leftIcon={<SocialPersonAdd />} className='menuItem'>
                 <Link className="insideLink" to={'/signUp'}>注册</Link>
               </MenuItem>
             }
@@ -139,7 +139,7 @@ class MenuBar extends Component {
             {
               !isEmpty(user) &&
               <MenuItem
-                leftIcon={<ActionPowerSettingsNew color={white} />}
+                leftIcon={<ActionPowerSettingsNew />}
                 className='menuItem'
               >
                 <Link className="insideLink" to={'/signIn'}>注销</Link>
