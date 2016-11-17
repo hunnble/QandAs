@@ -1,3 +1,4 @@
+'use strict'
 let router = require('koa-router')();
 let config = require('../../configs/config');
 let jwt = require('jsonwebtoken');

@@ -1,8 +1,9 @@
-var mongoose = require('mongoose');
-var db = require('./db-mongo.js');
-var Schema = mongoose.Schema;
-var Mixed = Schema.Types.Mixed;
-var paper = new Schema({
+'use strict'
+let mongoose = require('mongoose');
+let db = require('./db-mongo.js');
+let Schema = mongoose.Schema;
+let Mixed = Schema.Types.Mixed;
+let paper = new Schema({
   creator: { type: String }, // account of the creator user
   title: { type: String },
   detail: { type: String },

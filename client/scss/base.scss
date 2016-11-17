@@ -71,6 +71,7 @@ body {
   font-family: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, 'Lantinghei SC', 'Hiragino Sans GB', 'Microsoft YaHei', 微软雅黑, STHeiti, 'WenQuanYi Micro Hei', SimSun, sans-serif;
   -webkit-font-smoothing: antialiased;
   word-break: break-all;
+  overflow-y: visible;
 }
 #App {
   height: 100%;
@@ -85,9 +86,9 @@ ul {
 }
 .container {
   margin-left: $sidebarWidth;
-  overflow-y: scroll;
+  overflow-y: auto;
   @include bg();
-  >div {
+  >div, >div>div {
     height: 100%;
   }
 }

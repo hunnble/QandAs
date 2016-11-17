@@ -1,8 +1,9 @@
-var mongoose = require('mongoose');
-var db = require('./db-mongo.js');
-var Schema = mongoose.Schema;
-var Mixed = Schema.Types.Mixed;
-var user = new Schema({
+'use strict'
+let mongoose = require('mongoose');
+let db = require('./db-mongo.js');
+let Schema = mongoose.Schema;
+let Mixed = Schema.Types.Mixed;
+let user = new Schema({
   account: { type: String },
   avatar: { type: String, default: './images/avatar.png' },
   password: { type: String },

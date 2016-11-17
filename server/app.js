@@ -1,3 +1,4 @@
+'use strict'
 let app = require('koa')();
 let router = require('koa-router')();
 let serve = require('koa-static');
@@ -26,22 +27,6 @@ app.use(views(__dirname + '/views', { extension: 'pug' }));
 app.use(serve(__dirname + '/public'));
 app.use(logger());
 app.use(json());
-
-// cookie-parser
-// app.use(function* (next) {
-//   this.cookie = {};
-//   let cookieHeader = this.request.headers.cookie;
-//   if (cookieHeader) {
-//     let cookies = cookieHeader.split(';');
-//     cookies.forEach(function (item) {
-//       let items = item.split('=');
-//       if (items.length > 1) {
-//         this.cookie.items[0] = items[1].trim();
-//       }
-//     });
-//   }
-//   yield *next;
-// });
 
 router.use('/', indexRouter.routes(), indexRouter.allowedMethods());
 router.use('/signUp', signUpRouter.routes(), signUpRouter.allowedMethods());

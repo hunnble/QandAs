@@ -82,11 +82,18 @@ render(
             <Route path='create'
               component={Editor}
               onEnter={(nextState, replace) => {
-                store.dispatch(changePaper({}));
                 handleEnter(replace);
               }}
+              onLeave={() => {
+                store.dispatch(changePaper({}));
+              }}
             />
-          <Route path='paper' component={Paper} />
+            <Route path='paper'
+              component={Paper}
+              onLeave={() => {
+                store.dispatch(changePaper({}));
+              }}
+            />
           </Route>
         </Route>
       </Router>

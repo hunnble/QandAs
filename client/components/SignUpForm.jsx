@@ -60,6 +60,9 @@ class SignUpForm extends Component {
               <div>
                 <Field type="password" name="password2" hint="确认密码" component={renderInput} />
               </div>
+              <RaisedButton className='signBtn' containerElement={
+                <Link to='/' />
+              } label='主页' />
               <RaisedButton className="signBtn" containerElement={
                 <Link to={'/signIn'} />
               } label='前往登录' />
@@ -69,9 +72,6 @@ class SignUpForm extends Component {
                 label='注册'
                 disabled={submitting || pristine}
               />
-              <RaisedButton className='signBtn' containerElement={
-                <Link to='/' />
-              } label='返回' />
             </div>
           </form>
         </div>

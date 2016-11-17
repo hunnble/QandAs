@@ -1,3 +1,4 @@
+'use strict'
 let router = require('koa-router')();
 let paper = require('../models/paper');
 let config = require('../../configs/config');

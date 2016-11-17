@@ -1,3 +1,4 @@
+'use strict'
 let router = require('koa-router')();
 let bcrypt = require('bcrypt-nodejs');
 let user = require('../models/user');
