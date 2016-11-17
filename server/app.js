@@ -46,5 +46,4 @@ app.on('error', function (err, ctx) {
 
 let server = http.Server(app.callback());
 
-server.listen(config.PORT);
-console.log('listening on port:' + config.PORT);
+server.listen(process.env.PORT || config.PORT);
