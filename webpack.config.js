@@ -9,8 +9,7 @@ module.exports = {
     bundle: './client/index.js',
     vendor: [
       'react',
-      'react-dom',
-      // 'echarts'
+      'react-dom'
     ]
   },
   devServer: {
@@ -26,7 +25,15 @@ module.exports = {
     filename: '[name].js'
   },
   plugins: [
-    commonsPlugin
+    commonsPlugin,
+    new webpack.optimize.UglifyJsPlugin({
+      compress:{
+        warnings:false
+      },
+      mangle:{
+        except:['$super','$','exports','require']
+      }
+    })
   ],
   module: {
     // preLoaders: [

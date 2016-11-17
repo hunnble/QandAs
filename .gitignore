@@ -1,6 +1,6 @@
 node_modules/
 .DS_Store
 .DS_Store?
-bundle.js
-vendor.js
-common.js
+#bundle.js
+#vendor.js
+#common.js
