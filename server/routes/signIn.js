@@ -11,7 +11,7 @@ function json (obj) {
 
 router.get('/', function* (next) {
   yield this.render('index', {
-    title: '登录'
+    title: 'QandA'
   });
 });
 

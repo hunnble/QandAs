@@ -9,16 +9,28 @@ module.exports = {
     bundle: './client/index.js',
     vendor: [
       'react',
-      'react-dom'
+      'react-addons-css-transition-group',
+      'react-dom',
+      'react-motion',
+      'react-redux',
+      'react-router',
+      'react-router-redux',
+      'react-swipeable-views',
+      'react-tap-event-plugin',
+      'redux',
+      'redux-form',
+      'redux-thunk',
+      'moment'
     ]
   },
-  devServer: {
-    contentBase: '',
-    devtool: 'eval',
-    hot: true,
-    inline: true,
-    port: 3005
-  },
+  devtool: false,
+  // devServer: {
+  //   contentBase: '',
+  //   devtool: 'eval',
+  //   hot: true,
+  //   inline: true,
+  //   port: 3005
+  // },
   output: {
     path: path.join(__dirname, 'server/public'),
     publicPath: path.join(__dirname, 'server/public'),
@@ -27,11 +39,16 @@ module.exports = {
   plugins: [
     commonsPlugin,
     new webpack.optimize.UglifyJsPlugin({
-      compress:{
-        warnings:false
+      compress: {
+        warnings: false
       },
       mangle:{
         except:['$super','$','exports','require']
+      }
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
       }
     })
   ],

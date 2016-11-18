@@ -6,7 +6,7 @@ let config = require('../../configs/config');
 
 router.get('/', function* (next) {
   yield this.render('index', {
-    title: '注册'
+    title: 'QandA'
   });
 });
 

@@ -10,7 +10,7 @@ let jwt = require('jsonwebtoken');
  */
 router.get('/create', function* (next) {
   yield this.render('index', {
-    title: '编辑问卷'
+    title: 'QandA'
   });
 });
 
@@ -19,7 +19,7 @@ router.get('/create', function* (next) {
  */
 router.get('/paper', function* (next) {
   yield this.render('index', {
-    title: '问卷详情'
+    title: 'QandA'
   });
 });
 
