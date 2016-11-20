@@ -11,7 +11,7 @@ import ActionInput from 'material-ui/svg-icons/action/input';
 import ActionBookmarkBorder from 'material-ui/svg-icons/action/bookmark-border';
 import AlertErrorOutline from 'material-ui/svg-icons/alert/error-outline';
 import ContentUndo from 'material-ui/svg-icons/content/undo';
-import EditorBorderColor from 'material-ui/svg-icons/editor/border-color';
+import ContentCreate from 'material-ui/svg-icons/content/create';
 import {
   white,
   red500,
@@ -88,7 +88,7 @@ class HomePage extends Component {
                   <RaisedButton
                     className='homePageBtn'
                     label='新建问卷'
-                    icon={<EditorBorderColor />}
+                    icon={<ContentCreate />}
                   />
                 </Link>
               }

@@ -32,8 +32,8 @@ module.exports = {
   //   port: 3005
   // },
   output: {
-    path: path.join(__dirname, 'server/public'),
-    publicPath: path.join(__dirname, 'server/public'),
+    path: path.join(__dirname, 'server/public/'),
+    publicPath: '/',
     filename: '[name].js'
   },
   plugins: [
@@ -71,7 +71,8 @@ module.exports = {
       },
       {
         test: /\.(gif|jpg|png|woff|svg|eot|ttf)$/,
-        loader: 'url-loader',
+        // loader: 'url-loader',
+        loader: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]',
         exclude: [nodeModulesPath, serverPath]
       },
       {
