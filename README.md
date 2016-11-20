@@ -11,6 +11,15 @@
 * 在线使用关键词搜索问卷、答卷并提交
 * 设置(全屏)
 
+### 技术栈
+* react
+* react-router
+* redux
+* material-ui
+* mongoose
+* koa
+* webpack
+
 ### 下载到本地使用
 ```
 git clone https://github.com/hunnble/QandAs.git
@@ -31,7 +40,7 @@ node server/app.js
 ### TODO
 * [ ] 增加题目类型
 * [ ] 增加是否必答选项
-* [ ] 问卷回答情况统计改用图表做可视化(待定)
-* [ ] 异步请求时的加载效果
+* [ ] 问卷回答情况统计可视化
+* [x] 异步请求时的加载效果
 * [ ] 配色及样式修改
-* [ ] 移动端兼容性优化
+* [x] 移动端兼容性优化
