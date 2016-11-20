@@ -60,6 +60,13 @@ $maxWidth: 980px;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+@mixin rightBottom() {
+  position: fixed;
+  right: 0.4rem;
+  bottom: 0.4rem;
+  margin: 0.35rem;
+  z-index: 50;
+}
 
 body {
   margin: 0;
@@ -114,6 +121,9 @@ ul {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: 50% 0;
+}
+.progress {
+  @include rightBottom();
 }
 
 @media only all and (min-width: 1280px) {

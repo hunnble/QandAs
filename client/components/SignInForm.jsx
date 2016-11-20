@@ -40,7 +40,7 @@ class SignInForm extends Component {
   }
   onSubmit = (data) => {
     const { actions, destroy } = this.props;
-    actions.handleSignIn(data, destroy);
+    return actions.handleSignIn(data, destroy);
   }
   componentDidMount () {
     window.localStorage.removeItem(TOKEN_NAME);
@@ -69,7 +69,7 @@ class SignInForm extends Component {
                 className='signBtn'
                 type='submit'
                 label='登录'
-                disabled={submitting||pristine}
+                disabled={ submitting || pristine }
               />
             </div>
           </form>

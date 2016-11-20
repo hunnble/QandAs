@@ -38,7 +38,7 @@ class SignUpForm extends Component {
   }
   onSubmit = (data) => {
     const { actions } = this.props;
-    actions.handleSignUp(data);
+    return actions.handleSignUp(data);
   }
   render () {
     const { handleSubmit, submitting, pristine } = this.props;
@@ -70,7 +70,7 @@ class SignUpForm extends Component {
                 className='signBtn'
                 type='submit'
                 label='注册'
-                disabled={submitting || pristine}
+                disabled={ submitting || pristine }
               />
             </div>
           </form>

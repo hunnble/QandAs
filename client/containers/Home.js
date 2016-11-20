@@ -15,7 +15,8 @@ function mapStateToProps (state) {
     papers: state.papers.papers,
     keywords: state.page.keywords,
     stepIndex: state.page.stepIndex,
-    searchedPaperPage: state.page.searchedPaperPage
+    searchedPaperPage: state.page.searchedPaperPage,
+    fetching: state.page.searchFetching
   };
 }
 

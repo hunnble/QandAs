@@ -57,7 +57,7 @@ class ProfileForm extends Component {
     const { changeIsEditing, updateUserInfo } = this.props;
     data.token = window.localStorage.getItem(TOKEN_NAME);
     changeIsEditing(false);
-    updateUserInfo(data);
+    return updateUserInfo(data);
   }
   render () {
     const {

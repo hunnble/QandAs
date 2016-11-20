@@ -50,6 +50,7 @@ class HomePage extends Component {
       stepIndex,
       papers,
       searchedPaperPage,
+      fetching,
       changeKeywords,
       searchPaper,
       changePage
@@ -81,6 +82,7 @@ class HomePage extends Component {
               keywords={keywords}
               changeKeywords={changeKeywords}
               searchPaper={searchPaper}
+              fetching={fetching}
               children={
                 <Link to='/papers/create'>
                   <RaisedButton
@@ -174,6 +176,7 @@ HomePage.PropTypes = {
   stepIndex: PropTypes.number,
   papers: PropTypes.arrayOf(PropTypes.object),
   searchedPaperPage: PropTypes.number,
+  fetching: PropTypes.boolean,
   changeKeywords: PropTypes.func,
   searchPaper: PropTypes.func,
   changeSearchStep: PropTypes.func,

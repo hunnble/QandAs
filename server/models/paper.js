@@ -27,7 +27,11 @@ paper.statics.findPaper = function (op) {
 };
 paper.statics.findPapers = function (op) {
   return new Promise((resolve, reject) => {
-    this.find(op, (err, result) => {
+    this.find(op, {}, {
+      sort: {
+        'createdAt': -1
+      }
+    }, (err, result) => {
       if (err) {
         reject(false);
       } else {

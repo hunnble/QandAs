@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { reduxForm } from 'redux-form';
 import Editor from '../components/Editor.jsx';
 import {
   updateUserInfo,
@@ -30,6 +29,7 @@ function mapStateToProps (state) {
     calendar: state.page.calendar,
     time: state.page.time,
     saved: state.page.paperSaved,
+    fetching: state.page.editorFetching,
     publishConfirmOpen: state.page.publishConfirmOpen
   };
 }

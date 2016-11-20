@@ -15,7 +15,7 @@ class Search extends Component {
     searchPaper(keywords, window.localStorage.getItem(TOKEN_NAME));
   }
   render () {
-    const { className, keywords, children } = this.props;
+    const { className, keywords, children, fetching } = this.props;
     const whiteStyle = {
       color: white,
       borderColor: white
@@ -30,11 +30,12 @@ class Search extends Component {
           underlineFocusStyle={whiteStyle}
           name='keywords'
         />
-      <RaisedButton
-        onClick={this.handleSubmit}
-        label='搜索问卷'
-        icon={<ActionSearch />}
-      />
+        <RaisedButton
+          onClick={this.handleSubmit}
+          label='搜索问卷'
+          icon={<ActionSearch />}
+          disabled={fetching}
+        />
         {children}
       </div>
     );
@@ -47,7 +48,8 @@ Search.PropTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   changeKeywords: PropTypes.func,
-  searchPaper: PropTypes.func
+  searchPaper: PropTypes.func,
+  fetching: PropTypes.boolean
 };
 
 export default Search;

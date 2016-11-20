@@ -3,6 +3,7 @@ import '../scss/answerBar.scss';
 import Header from './Header.jsx';
 import ErrMsg from '../containers/ErrMsg';
 import { Field } from 'redux-form';
+import { Link } from 'react-router';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import Subheader from 'material-ui/Subheader';
@@ -153,7 +154,7 @@ class AnswerBar extends Component {
     if (!isFullfilled) {
       return changeErrMsg('请先完成问卷');
     }
-    submitAnswer({
+    return submitAnswer({
       answer: answer,
       _id: paper._id
     });
@@ -172,7 +173,15 @@ class AnswerBar extends Component {
           <form onSubmit={handleSubmit(this.onSubmit)}>
             {renderQuestions(paper.questions)}
             <div className="fr">
-              <RaisedButton type="submit" label="提交" disabled={submitting} />
+              <RaisedButton containerElement={
+                <Link to='/' />
+              } label='返回主页' />
+              <RaisedButton
+                type="submit"
+                label="提交"
+                secondary={true}
+                disabled={submitting}
+              />
             </div>
           </form>
         </Paper>

@@ -15,11 +15,7 @@
   z-index: 50;
 }
 .homePageBackBtn {
-  position: fixed;
-  right: 0.4rem;
-  bottom: 0.4rem;
-  margin: 0.35rem;
-  z-index: 50;
+  @include rightBottom();
 }
 .homePagePapers {
   top: $headerHeight - $btnHeight;

@@ -136,7 +136,8 @@ class Editor extends Component {
       time,
       actions,
       paper,
-      saved
+      saved,
+      fetching
     } = this.props;
     const qs = questions.map((q, index) => {
       return (
@@ -173,10 +174,11 @@ class Editor extends Component {
           />
           <RaisedButton
             className='createBtn'
-            label='添加新问题'
             secondary={true}
-            icon={<ActionNoteAdd />}
-            onClick={this.handleCreateQuestion}
+            containerElement={
+              <Link to='/' />
+            }
+            label='返回主页'
           />
           <RaisedButton
             className='createBtn'
@@ -185,13 +187,6 @@ class Editor extends Component {
             icon={<ActionRestorePage />}
             onClick={this.handleRemoveAllQuestions}
           />
-          <RaisedButton
-            className='createBtn'
-            label='保存'
-            secondary={true}
-            icon={<ContentUnarchive />}
-            onTouchTap={this.handleSubmit}
-          />
           <Calendar
             calendar={calendar}
             time={time}
@@ -199,6 +194,21 @@ class Editor extends Component {
             changeCalendar={actions.changeCalendar}
             changeCalendarVisible={actions.changeCalendarVisible}
             title='截止日期'
+          />
+          <RaisedButton
+            className='createBtn'
+            label='添加新问题'
+            secondary={true}
+            icon={<ActionNoteAdd />}
+            onClick={this.handleCreateQuestion}
+          />
+          <RaisedButton
+            className='createBtn'
+            label='保存'
+            secondary={true}
+            icon={<ContentUnarchive />}
+            onTouchTap={this.handleSubmit}
+            disabled={fetching}
           />
           <ReactCSSTransitionGroup
             transitionName='question'
@@ -222,7 +232,8 @@ Editor.PropTypes = {
   questions: PropTypes.array,
   calendar: PropTypes.object,
   time: PropTypes.objectOf(PropTypes.number),
-  saved: PropTypes.boolean
+  saved: PropTypes.boolean,
+  fetching: PropTypes.boolean
 }
 
 Editor.defaultProps = {

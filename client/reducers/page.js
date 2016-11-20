@@ -20,7 +20,11 @@ import {
   CHANGE_PUBLISHED_PAGE,
   CHANGE_PAPER_SAVED,
   CHANGE_PUBLISH_CONFIRM,
-  CHANGE_ISEDITING
+  CHANGE_ISEDITING,
+  START_SUBMIT_PAPER,
+  FINISH_SUBMIT_PAPER,
+  START_SEARCH_PAPER,
+  FINISH_SEARCH_PAPER
 } from '../actions';
 
 const today = new Date();
@@ -56,7 +60,9 @@ const initialState = {
   publishedPage: 0,
   paperSaved: false,
   publishConfirmOpen: false,
-  isEditing: false
+  isEditing: false,
+  editorFetching: false,
+  searchFetching: false
 };
 
 function getDateCount(year, month) {
@@ -157,6 +163,12 @@ export default function page (state = initialState, action) {
       return Object.assign({}, state, { publishConfirmOpen: action.publishConfirmOpen });
     case CHANGE_ISEDITING:
       return Object.assign({}, state, { isEditing: action.isEditing });
+    case START_SUBMIT_PAPER:
+    case FINISH_SUBMIT_PAPER:
+      return Object.assign({}, state, { editorFetching: action.isFetching });
+    case START_SEARCH_PAPER:
+    case FINISH_SEARCH_PAPER:
+      return Object.assign({}, state, { searchFetching: action.isFetching });
     default:
       return state;
   }

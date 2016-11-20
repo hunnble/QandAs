@@ -11,6 +11,7 @@ class Home extends Component {
       keywords,
       stepIndex,
       searchedPaperPage,
+      fetching,
       papers,
       actions
     } = this.props;
@@ -23,6 +24,7 @@ class Home extends Component {
           stepIndex={stepIndex}
           papers={papers}
           searchedPaperPage={searchedPaperPage}
+          fetching={fetching}
           changeKeywords={actions.changeKeywords}
           searchPaper={actions.searchPaper}
           changeSearchStep={actions.changeSearchStep}
@@ -41,6 +43,7 @@ Home.PropTypes = {
   stepIndex: PropTypes.number,
   papers: PropTypes.arrayOf(PropTypes.object),
   searchedPaperPage: PropTypes.number,
+  fetching: PropTypes.boolean,
   actions: PropTypes.object
 }
 

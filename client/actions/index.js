@@ -23,8 +23,8 @@ export const CREATE_QUESTION = 'createQuestion';
 export const EDIT_QUESTION = 'editQuestion';
 export const REMOVE_QUESTION = 'removeQuestion';
 export const CHANGE_QUESTION_INDEX = 'changeQuestionIndex';
-export const START_CREATE_PAPER = 'startCreatePaper';
-export const FINISH_CREATE_PAPER = 'finishCreatePaper';
+export const START_SUBMIT_PAPER = 'startSubmitPaper';
+export const FINISH_SUBMIT_PAPER = 'finishSubmitPaper';
 export const CHANGE_KEYWORDS = 'changeKeywords';
 export const START_SEARCH_PAPER = 'startSearchPaper';
 export const FINISH_SEARCH_PAPER = 'finishSearchPaper';
@@ -62,6 +62,12 @@ export function initialPageState () {
     dispatch(changePaperSaved(false));
     dispatch(changePublishConfirm(false));
     dispatch(changePapers([]));
+    dispatch(finishSubmitPaper());
+    dispatch(finishRemovePaper());
+    dispatch(finishPublishPaper());
+    dispatch(finishSearchPaper());
+    dispatch(finishSubmitAnswer());
+    dispatch(finishUpdateUserInfo());
   };
 }
 
@@ -393,7 +399,7 @@ export function editQuestion (question, index) {
 
 export function submitPaper (data) {
   return (dispatch) => {
-    dispatch(startCreatePaper());
+    dispatch(startSubmitPaper());
     return fetch('/papers/edit', {
       method: 'post',
       credentials: 'include',
@@ -408,26 +414,26 @@ export function submitPaper (data) {
     })
     .then((res) => {
       dispatch(changeErrMsg(res.errMsg));
-      dispatch(finishCreatePaper(res));
+      dispatch(finishSubmitPaper(res));
       browserHistory.replace('/archives');
     })
     .catch((err) => {
       dispatch(changeErrMsg('保存失败,请重试'));
-      dispatch(finishCreatePaper({ success: false }));
+      dispatch(finishSubmitPaper({ success: false }));
     })
   };
 }
 
-export function startCreatePaper () {
+export function startSubmitPaper () {
   return {
-    type: START_CREATE_PAPER,
+    type: START_SUBMIT_PAPER,
     isFetching: true
   };
 }
 
-export function finishCreatePaper (res) {
+export function finishSubmitPaper (res) {
   return Object.assign({
-    type: FINISH_CREATE_PAPER,
+    type: FINISH_SUBMIT_PAPER,
     isFetching: false
   }, res);
 }

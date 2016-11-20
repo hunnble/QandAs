@@ -52,8 +52,8 @@ class ProfileForm extends Component {
   onSubmit = (data) => {
     const { updateUserInfo, destroy } = this.props;
     data.token = window.localStorage.getItem(TOKEN_NAME);
-    updateUserInfo(data);
     destroy();
+    return updateUserInfo(data);
   }
   render () {
     const {
