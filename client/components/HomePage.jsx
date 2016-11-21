@@ -23,7 +23,6 @@ import {
   cyan500,
   blueGrey500
 } from 'material-ui/styles/colors';
-import moment from 'moment';
 
 const palette = [
   red500,
@@ -115,6 +114,7 @@ class HomePage extends Component {
               pageClassName='homePagePageNum'
               renderItem={(item, index) => {
                 let randomNumber = Math.floor(Math.random() * palette.length, 10);
+                let closingDate = new Date(item.closingDate);
                 return (
                   <Paper className='paper' key={'paper' + index}>
                     <ActionBookmarkBorder
@@ -131,7 +131,7 @@ class HomePage extends Component {
                       发布者: {item.creator}
                     </Subheader>
                     <Subheader>
-                      截止日期:{moment(new Date(item.closingDate)).format('YYYY-M-D')}
+                      截止日期:{closingDate.getFullYear()}-{closingDate.getMonth() + 1}-{closingDate.getDate()}
                     </Subheader>
                     <FloatingActionButton mini={true} onTouchTap={() => {
                       this.handleClickPaper(index)

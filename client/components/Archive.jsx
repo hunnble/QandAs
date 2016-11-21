@@ -21,7 +21,6 @@ import ImageRemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye';
 import ContentReport from 'material-ui/svg-icons/content/report';
 import { blueGrey700 } from 'material-ui/styles/colors';
 import { TOKEN_NAME } from '../../configs/config';
-import moment from 'moment';
 
 const paperStateMap = new Map([
   [0, '未发布'],
@@ -80,7 +79,8 @@ class Archive extends Component {
         pageBarClassName='profilePageBar'
         renderItem={(paper, index) => {
           let paperState = paper.state;
-          if (paperState === 1 && new Date(paper.closingDate) < new Date()) {
+          let closingDate = new Date(paper.closingDate);
+          if (paperState === 1 && closingDate < new Date()) {
             paperState = 2;
           }
           return (
@@ -153,7 +153,7 @@ class Archive extends Component {
                 display: 'inline-block',
                 width: 'auto'
               }}>
-                截止日期:{moment(new Date(paper.closingDate)).format('YYYY-M-D')}
+                截止日期:{closingDate.getFullYear()}-{closingDate.getMonth() + 1}-{closingDate.getDate()}
               </Subheader>
               <Divider />
             </li>

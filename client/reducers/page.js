@@ -114,6 +114,9 @@ export default function page (state = initialState, action) {
       }
       return Object.assign({}, state, { questions: removedQuestions });
     case CHANGE_QUESTION_INDEX:
+      if (action.newIndex < 0 || action.newIndex >= state.questions.length) {
+        return state;
+      }
       let questions = state.questions.concat();
       let tmp = questions.splice(action.lastIndex, 1)[0];
       questions.splice(action.newIndex, 0, tmp);

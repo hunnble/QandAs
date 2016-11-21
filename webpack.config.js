@@ -19,8 +19,7 @@ module.exports = {
       'react-tap-event-plugin',
       'redux',
       'redux-form',
-      'redux-thunk',
-      'moment'
+      'redux-thunk'
     ]
   },
   devtool: false,
@@ -42,8 +41,8 @@ module.exports = {
       compress: {
         warnings: false
       },
-      mangle:{
-        except:['$super','$','exports','require']
+      mangle: {
+        except: ['$super','$','exports','require']
       }
     }),
     new webpack.DefinePlugin({
@@ -71,7 +70,6 @@ module.exports = {
       },
       {
         test: /\.(gif|jpg|png|woff|svg|eot|ttf)$/,
-        // loader: 'url-loader',
         loader: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]',
         exclude: [nodeModulesPath, serverPath]
       },

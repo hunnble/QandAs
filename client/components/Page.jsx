@@ -46,6 +46,7 @@ class Page extends Component {
               page > 0 &&
               <FloatingActionButton
                 mini={true}
+                secondary={true}
                 onTouchTap={() => {
                   changePage(Math.max(page - 1, 0));
                 }}
@@ -66,6 +67,7 @@ class Page extends Component {
               page < pageNum - 1 &&
               <FloatingActionButton
                 mini={true}
+                secondary={true}
                 onTouchTap={() => {
                   changePage(Math.min(page + 1, pageNum - 1));
                 }}

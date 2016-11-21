@@ -5,14 +5,16 @@ import MenuItem from 'material-ui/MenuItem';
 import { Card, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ImageAddToPhotos from 'material-ui/svg-icons/image/add-to-photos';
-import ActionDelete from 'material-ui/svg-icons/action/delete';
+// import FloatingActionButton from 'material-ui/FloatingActionButton';
+// import ImageAddToPhotos from 'material-ui/svg-icons/image/add-to-photos';
+// import ActionDelete from 'material-ui/svg-icons/action/delete';
 import ContentClear from 'material-ui/svg-icons/content/clear';
-import HardwareKeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
-import HardwareKeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
+// import HardwareKeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
+// import HardwareKeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import { blueGrey700, red500 } from 'material-ui/styles/colors';
 
 class Question extends Component {
@@ -20,10 +22,10 @@ class Question extends Component {
     this.props.removeQuestion(false, this.props.index);
   }
   handleUpperQuestion = (i) => {
-    this.props.changeQuestionIndex(i, i + 1);
+    this.props.changeQuestionIndex(i, i - 1);
   }
   handleLowerQuestion = (i) => {
-    this.props.changeQuestionIndex(i, i - 1);
+    this.props.changeQuestionIndex(i, i + 1);
   }
   handleAddOption = () => {
     let items = this.props.items.concat();
@@ -94,7 +96,7 @@ class Question extends Component {
               this.handleChangeItems(event, index);
             }}
           />
-          <IconButton tooltip='删除此选项' tooltipPosition='top-right' onTouchTap={
+          <IconButton tooltip='删除选项' tooltipPosition='top-right' onTouchTap={
             this.handleRemoveOption.bind(this, index)
           }>
             <ContentClear color={blueGrey700} hoverColor={red500} />
@@ -102,7 +104,6 @@ class Question extends Component {
         </div>
       );
     });
-    let questionBar;
     return (
       <Card className='question' zDepth={0}>
         <CardHeader children={
@@ -118,42 +119,23 @@ class Question extends Component {
             </ToolbarGroup>
             <ToolbarGroup>
               {
-                index < questionsLen - 1 &&
-                <FloatingActionButton zDepth={0} mini={true} onTouchTap={() => {
-                  this.handleUpperQuestion(index);
-                }} secondary={true} style={{
-                  marginRight: 2,
-                }}>
-                  <HardwareKeyboardArrowDown />
-                </FloatingActionButton>
-              }
-              {
-                index > 0 &&
-                <FloatingActionButton zDepth={0} mini={true} onTouchTap={() => {
-                  this.handleLowerQuestion(index);
-                }} secondary={true} style={{
-                  marginRight: 2,
-                }}>
-                  <HardwareKeyboardArrowUp />
-                </FloatingActionButton>
-              }
-              {
                 type !== 3 &&
-                <FloatingActionButton zDepth={0} mini={true} onTouchTap={
-                    this.handleAddOption
-                } secondary={true} style={{
-                  marginRight: 2,
-                }}>
-                  <ImageAddToPhotos />
-                </FloatingActionButton>
+                <FlatButton
+                  label='添加选项'
+                  onTouchTap={this.handleAddOption}
+                />
               }
-              <FloatingActionButton zDepth={0} mini={true} onTouchTap={
-                this.handleRemoveQuestion
-              } secondary={true} style={{
-                marginRight: 2
-              }}>
-                <ActionDelete />
-              </FloatingActionButton>
+              <DropDownMenu value={1}>
+                <MenuItem label='操作' primaryText='上移' onTouchTap={() => {
+                  this.handleUpperQuestion(index);
+                }} value={1} />
+                <MenuItem label='操作' primaryText='下移' onTouchTap={() => {
+                  this.handleLowerQuestion(index);
+                }} value={2} />
+                <MenuItem label='操作' primaryText='删除' onTouchTap={
+                  this.handleRemoveQuestion
+                } value={3} />
+              </DropDownMenu>
             </ToolbarGroup>
           </Toolbar>
         }

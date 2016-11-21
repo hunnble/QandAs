@@ -74,10 +74,10 @@ class ProfileForm extends Component {
     };
     let renderInput = this.renderInput;
     return (
-      <div>
+      <div className='profileWrapper'>
         {
           !isEditing &&
-          <div className='profileWrapper'>
+          <div>
             <div className='profileText'>
               <CommunicationVoicemail color={blueGrey700} style={iconStyle} />
               <Subheader style={subHeaderStyle}>
@@ -109,6 +109,7 @@ class ProfileForm extends Component {
             <div className='profileBtnWrapper fr'>
               <RaisedButton
                 label='修改个人信息'
+                secondary={true}
                 onTouchTap={() => {
                   changeIsEditing(true);
                 }}
@@ -119,7 +120,7 @@ class ProfileForm extends Component {
         {
           isEditing &&
           <form className='profileForm' onSubmit={handleSubmit(this.onSubmit)}>
-            <div className='profileWrapper'>
+            <div>
               <Field
                 type='text'
                 name='nickname'
@@ -147,15 +148,16 @@ class ProfileForm extends Component {
             </div>
             <div className='profileBtnWrapper fr'>
               <RaisedButton
-                type='submit'
-                label='修改'
-                disabled={submitting || pristine}
-              />
-              <RaisedButton
                 label='取消'
                 onTouchTap={() => {
                   changeIsEditing(false);
                 }}
+              />
+              <RaisedButton
+                type='submit'
+                label='修改'
+                secondary={true}
+                disabled={submitting || pristine}
               />
             </div>
           </form>

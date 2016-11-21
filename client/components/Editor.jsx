@@ -1,19 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import '../scss/editor.scss';
-import { browserHistory, Link } from 'react-router';
 import Header from './Header.jsx';
 import Calendar from './Calendar.jsx';
 import Question from './Question.jsx';
 import ErrMsg from '../containers/ErrMsg';
-import Divider from 'material-ui/Divider';
-import Dialog from 'material-ui/Dialog';
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 import ActionNoteAdd from 'material-ui/svg-icons/action/note-add';
-import ActionRestorePage from 'material-ui/svg-icons/action/restore-page';
 import ContentUnarchive from 'material-ui/svg-icons/content/unarchive';
 import ContentSend from 'material-ui/svg-icons/content/send';
 import { white } from 'material-ui/styles/colors';
@@ -172,21 +168,6 @@ class Editor extends Component {
             fullWidth={true}
             onChange={this.handleChangeDetail}
           />
-          <RaisedButton
-            className='createBtn'
-            secondary={true}
-            containerElement={
-              <Link to='/' />
-            }
-            label='返回主页'
-          />
-          <RaisedButton
-            className='createBtn'
-            label='全部删除'
-            secondary={true}
-            icon={<ActionRestorePage />}
-            onClick={this.handleRemoveAllQuestions}
-          />
           <Calendar
             calendar={calendar}
             time={time}
@@ -194,21 +175,6 @@ class Editor extends Component {
             changeCalendar={actions.changeCalendar}
             changeCalendarVisible={actions.changeCalendarVisible}
             title='截止日期'
-          />
-          <RaisedButton
-            className='createBtn'
-            label='添加新问题'
-            secondary={true}
-            icon={<ActionNoteAdd />}
-            onClick={this.handleCreateQuestion}
-          />
-          <RaisedButton
-            className='createBtn'
-            label='保存'
-            secondary={true}
-            icon={<ContentUnarchive />}
-            onTouchTap={this.handleSubmit}
-            disabled={fetching}
           />
           <ReactCSSTransitionGroup
             transitionName='question'
@@ -218,6 +184,31 @@ class Editor extends Component {
             {qs}
           </ReactCSSTransitionGroup>
         </Paper>
+        <Toolbar style={{
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          width: '100%'
+        }}>
+          <ToolbarGroup firstChild={true}></ToolbarGroup>
+          <ToolbarGroup>
+            <RaisedButton
+              className='createBtn'
+              label='添加新问题'
+              secondary={true}
+              icon={<ActionNoteAdd />}
+              onClick={this.handleCreateQuestion}
+            />
+            <RaisedButton
+              className='createBtn'
+              label='保存'
+              secondary={true}
+              icon={<ContentUnarchive />}
+              onTouchTap={this.handleSubmit}
+              disabled={fetching}
+            />
+          </ToolbarGroup>
+        </Toolbar>
         <ErrMsg />
       </div>
     );

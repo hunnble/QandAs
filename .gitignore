@@ -4,3 +4,4 @@ node_modules/
 #bundle.js
 #vendor.js
 #common.js
+npm-debug.log

@@ -95,14 +95,15 @@ class ProfileForm extends Component {
         </div>
         <div className='profileBtnWrapper fr'>
           <RaisedButton
-            type='submit'
-            label='修改'
-            disabled={submitting || pristine}
-          />
-          <RaisedButton
             label='重置'
             disabled={submitting}
             onTouchTap={destroy}
+          />
+          <RaisedButton
+            type='submit'
+            label='修改'
+            secondary={true}
+            disabled={submitting || pristine}
           />
         </div>
       </form>
