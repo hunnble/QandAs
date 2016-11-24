@@ -7,6 +7,8 @@ let logger = require('koa-logger');
 let json = require('koa-json');
 let http = require('http');
 let bodyParser = require('koa-bodyparser');
+let compress = require('koa-compress');
+let zlib = require('zlib');
 
 let config = require('../configs/config.js');
 let db = require('./models/db-mongo.js');
@@ -22,6 +24,13 @@ let profileRouter = require('./routes/profile');
 let verifyRouter = require('./routes/verify');
 let settingsRouter = require('./routes/settings');
 
+app.use(compress({
+  filter: function (content_type) {
+    return /text/i.test(content_type);
+  },
+  threshold: 2048,
+  flush: zlib.Z_SYNC_FLUSH
+}));
 app.use(bodyParser());
 app.use(views(__dirname + '/views', { extension: 'pug' }));
 app.use(serve(__dirname + '/public'));

@@ -1,3 +1,4 @@
+import { TOKEN_NAME } from '../../configs/config';
 import {
   REQUEST_USER_INFO,
   RECEIVE_USER_INFO,
@@ -15,6 +16,7 @@ export default function user (state = initialState, action) {
       }
       return action.user;
     case REMOVE_USER_INFO:
+      window.localStorage.removeItem(TOKEN_NAME);
       return {};
     default:
       return state;

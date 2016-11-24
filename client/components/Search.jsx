@@ -30,13 +30,17 @@ class Search extends Component {
           underlineFocusStyle={whiteStyle}
           name='keywords'
         />
-        <RaisedButton
-          onClick={this.handleSubmit}
-          label='搜索问卷'
-          icon={<ActionSearch />}
-          disabled={fetching}
-        />
-        {children}
+      <span style={{
+        display: 'inline-block'
+      }}>
+          <RaisedButton
+            onClick={this.handleSubmit}
+            label='搜索问卷'
+            icon={<ActionSearch />}
+            disabled={fetching}
+          />
+          {children}
+        </span>
       </div>
     );
   }
